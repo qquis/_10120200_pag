@@ -1,0 +1,79 @@
+
+SELECT
+    n.nspname AS schema_name,
+    p.proname AS function_name,
+    pg_catalog.pg_get_function_result(p.oid) AS return_type,
+    pg_catalog.pg_get_function_arguments(p.oid) AS arguments
+FROM pg_proc p
+JOIN pg_namespace n ON n.oid = p.pronamespace
+WHERE n.nspname NOT IN ('pg_catalog', 'information_schema')
+and  p.proname like '%est%'
+ORDER BY n.nspname, p.proname;
+
+select * from tbest_info
+select * from tbest_produto
+select * from tbest_faturamento_data limit 10
+select * from tbest_produto_empresa_operacao
+select * from tbsistema_batch_nucleo_procedimento order by sis_batch_cd
+		
+		SELECT          pr.pr_cdproduto                                       as pr_cdproduto
+                ,               pr.prb_cdprodutobluesoft                              as prb_cdprodutobluesoft
+                ,               pr.pr_descricao                                       as pr_descricao
+                ,               case when prb.prb_status then 1 else 0 end            as prb_status
+                ,               cast(ec.ec_embalagemestoque_qtde as numeric(13,2))    as ec_embalagemestoque_qtde
+                ,               cast(pr.pr_embalagemcompra_fator as numeric(13,0))    as fator
+                ,               CAST(ec.ec_embalagemestoque_qtde  / pr.pr_embalagemcompra_fator AS NUMERIC(13,2)) 
+                                                                              as ec_embalagemcompra_qtde
+                ,               coalesce(e.df_data_recebimento, '1900-01-01')         as ult_recebimento
+                ,               cast(coalesce(v.venda_unit,0) as numeric(13,0))       as venda_embalagemestoque
+                ,               cast( coalesce(v.venda_caixa ,0) as numeric(13,2))    as venda_embalagemcompra 
+                ,               coalesce(cast(v.venda_unit / 90 as numeric(13,2)),0) as venda_embalagemestoque_media_diaria 
+                ,               v.ultima_venda                                        as venda_ultima_data 
+                ,               cast(ec.ec_valor_custo_faturamento as numeric(13,2))  as ec_valor_custo_faturamento 
+                ,               g.prg_descricao                                       as prg_descricao
+                ,               s.prs_descricao                                       as prs_descricao
+                ,               sb.prsg_descricao                                     as prsg_descricao
+                ,               prb.prb_cdbarra_principal                             as prb_cdbarra_principal
+                ,               prb.PRB_CDPESSOABLUESOFT_FABRICANTE                   as prb_cdpessoabluesoft_fabricante
+                ,               coalesce(p.nome_razao,'')                             as fabricante_nome_razao
+            FROM                tbproduto pr
+            inner join  tbprodutobluesoft       prb on prb.prb_cdprodutobluesoft_pk = pr.prb_cdprodutobluesoft and prb.prb_cdprodutobluesoftunitario = prb.prb_cdprodutobluesoft_pk
+            left join   tbproduto_subgrupo      sb on sb.prsg_cdsubgrupo = pr.prsg_cdsubgrupo 
+            left join   tbproduto_grupo     g  on g.prg_cdgrupo = sb.prg_cdgrupo
+            left join   tbproduto_secao         s  on s.prs_cdsecao = g.prs_cdsecao 
+            left join   tbparticipante_bluesoft     p on p.cdpessoabluesoft = prb.PRB_CDPESSOABLUESOFT_FABRICANTE
+            
+            left join   tbestoquecusto          ec on ec.pr_cdproduto = pr.pr_cdproduto 
+
+            left join ( select  ni.prb_cdprodutobluesoft 
+                            , max(nf.df_data_recebimento) as df_data_recebimento
+                        from    tbdocumentofiscalitem ni 
+                        inner join tbdocumentofiscal nf on nf.df_nf_seq_blue = ni.df_nf_seq_blue 
+                        where 1 = 1
+                        and   nf.df_data_cancelamento = '1900-01-01'
+                        and   nf.df_data_recebimento >= '2024-01-01'
+                        and   nf.df_entrada_saida = 'E'
+                        and   nf.em_cdempresabluesoft =1
+                        group by ni.prb_cdprodutobluesoft 
+                    ) e on e.prb_cdprodutobluesoft = pr.prb_cdprodutobluesoft 
+            left join  ( select                 i.pr_cdproduto 
+                                ,       sum(i.embalagemestoqueqtde) as venda_unit
+                                ,       sum(i.embalagemcompraqtde) as venda_caixa
+                                ,       MAX (f.datafaturamento) as ultima_venda 
+                        from            tbfaturamentoitens  i 
+                        inner join  tbfaturamentoorigem o on o.seqfaturamentoorigem = i.seqfaturamentoorigem
+                        inner join  tbfaturamento       f on f.seqfaturamento = o.seqfaturamento
+                        where 1 = 1
+                        and   f.statusfaturamento = 1
+                        and   i.statusfaturamentoitem = 1
+                        and   f.datafaturamento >= '2026-07-29'
+						and   f.datafaturamento <= '2026-07-30'
+						and   i.pr_cdproduto > 0 
+                        and   f.em_cdempresa = 1
+                        and   f.op_cdoperacao in (1,2,4)
+                        group by i.pr_cdproduto  )      v on v.pr_cdproduto = pr.pr_cdproduto 
+
+                        
+            WHERE               1 = 1
+
+         AND p.cdparticipante = 12725  AND prb.prb_status = true ORDER BY PR_DESCRICAO ASC 

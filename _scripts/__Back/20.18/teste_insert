@@ -1,0 +1,306 @@
+select * from tbfaturamento_bluesoft_status
+select * from tbfaturamento_bluesoft_tipo
+select * from tbfaturamento_bluesoft_fv limit 10
+select * from tbfaturamento_bluesoft_fv_item limit 10
+
+select * from tbfaturamento_bluesoft_fv_cliente limit 10
+select * from tbfaturamento_bluesoft_fv_nf
+select * from tbfaturamento_bluesoft_fv_status limit 10
+
+
+select * from tbfaturamento_bluesoft limit 10
+
+	INSERT INTO tbfaturamento_bluesoft
+                        (			op_cdoperacao 
+                                ,	numeropedido 				
+                                ,	numeropedido_fv
+                                ,	df_nf_seq_blue
+                                ,	df_nf_seq_blue_dev 
+                                ,	fat_blue_status_cd 			
+                                ,	fat_blue_tipo_cd			
+                                ,	cdpessoabluesoft_cliente	
+                                ,	cdpessoabluesoft_vendedor	
+                                ,	tabelapreco_cd				
+                                ,	tabelapreco_versao_cd		
+                                ,	fv_prazopgto_cd				
+                                ,	tipo_entrega_descricao 		
+                                ,	origem_pedido 				
+                                ,	data_solicitacao 			
+                                ,	data_emissao 				
+                                ,	data_faturamento			
+                                ,	numero_itens				
+                                ,	valor_pedido				
+                                ,	valor_faturamento
+                                ,   descontofinanceiro 
+                        )
+		SELECT  1 
+			,	pc.numeropedido
+			,	p.numeropedido_fv
+			,	coalesce(nf.df_nf_seq_blue,0) as df_nf_seq_blue
+			,	0 as df_nf_seq_blue_dev 
+			,	st.fat_blue_status_cd 
+			,	t.fat_blue_tipo_cd 
+			,	pc.cdpessoabluesoft_cliente 
+			,	p.cdpessoabluesoft_vendedor
+			,	p.tabelapreco_cd
+			,	p.tabelapreco_versao_cd 
+			,	p.fv_prazopgto_cd 
+			,	''
+			,	p.origem_pedido 
+			,	p.data_emissao 				as data_solicitacao 
+			,	p.data_emissao				as data_emissao 
+			,	coalesce(nf.df_data_emissao, '1900-01-01')  as data_faturamento 
+			,	xc.numero_itens
+			,	xc.valor_pedido 
+			,	coalesce(nf.df_valor,0) as valor_faturamento 
+			,	p.descontofinanceiro 
+		FROM 		tbfaturamento_bluesoft_fv_cliente 	pc
+		inner join 	tbfaturamento_bluesoft_fv 			p  on p.numeropedido_fv = pc.numeropedido_fv
+		inner join  tbfaturamento_bluesoft_status 		st on st.pedido_status_cd = pc.pedido_status_cd
+		inner join  tbfaturamento_bluesoft_tipo         t  on t.pedido_tipo_cd = p.pedido_tipo_cd 
+		left join   tbfaturamento_bluesoft_fv_nf		nf on nf.numeropedido = pc.numeropedido 
+				and nf.numeropedido_fv = p.numeropedido_fv and nf.df_nf_tipo in( 104, 34)
+		left join   (select xx.numeropedido 
+						,	xx.numeropedido_fv 
+						,	count(distinct(xx.prb_cdprodutobluesoft)) as numero_itens 
+						,	sum(xx.valor_total) as valor_pedido 
+					from 	tbfaturamento_bluesoft_fv_item xx
+					group by xx.numeropedido 
+						,	xx.numeropedido_fv 
+		
+					) xc on xc.numeropedido = pc.numeropedido and xc.numeropedido_fv = pc.numeropedido_fv
+		where not exists (select 1 
+							from tbfaturamento_bluesoft aaa
+							where 1 = 1
+							  and aaa.numeropedido = pc.numeropedido 
+							  and aaa.numeropedido_fv = p.numeropedido_fv 
+						)
+
+
+
+
+
+
+UPDATE tbfaturamento_bluesoft A
+  SET  	df_nf_seq_blue 		= B.df_nf_seq_blue
+  ,	   	df_nf_seq_blue_dev 	= B.df_nf_seq_blue_dev 
+  ,    	fat_blue_status_cd	= B.fat_blue_status_cd
+  ,		fat_blue_tipo_cd	= B.fat_blue_tipo_cd
+  ,		data_faturamento	= B.data_faturamento
+  , 	valor_faturamento 	= B.valor_faturamento
+FROM (	SELECT  1 
+			,	pc.numeropedido
+			,	p.numeropedido_fv
+			,	coalesce(nf.df_nf_seq_blue,0) as df_nf_seq_blue
+			,	0 as df_nf_seq_blue_dev 
+			,	st.fat_blue_status_cd 
+			,	t.fat_blue_tipo_cd 
+			,	pc.cdpessoabluesoft_cliente 
+			,	p.cdpessoabluesoft_vendedor
+			,	p.tabelapreco_cd
+			,	p.tabelapreco_versao_cd 
+			,	p.fv_prazopgto_cd 
+			,	''
+			,	p.origem_pedido 
+			,	p.data_emissao 				as data_solicitacao 
+			,	p.data_emissao				as data_emissao 
+			,	coalesce(nf.df_data_emissao, '1900-01-01')  as data_faturamento 
+			,	xc.numero_itens
+			,	xc.valor_pedido 
+			,	coalesce(nf.df_valor,0) as valor_faturamento 
+			,	p.descontofinanceiro 
+		FROM 		tbfaturamento_bluesoft_fv_cliente 	pc
+		inner join 	tbfaturamento_bluesoft_fv 			p  on p.numeropedido_fv = pc.numeropedido_fv
+		inner join  tbfaturamento_bluesoft_status 		st on st.pedido_status_cd = pc.pedido_status_cd
+		inner join  tbfaturamento_bluesoft_tipo         t  on t.pedido_tipo_cd = p.pedido_tipo_cd 
+		left join   tbfaturamento_bluesoft_fv_nf		nf on nf.numeropedido = pc.numeropedido 
+				and nf.numeropedido_fv = p.numeropedido_fv and nf.df_nf_tipo in( 104, 34)
+		left join   (select xx.numeropedido 
+						,	xx.numeropedido_fv 
+						,	count(distinct(xx.prb_cdprodutobluesoft)) as numero_itens 
+						,	sum(xx.valor_total) as valor_pedido 
+					from 	tbfaturamento_bluesoft_fv_item xx
+					group by xx.numeropedido 
+						,	xx.numeropedido_fv 
+		
+					) xc on xc.numeropedido = pc.numeropedido and xc.numeropedido_fv = pc.numeropedido_fv
+	) B 
+WHERE	1= 1
+  AND   B.numeropedido = A.numeropedido 
+  AND	B.numeropedido_fv = a.numeropedido_fv 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select * from tbfaturamento_bluesoft_item limit 10
+
+
+insert into tbfaturamento_bluesoft_item
+	(
+			fat_blue_seq
+		,	op_cdoperacao 
+		,	numeropedido 
+		,	numeropedido_fv
+		,	df_nf_seq_blue
+		,	cdpessoabluesoft_cliente
+		,	prb_cdprodutobluesoft 
+		,	prb_cdprodutobluesoft_unitario 
+		,	prb_embalagem
+		,	prb_fatorestoque 
+		,	embalagem_descricao 
+		,	qtde_unitaria_solicitada
+		,	qtde_unitaria_faturada
+		,	qtde_solicitada
+		,	qtde_faturada
+		,	valor_custo_com_icm_unit 
+		,	valor_custo_com_icm
+		,	valor_custo 
+		,	valor_preco_tabela
+		,	valor_preco 
+		,	valor_preco_aplicado 
+		,	valor_verba 
+		,	valor_verba_gerencia 
+		,	valor_verba_calculada 
+		,	valor_desconto_financeiro 
+		,	valor_nf_item_bruto 
+		,	valor_nf_item 
+		,	item_nf_bonificado 
+		,	percentual_desconto_financeiro 
+	)
+
+select 		f.fat_blue_seq 
+	,		1 											as op_cdoperacao 
+	,		i.numeropedido 
+	,		i.numeropedido_fv
+	,		coalesce(nf.df_nf_seq_blue,0) 				as df_nf_seq_blue
+	,		pc.cdpessoabluesoft_cliente					as cdpessoabluesoft_cliente
+	,		i.prb_cdprodutobluesoft
+	,		pb.prb_cdprodutobluesoftunitario 
+	,		pb.prb_embalagemestoque 					as prb_embalagem
+	,		pb.prb_fatorestoque 
+	,		'' 											as embalagem_descricao
+	,		pb.prb_fatorestoque * i.qtde_pedida 		as qtde_unitaria_solicitada
+	,		pb.prb_fatorestoque * i.qtde_separada 		as qtde_unitaria_faturada
+	,		i.qtde_pedida 								as qtde_solicitada
+	,		i.qtde_separada 							as qtde_faturada
+	,		0											as valor_custo_com_icm_unit
+	,		0											as valor_custo_com_icm
+	,		0											as valor_custo
+	,		0											as valor_preco_tabela
+	,		i.valor_preco								as valor_preco 
+	,		i.valor_preco_final 						as valor_preco_aplicado 
+	,		i.valor_preco_final - i.valor_preco 		as valor_verba 
+	,		0											as valor_verba_gerencia 
+	,		i.valor_preco_final - i.valor_preco         as valor_verba_calculada 
+	,		0 											as valor_desconto_financeiro 
+	,		0											as valor_nf_item_bruto 
+	,		0											as valor_nf_item 
+	,		case when nf.df_nf_tipo = 34 
+						then 1 
+						else 0 end 						as item_nf_bonificado 
+	,		p.descontofinanceiro 						as percentual_desconto_financeiro 
+	
+from 		tbfaturamento_bluesoft_fv_item 				i
+inner join 	tbfaturamento_bluesoft_fv_cliente 			pc on pc.numeropedido = i.numeropedido and pc.numeropedido_fv = i.numeropedido_fv
+inner join  tbfaturamento_bluesoft						f  on f.numeropedido = pc.numeropedido and f.numeropedido_fv = pc.numeropedido_fv
+		inner join 	tbfaturamento_bluesoft_fv 			p  on p.numeropedido_fv = pc.numeropedido_fv
+		inner join  tbfaturamento_bluesoft_status 		st on st.pedido_status_cd = pc.pedido_status_cd
+		inner join  tbfaturamento_bluesoft_tipo         t  on t.pedido_tipo_cd = p.pedido_tipo_cd 
+		left join   tbfaturamento_bluesoft_fv_nf		nf on nf.numeropedido = pc.numeropedido 
+				and nf.numeropedido_fv = p.numeropedido_fv and nf.df_nf_tipo in( 104, 34)
+
+inner join  tbprodutobluesoft 							pb on pb.prb_cdprodutobluesoft_pk = i.prb_cdprodutobluesoft 
+WHERE		1 = 1
+AND			NOT EXISTS (	Select 1
+							FROM 	tbfaturamento_bluesoft_item XX
+							WHERE	XX.prb_cdprodutobluesoft = i.prb_cdprodutobluesoft 
+							  and   XX.numeropedido = i.numeropedido 
+							  and   xx.numeropedido_fv = i.numeropedido_fv 
+				
+
+						)
+
+
+
+UPDATE tbfaturamento_bluesoft_item A
+set      	df_nf_seq_blue					= B.df_nf_seq_blue    
+		,	qtde_unitaria_solicitada		= B.qtde_unitaria_solicitada
+		,	qtde_unitaria_faturada			= B.qtde_unitaria_faturada
+		,	qtde_solicitada					= B.qtde_solicitada
+		,	qtde_faturada					= B.qtde_faturada
+		,	valor_preco_tabela				= B.valor_preco_tabela
+		,	valor_preco 					= B.valor_preco
+		,	valor_preco_aplicado 			= B.valor_preco_aplicado
+		,	valor_verba 					= B.valor_verba
+		,	valor_verba_gerencia 			= B.valor_verba_gerencia
+		,	valor_verba_calculada 			= B.valor_verba_calculada
+		,	valor_desconto_financeiro 		= B.valor_desconto_financeiro
+		,	valor_nf_item_bruto 			= B.valor_nf_item_bruto
+		,	valor_nf_item 					= B.valor_nf_item
+		,	item_nf_bonificado 				= B.item_nf_bonificado
+		,	percentual_desconto_financeiro  = B.percentual_desconto_financeiro
+FROM 	 (
+
+
+				select 		f.fat_blue_seq 
+					,		1 											as op_cdoperacao 
+					,		i.numeropedido 
+					,		i.numeropedido_fv
+					,		coalesce(nf.df_nf_seq_blue,0) 				as df_nf_seq_blue
+					,		pc.cdpessoabluesoft_cliente					as cdpessoabluesoft_cliente
+					,		i.prb_cdprodutobluesoft
+					,		pb.prb_cdprodutobluesoftunitario 
+					,		pb.prb_embalagemestoque 					as prb_embalagem
+					,		pb.prb_fatorestoque 
+					,		'' 											as embalagem_descricao
+					,		pb.prb_fatorestoque * i.qtde_pedida 		as qtde_unitaria_solicitada
+					,		pb.prb_fatorestoque * i.qtde_separada 		as qtde_unitaria_faturada
+					,		i.qtde_pedida 								as qtde_solicitada
+					,		i.qtde_separada 							as qtde_faturada
+					,		0											as valor_custo_com_icm_unit
+					,		0											as valor_custo_com_icm
+					,		0											as valor_custo
+					,		0											as valor_preco_tabela
+					,		i.valor_preco								as valor_preco 
+					,		i.valor_preco_final 						as valor_preco_aplicado 
+					,		i.valor_preco_final - i.valor_preco 		as valor_verba 
+					,		0											as valor_verba_gerencia 
+					,		i.valor_preco_final - i.valor_preco         as valor_verba_calculada 
+					,		0 											as valor_desconto_financeiro 
+					,		0											as valor_nf_item_bruto 
+					,		0											as valor_nf_item 
+					,		case when nf.df_nf_tipo = 34 
+										then 1 
+										else 0 end 						as item_nf_bonificado 
+					,		p.descontofinanceiro 						as percentual_desconto_financeiro 
+					
+				from 		tbfaturamento_bluesoft_fv_item 				i
+				inner join 	tbfaturamento_bluesoft_fv_cliente 			pc on pc.numeropedido = i.numeropedido and pc.numeropedido_fv = i.numeropedido_fv
+				inner join  tbfaturamento_bluesoft						f  on f.numeropedido = pc.numeropedido and f.numeropedido_fv = pc.numeropedido_fv
+						inner join 	tbfaturamento_bluesoft_fv 			p  on p.numeropedido_fv = pc.numeropedido_fv
+						inner join  tbfaturamento_bluesoft_status 		st on st.pedido_status_cd = pc.pedido_status_cd
+						inner join  tbfaturamento_bluesoft_tipo         t  on t.pedido_tipo_cd = p.pedido_tipo_cd 
+						left join   tbfaturamento_bluesoft_fv_nf		nf on nf.numeropedido = pc.numeropedido 
+								and nf.numeropedido_fv = p.numeropedido_fv and nf.df_nf_tipo in( 104, 34)
+				
+				inner join  tbprodutobluesoft 							pb on pb.prb_cdprodutobluesoft_pk = i.prb_cdprodutobluesoft 
+				WHERE		1 = 1
+
+		) B 
+	WHERE 1 = 1 
+	  and B.numeropedido = A.numeropedido
+	  and B.numeropedido_fv = A.numeropedido_fv
+	  and B.prb_cdprodutobluesoft = A.prb_cdprodutobluesoft	  

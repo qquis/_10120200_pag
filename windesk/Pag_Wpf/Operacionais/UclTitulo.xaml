@@ -1,0 +1,231 @@
+﻿<UserControl x:Class="Pag_Wpf.Financeiro.Titulo.UclTitulo"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:My="clr-namespace:Pag_Wpf.UserControls"
+             
+      mc:Ignorable="d" 
+         Height="520" Width="1000">
+    <Grid Name="GRIDBasic" Background="{StaticResource _BackGroundLinerGradientMain}" MaxHeight="510" MaxWidth="1000">
+        <Grid.RowDefinitions>
+            <RowDefinition Name="RowCabec" Height="Auto"></RowDefinition>
+            <RowDefinition Name="RowDados" Height="Auto"></RowDefinition>
+            <RowDefinition Name="RowFolter" Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="GRIDCabecalho"  Style="{StaticResource UclCabecalho}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70*"></ColumnDefinition>
+                <ColumnDefinition Width="15*"></ColumnDefinition>
+                <ColumnDefinition Width="15*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label  Style="{StaticResource UclCabecalhoLabelPrincipal}" >Títulos</Label>
+            <Rectangle Grid.Row="0" Grid.ColumnSpan="4" Style="{StaticResource UclLinhaSubtitulo}"></Rectangle>
+            <My:UclButton Grid.Column="2" x:Name="CMDBuscar" Text="Exibir Registros" Height="30"  UclButtonMaxWidth="150"    ImageNoClick="{StaticResource _ButtonImageBrush_Buscar}" ImageClick="{StaticResource _ButtonImageBrush_Buscar_Click}" Click="BtnBuscar_Click" ></My:UclButton>
+
+        </Grid>
+        <Grid Grid.Row="1" Name="GridInfo" Style="{StaticResource UclGridInfo}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="1"></ColumnDefinition>
+                <ColumnDefinition Width="95*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Expander Grid.Column="0" ExpandDirection="Right" >
+                <StackPanel Style="{StaticResource UclStackPainel}">
+                    <Grid VerticalAlignment="Top" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="365"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Content="Filtros" HorizontalAlignment="Left" Style="{StaticResource UclLabelFiltros}" ></Label>
+                            <Rectangle Grid.Row="0" Grid.ColumnSpan="4" Style="{StaticResource UclLinhaSubtitulo}"></Rectangle>
+                        </Grid>
+                        <TabControl Grid.Row="1" Height="350" VerticalAlignment="Top">
+                            <TabItem Header="Básicos" >
+                                <Grid >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="35" ></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"></ColumnDefinition>
+                                        <ColumnDefinition Width="280"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" >
+                                        <CheckBox Name="CHKDataEmissao" Content="Emissão" FontSize="10" Click="CHKDataEmissao_Click"></CheckBox>
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="1" Margin="0,0,0,0">
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="135"></ColumnDefinition>
+                                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                                <ColumnDefinition Width="135"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <DatePicker Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Name="DTPDataEmissaoINI" Style="{StaticResource _DatePickerDefault}" SelectedDateChanged="DTPDataEmissaoINI_SelectedDateChanged" />
+                                            <Label Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                            <DatePicker Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Name="DTPDataEmissaoFIM" Style="{StaticResource _DatePickerDefault}" SelectedDateChanged="DTPDataEmissaoFIM_SelectedDateChanged" />
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="0" >
+                                        <CheckBox Name="CHKDataVencimento" Content="Venc." FontSize="10" Click="CHKDataVencimento_Click" ></CheckBox>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="135"></ColumnDefinition>
+                                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                                <ColumnDefinition Width="135"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <DatePicker Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Name="DTPDataVencimentoINI" Style="{StaticResource _DatePickerDefault}" SelectedDateChanged="DTPDataVencimentoINI_SelectedDateChanged" />
+                                            <Label Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                            <DatePicker Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Name="DTPDataVencimentoFIM" Style="{StaticResource _DatePickerDefault}" SelectedDateChanged="DTPDataVencimentoFIM_SelectedDateChanged" />
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                        <Label  Content="Operação" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="1" Margin="1,1,1,1" BorderThickness="1,1,1,1" BorderBrush="Silver" >
+                                        <ComboBox  ItemsSource="{Binding}" Name="CMBOperacao" Style="{StaticResource _ComboBoxDefault}"  >
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding DescricaoOperacao}"  ></TextBlock>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </Border>
+                                    <Border Grid.Row="5" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                        <Label  Content="Situação" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="5" Grid.Column="1" Margin="1,1,1,1" BorderThickness="1,1,1,1" BorderBrush="Silver" >
+                                        <ComboBox  ItemsSource="{Binding}" Name="CMBTipoSituacao" Style="{StaticResource _ComboBoxDefault}"  >
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding DescricaoTipo}"  ></TextBlock>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+
+                                    </Border>
+
+                                    <Border Grid.Row="3" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                        <Label  Content="Valor" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                        <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"  >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="45*"></ColumnDefinition>
+                                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                                <ColumnDefinition Width="45*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox  Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" HorizontalAlignment="Stretch" Name="TXTValorIni" VerticalAlignment="Center" Style="{StaticResource _TextBoxDefault}"   HorizontalContentAlignment="Right" TextChanged="TXTValorIni_TextChanged" />
+                                            <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                            <TextBox Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Name="TXTValorFim" Style="{StaticResource _TextBoxDefault}"  HorizontalContentAlignment="Right" TextChanged="TXTValorFim_TextChanged" />
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Grid.Row="4" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                        <Label  Content="Saldo" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="4" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                        <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"  >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="45*"></ColumnDefinition>
+                                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                                                <ColumnDefinition Width="45*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox  Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" HorizontalAlignment="Stretch" Name="TXTValorSaldoIni" VerticalAlignment="Center" Style="{StaticResource _TextBoxDefault}"   HorizontalContentAlignment="Right" TextChanged="TXTValorSaldoIni_TextChanged" />
+                                            <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                            <TextBox Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Name="TXTValorSaldoFim" Style="{StaticResource _TextBoxDefault}"  HorizontalContentAlignment="Right" TextChanged="TXTValorSaldoFim_TextChanged" />
+                                        </Grid>
+                                    </Border>
+
+
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+                </StackPanel>
+            </Expander>
+
+            <StackPanel Grid.Column="3"  Style="{StaticResource UclStackPainel}" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="239"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Grid.Row="0" Name="DTGTitulos" Grid.RowSpan="2"  >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn IsReadOnly="True"  Width="55" Header="Cd Emp" Binding="{Binding CdEmpresa}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="HorizontalAlignment" Value="Right" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True"  Width="110" Header="Empresa" Binding="{Binding DescricaoEmpresa}"></DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True"  Width="75" Header="Emissão" Binding="{Binding DataEmissao,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True"  Width="75" Header="Vencimento" Binding="{Binding DataVencimento,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True"  Width="110" Header="Operação" Binding="{Binding DescricaoOperacao}"></DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True"  Width="50" Header="Sit" Binding="{Binding DescricaoSituacao}"></DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True"  Width="50" Header="Cód. Part." Binding="{Binding CdParticipanteSacado}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="HorizontalAlignment" Value="Right" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True"  Width="110" Header="Cliente" Binding="{Binding NomeSacado}"></DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True"  Width="55" Header="Valor" Binding="{Binding Valor, StringFormat={}{0:N2}}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="HorizontalAlignment" Value="Right" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn IsReadOnly="True"  Width="55" Header="Saldo" Binding="{Binding ValorSaldo, StringFormat={}{0:N2}}">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="HorizontalAlignment" Value="Right" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Grid Grid.Row="2" Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <My:UclLabelText Grid.Row="0" Grid.Column="0" x:Name="UclLabelTextSequencialERP" Caption="Referência ERP"  UclLabelWidth="100" UclTextWidth="335" ></My:UclLabelText>
+                        <My:UclLabelText Grid.Row="0" Grid.Column="1" x:Name="UclLabelTextLancamento" Caption="Lançamento"  UclLabelWidth="100" UclTextWidth="335" ></My:UclLabelText>
+                    </Grid>
+
+
+                </Grid>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</UserControl>

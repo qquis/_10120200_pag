@@ -1,0 +1,36 @@
+﻿<Window x:Class="Pag_Net.IdentificaCli"
+        xmlns:k="clr-namespace:Pag_Net.Keyboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="IdentificaCli" Height="900" Width="1400" WindowState="Maximized" WindowStyle="ThreeDBorderWindow" HorizontalAlignment="Center"  >
+    <Grid x:Name="LayoutRoot" Margin="0" RenderTransformOrigin="0.517,0.522" HorizontalAlignment="Center" Width="1400" Height="900">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.622*"/>
+            <RowDefinition Height="0.378*"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="Tela.jpg"></ImageBrush>
+        </Grid.Background>
+        <Label Background="#FFD1CCCC" Content="Clique aqui para digitar o seu E-mail" FontSize="40" Foreground="#FF807272" Height="59" HorizontalAlignment="Left" Margin="488,225,0,0" VerticalAlignment="Top" Width="664" />
+        <Label Background="#FFD1CCCC" Content="Clique aqui para digitar o seu Cep" FontSize="40" Foreground="#FF807272" Height="59" Margin="490,310,248,0" VerticalAlignment="Top" />
+        <Label Content="Clique aqui para digitar o seu nome" FontSize="40" Height="59" HorizontalAlignment="Left" Margin="490,139,0,0" VerticalAlignment="Top" Width="664" Background="#FFD1CCCC" Foreground="#FF807272"></Label>
+        <Label HorizontalAlignment="Left" Margin="216,139,0,0" Content="Nome:" Width="192" FontSize="40" VerticalAlignment="Top" Height="68.983"/>
+        <TextBox Name="txtName"  Margin="490,141,248,0" TextWrapping="Wrap" FontSize="40" VerticalAlignment="Top"  Height="59.277" k:TouchScreenKeyboard.TouchScreenKeyboard="true" Background="Transparent" MaxLength="60" />
+        <Label HorizontalAlignment="Left" Margin="216,225,0,0" Content="E-mail:" Width="192" FontSize="40" VerticalAlignment="Top" Height="68.983"/>
+        <TextBox Name="txtEmail" Margin="490,223,248,0" TextWrapping="Wrap" FontSize="40" VerticalAlignment="Top" Height="59.277" k:TouchScreenKeyboard.TouchScreenKeyboard="true" Background="Transparent" MaxLength="60" />
+        <Label HorizontalAlignment="Left" Margin="216,303,0,191" Content="Cep:" Width="192" FontSize="40"/>
+
+        <TextBox Name="txtCep" Margin="490,310,248,191"  TextWrapping="Wrap" FontSize="40" k:TouchScreenKeyboard.TouchScreenKeyboard="true" Background="Transparent" MaxLength="8" />
+        <Button Name="btnMasculino" Margin="0,0,720,62" VerticalAlignment="Bottom" Height="80" Content="M" FontSize="64" HorizontalAlignment="Right" Width="80" Click="btnMasculino_Click" />
+        <Button Name="btnFeminino" Margin="0,0,830,62" VerticalAlignment="Bottom" Height="80" Content="F" FontSize="64" HorizontalAlignment="Right" Width="80" Click="btnFeminino_Click" />
+        <Label Margin="216,0,0,73" Content="Sou do Sexo" FontSize="40" VerticalAlignment="Bottom" Height="68.983" HorizontalAlignment="Left" Width="238"/>
+        <Button Name="btnConfirma" Margin="464,0,680,199" VerticalAlignment="Bottom" Height="111" Grid.Row="1" Click="btnConfirma_Click" >
+            <Image Width="256" Height="104" Source="btnConfirma.png" Stretch="Fill" />
+        </Button>
+
+        <Button Name="btnCorrige" Margin="0,0,376,194" VerticalAlignment="Bottom" Height="120" Grid.Row="1" HorizontalAlignment="Right" Width="256" Background="Transparent" Click="btnCorrige_Click" >
+            <Image Height="109.52" Source="btnCorrige.png" Stretch="Fill" Width="256" />
+        </Button>
+        <Label Name="lblInfo" Content="" Height="52" HorizontalAlignment="Left" Margin="208,44,0,0" VerticalAlignment="Top" Width="720" FontSize="14" />
+    </Grid>
+</Window>

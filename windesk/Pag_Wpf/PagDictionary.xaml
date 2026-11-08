@@ -1,0 +1,1151 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+
+
+    <!-- User Control -->
+    <Style x:Key="UclCabecalho" TargetType="{x:Type Grid}">
+        <Setter Property="Background" Value="{DynamicResource UclBackgroundDefult}"></Setter>
+        <Setter Property="BitmapEffect">
+            <Setter.Value>
+                <DropShadowBitmapEffect></DropShadowBitmapEffect>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Width" Value="930"></Setter>
+        <Setter Property="Height" Value="50"></Setter>
+        <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+
+    </Style>
+
+    <Style x:Key="UclGridInfo" TargetType="{x:Type Grid}">
+        <Setter Property="Background" Value="{DynamicResource UclBackgroundDefult}"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Width" Value="930"></Setter>
+        
+        <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+
+    </Style>
+
+    <Style x:Key="UclGridR" TargetType="{x:Type Grid}">
+        <Setter Property="Background" Value="{DynamicResource UclBackgroundDefult}"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Width" Value="930"></Setter>
+        <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+
+    </Style>
+
+
+    <Style x:Key="UclGridFormMenu" TargetType="{x:Type Grid}">
+        <Setter Property="Background" Value="{DynamicResource UclBackgroundDefult}"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+        <Setter Property="Width" Value="600"></Setter>
+        <Setter Property="Height" Value="30"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+
+    </Style>
+
+
+    <Style x:Key="UclCabecalhoLabelPrincipal" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Label}">
+                    <Grid >
+                        <Border Background="White" BorderBrush="White" BorderThickness="1" CornerRadius="20" Height="25" Width="300"  >
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="10" ShadowDepth="1" />
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BitmapEffect">
+            <Setter.Value>
+                <DropShadowBitmapEffect></DropShadowBitmapEffect>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="UclLabelFiltros" TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="Arial"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="Foreground" Value="#FF1313D0"></Setter>
+    </Style>
+
+
+    <Style x:Key="UclStackPainel" TargetType="{x:Type StackPanel}">
+        <Setter Property="Background" Value="{DynamicResource UclBackgroundDefult}"> </Setter>
+        <Setter Property="BitmapEffect">
+            <Setter.Value>
+               <DropShadowBitmapEffect></DropShadowBitmapEffect>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" Value="2,2,2,2"></Setter>
+    </Style>
+
+
+    <Style x:Key="UclLinhaSubtitulo" TargetType="{x:Type Rectangle}">
+        <Setter Property="Fill" Value="#FF1D348F"></Setter>
+        <Setter Property="Height" Value="1"></Setter>
+        <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+        <Setter Property="Margin" Value="0,1,0,1"></Setter>
+    </Style>
+
+    <LinearGradientBrush x:Key="UclBackgroundDefult" EndPoint="0,0" StartPoint="1,1">
+        <GradientStop Color="#FF5C5959" Offset="0.05" />
+        <GradientStop Color="#FEBEB9B9" Offset="0.15" />
+        <GradientStop Color="#FF5C5959" Offset="0.90" />
+    </LinearGradientBrush>
+
+
+    <Style x:Key="UclLabelFormInfo" TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="Arial"></Setter>
+        <Setter Property="FontSize" Value="11"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Background" Value="#FF5C5959"></Setter>
+        <Setter Property="Margin" Value="1,1,1,1"></Setter>
+    </Style>
+
+    <Style x:Key="UclTextBlockInfo" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="Arial"></Setter>
+        <Setter Property="FontSize" Value="11"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Background" Value="#FF5C5959"></Setter>
+        <Setter Property="Margin" Value="1,1,1,1"></Setter>
+
+    </Style>
+
+
+
+
+
+    <!-- Stylos Gerais -->
+
+    <Style TargetType="Border">
+        <Setter Property="BorderThickness" Value="0.5,0.5,0.5,0.5"></Setter>
+        <Setter Property="BorderBrush" Value="Silver"></Setter>
+    </Style>
+    
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="{DynamicResource _BackGroundLinerGradientDataGrid}"/>
+        <Setter Property="Language" Value="Br-Pt"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="Foreground" Value="Blue"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="IsReadOnly" Value="False"/>
+        <Setter Property="RowBackground" Value="{x:Null}"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+    </Style>
+
+    <Style TargetType="DataGridCell">
+        <Setter Property="Foreground" Value="Black"></Setter>
+        <Setter Property="FontSize" Value="11"></Setter>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="Gray"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    
+    
+    <Style TargetType="TabControl">
+        <Setter Property="FontSize" Value="11" > </Setter>
+        <Setter Property="Background" Value="{x:Null}"></Setter>
+    </Style>
+    <Style TargetType="TabItem">
+        <Setter Property="Background" Value="{x:Null}"></Setter>
+        <Setter Property="Foreground" Value="Blue"></Setter>
+        <Setter Property="FontSize" Value="12"></Setter>
+    </Style>
+    <Style TargetType="Menu">
+        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="Foreground" Value="Black"></Setter>
+    </Style>
+    <Style TargetType="TextBox">
+        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="Height" Value="30"></Setter>
+    </Style>
+    <Style TargetType="PasswordBox">
+        <Setter Property="Height" Value="30"></Setter>
+    </Style>
+           
+    
+
+    
+    
+    
+
+    <!-- Formulário Padrão -->
+
+    <Style x:Key="GridBase" TargetType="Grid">
+        <Setter Property="MaxWidth" Value="1275" ></Setter>
+        <Setter Property="Width" Value="1275" ></Setter>
+        <Setter Property="MinHeight" Value="500" ></Setter>
+        <Setter Property="MaxHeight" Value="600" ></Setter>
+        <Setter Property="Background" Value="{x:Null}"></Setter>
+        <Setter Property="Margin" Value="0,0,0,0"></Setter>
+    </Style>
+
+    <Style x:Key="WindowGridBase" TargetType="Grid">
+        
+        <Setter Property="Margin" Value="0,0,0,0"></Setter>
+    </Style>
+    
+    
+    <Style x:Key="GridBase_Cabecalho" TargetType="Grid">
+        <Setter Property="Background" Value="{x:Null}"></Setter>
+    </Style>
+    
+    <Style x:Key="GridBase_Cabecalho_Border" TargetType="Border">
+        <Setter Property="BorderThickness" Value="0,0,0,4"></Setter> 
+        <Setter Property="Margin" Value="0,0,0,10"></Setter> 
+        <Setter Property="BorderBrush" Value="Blue"></Setter>
+    </Style>
+    
+    <Style x:Key="GridBase_Cabecalho_LabelTitulo" TargetType="Label">
+        <Setter Property="FontSize" Value="18"></Setter>
+        <Setter Property="FontFamily" Value="Arial"></Setter>
+        <Setter Property="Foreground" Value="#FF1313D0"></Setter>
+        <Setter Property="FontStretch" Value="Condensed"></Setter>
+                
+    </Style>
+
+
+
+
+    <!-- Stylos definidos -->
+    
+    <DataGridTextColumn x:Key="DataGridTextColumn_Numero">
+        <DataGridTextColumn.ElementStyle>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Right" />
+            </Style>
+        </DataGridTextColumn.ElementStyle>
+    </DataGridTextColumn>
+
+    <DataGridTextColumn x:Key="DataGridTextColumn_Texto">
+        <DataGridTextColumn.ElementStyle>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+            </Style>
+        </DataGridTextColumn.ElementStyle>
+    </DataGridTextColumn>
+
+
+
+    <BitmapEffectCollection x:Key="_MenuBitMapEffect">
+        <DropShadowBitmapEffect></DropShadowBitmapEffect>
+    </BitmapEffectCollection>
+    <LinearGradientBrush x:Key="_BackGroundLinerGradientMain"  >
+        <GradientStop Color="#FF5C5959" Offset="0.05" />
+        <GradientStop Color="#FEBEB9B9" Offset="0.15" />
+        <GradientStop Color="#FF5C5959" Offset="0.90" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="_BackGroundLinerGradientDataGrid_old" EndPoint="1,0.5" StartPoint="0,0.5">
+        <GradientStop Color="#A7FFFFFF" Offset="0" />
+        <GradientStop Color="#A7FFFFFF" Offset="1" />
+        <GradientStop Color="#FF9D9797" Offset="0.5" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="_BackGroundLinerGradientDataGrid" EndPoint="0,0" StartPoint="1,1">
+        <GradientStop Color="White" Offset="0.1" />
+        <GradientStop Color="LightGray" Offset="0.25" />
+        <GradientStop Color="White" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="_BackGroundLinerGradientBrushRightBlue">
+        <GradientStop Color="#FF737171" Offset="1" />
+        <GradientStop Color="White" Offset="0" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="_BackGroundLinerGradientBrushLeftBlue">
+        <GradientStop Color="#FF737171" Offset="0" />
+        <GradientStop Color="White" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="_BackGroundLinerGradientBrushBlue">
+        <GradientStop Color="#FF737171" Offset="0" />
+    </LinearGradientBrush>
+    <DropShadowBitmapEffect x:Key="_BitMapEffectDefault_Sombra">
+    </DropShadowBitmapEffect>
+    <ImageBrush x:Key="_ButtonImageBrush_SelecionaTudo"           ImageSource="C:\Ti\TempPag\seta_baixo.png"    Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_SelecionaTudo_Click"    ImageSource="C:\Ti\TempPag\seta_baixo_pb.png" Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_DevolucaoTotal"           ImageSource="C:\Ti\TempPag\Dt.png"    Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_DevolucaoTotal_Click"    ImageSource="C:\Ti\TempPag\Dt_pb.png" Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_DevolucaoDi"           ImageSource="C:\Ti\TempPag\Dr.png"    Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_DevolucaoDi_Click"    ImageSource="C:\Ti\TempPag\Dr_pb.png" Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Devolucao"           ImageSource="C:\Ti\TempPag\Dp.png"    Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Devolucao_Click"    ImageSource="C:\Ti\TempPag\Dp_pb.png" Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Nfe"           ImageSource="C:\Ti\TempPag\Nfe.png"    Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Nfe_Click"    ImageSource="C:\Ti\TempPag\Nfe_pb.png" Stretch="Fill" ></ImageBrush>
+
+
+    <ImageBrush x:Key="_ButtonImageBrush_POS"           ImageSource="C:\Ti\TempPag\POS.png"    Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_POS_Click"    ImageSource="C:\Ti\TempPag\POS_pb.png" Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Imprimir"           ImageSource="C:\Ti\TempPag\Imprimir.png"    Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Imprimir_Click"    ImageSource="C:\Ti\TempPag\Imprimir_pb.png" Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Email"          ImageSource="C:\Ti\TempPag\Email.png"    Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Email_Click"    ImageSource="C:\Ti\TempPag\Email_pb.png" Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Efetivar"          ImageSource="C:\Ti\TempPag\Efetivar.png"    Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Efetivar_Click"    ImageSource="C:\Ti\TempPag\Efetivar_pb.png" Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Buscar"            ImageSource="C:\Ti\TempPag\Buscar.png"      Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Buscar_Click"      ImageSource="C:\Ti\TempPag\Buscar_pb.png"   Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Detalhes"          ImageSource="C:\Ti\TempPag\Detalhes.png"    Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Detalhes_Click"    ImageSource="C:\Ti\TempPag\Detalhes_pb.png" Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Editar"            ImageSource="C:\Ti\TempPag\Editar.png"      Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Editar_Click"      ImageSource="C:\Ti\TempPag\Editar_pb.png"   Stretch="Fill" ></ImageBrush>
+
+    
+
+    <ImageBrush x:Key="_ButtonImageBrush_Excluir"           ImageSource="C:\Ti\TempPag\Excluir.png"     Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Excluir_Click"     ImageSource="C:\Ti\TempPag\Excluir_pb.png"  Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Incluir"           ImageSource="C:\Ti\TempPag\Incluir.png"     Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Incluir_Click"     ImageSource="C:\Ti\TempPag\Incluir_pb.png"  Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Cancelar"           ImageSource="C:\Ti\TempPag\Cancelar.png"     Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Cancelar_Click"     ImageSource="C:\Ti\TempPag\Cancelar_pb.png"  Stretch="Fill" ></ImageBrush>
+
+    <ImageBrush x:Key="_ButtonImageBrush_Sair"           ImageSource="C:\Ti\TempPag\Sair.png"     Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonImageBrush_Sair_Click"     ImageSource="C:\Ti\TempPag\Sair_pb.png"  Stretch="Fill" ></ImageBrush>
+
+
+    <Style x:Key="_LabelDefault" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="10"></Setter>
+        <Setter Property="Foreground" Value="White" ></Setter>
+        <Setter Property="Height" Value="25"></Setter>
+    </Style>
+
+    <Style x:Key="_LabelInfoPrincipal" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="Foreground" Value="SlateGray" ></Setter>
+        <Setter Property="FontStyle" Value="Italic"></Setter>
+    </Style>
+
+    <Style x:Key="_LabelSubInfoPrincipal" TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="Arial"></Setter>
+        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="Foreground" Value="#FF1313D0"></Setter>
+    </Style>
+
+    <Style x:Key="_WindowFormLabelSubInfoPrincipal" TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="Arial"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="Foreground" Value="#FF1313D0"></Setter>
+    </Style>
+    
+    
+    <Style x:Key="_LabelForm" TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="Arial"></Setter>
+        <Setter Property="FontSize" Value="11"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+    </Style>
+    <Style x:Key="_LabelFormInfo" TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="Arial"></Setter>
+        <Setter Property="FontSize" Value="11"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Background" Value="#FF5C5959"></Setter>
+        <Setter Property="Margin" Value="1,1,1,1"></Setter>
+    </Style>
+
+
+    <Style x:Key="_CheckBoxInfo" TargetType="{x:Type CheckBox}">
+        <Setter Property="FontFamily" Value="Arial"></Setter>
+        <Setter Property="FontSize" Value="11"></Setter>
+        <Setter Property="Foreground" Value="Black"></Setter>
+    </Style>
+
+    <Style x:Key="_StackPainelFormInfo" TargetType="{x:Type StackPanel}">
+        <Setter Property="Background" Value="#FF5C5959"></Setter>
+        
+    </Style>
+
+    <Style x:Key="_DatePickerDefault" TargetType="{x:Type DatePicker}">
+        <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="Background" Value="#FFA7A2A2"></Setter>
+        <Setter Property="FontSize" Value="12"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Border.BitmapEffect">
+                    <Setter.Value>
+                        <DropShadowBitmapEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>                
+        </Style.Triggers>    
+    </Style>
+
+    <Style x:Key="_TextBoxDefault" TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="MaxHeight" Value="25"/>
+        <Setter Property="MinHeight" Value="25"/>
+        <Setter Property="Height" Value="25"/>        
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#FFE3E3E3"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Border.BitmapEffect">
+                    <Setter.Value>
+                        <DropShadowBitmapEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+
+
+    <Style x:Key="_PassWordBoxDefault" TargetType="{x:Type PasswordBox}">
+        <Setter Property="FontSize" Value="9" />
+        <Setter Property="MaxHeight" Value="35"/>
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="2"/>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush"  Value="Red" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background"  Value="Blue" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
+    <Style x:Key="_ComboBoxDefault" TargetType="{x:Type ComboBox}">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="MaxHeight" Value="25"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="MinHeight" Value="25"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#FFE3E3E3"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Border.BitmapEffect">
+                    <Setter.Value>
+                        <DropShadowBitmapEffect/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+
+
+
+    <Style x:Key="_ButtonStandard_Efetivar" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Efetivar}"/>
+        <Setter Property="Height" Value="20"></Setter>
+        <Setter Property="Width" Value="20"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Efetivar}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Efetivar_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+
+
+    <Style x:Key="_ButtonStandard_Buscar" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Buscar}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+    
+                    <Border Grid.Column="1" x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Buscar}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Buscar_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="_ButtonStandard_Detalhes" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Detalhes}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Detalhes}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Detalhes_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="_ButtonStandard_Devolucao" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Devolucao}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Devolucao}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Devolucao_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="_ButtonStandard_DevolucaoDi" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_DevolucaoDi}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_DevolucaoDi}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_DevolucaoDi_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="_ButtonStandard_Editar" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Editar}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Editar}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Editar_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="_ButtonStandard_Email" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Email}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Email}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Email_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="_ButtonStandard_Excluir" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Excluir}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Excluir}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Excluir_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="_ButtonStandard_Incluir" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Incluir}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Incluir}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Incluir_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Incluir_Click}"  />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="_ButtonStandard_Cancelar" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Cancelar}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Cancelar}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Cancelar_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Cancelar_Click}"  />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="_ButtonStandard_Nfe" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Nfe}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Nfe}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Nfe_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Nfe_Click}"  />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="_ButtonStandard_Sair" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Sair}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Sair}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Sair_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Sair_Click}"  />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="_ButtonStandard_Imprimir" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_Imprimir}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_Imprimir}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Imprimir_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_Imprimir_Click}"  />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="_ButtonStandard_SelecionaTudo" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_SelecionaTudo}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_SelecionaTudo}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_SelecionaTudo_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_SelecionaTudo_Click}"  />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="_ButtonStandard_POS" TargetType="{x:Type Button}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Background" Value="{StaticResource _ButtonImageBrush_POS}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="25" 
+                        BorderThickness="0.5" 
+                        Background="{StaticResource _ButtonImageBrush_POS}"  
+                        BorderBrush="Black" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF4788c8" />
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_POS_Click}"  />
+                            <Setter TargetName="border" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonImageBrush_POS_Click}"  />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+
+
+
+
+
+
+
+
+</ResourceDictionary>
+    

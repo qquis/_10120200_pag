@@ -1,0 +1,296 @@
+﻿<Page x:Class="Pag_Wpf.Operacionais.Distribuicao.StatusOperacaoVenda"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+	Title="Expedição - Notas fiscais de Entrada" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Name="RowInfo" Height="600"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="GridCabec" Background="{x:Null}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Style="{StaticResource GridBase_Cabecalho_Border}" Name="BorderTitulo" >
+                <Label Name="LabelTitulo" Style="{StaticResource GridBase_Cabecalho_LabelTitulo}">Status da Operação de Venda</Label>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Name="GridInfo" HorizontalAlignment="Center" Background="{x:Null}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Name="ColumnGridInfoList" Width="350"></ColumnDefinition>
+                <ColumnDefinition Name="ColumnGridInfoDados" Width="920"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Name="Gridfiltros" Grid.Column="0" VerticalAlignment="Top" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="365"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Width="350" HorizontalAlignment="Stretch"  Background="#FFA7A2A2">
+                    <StackPanel.BitmapEffect>
+                        <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                    </StackPanel.BitmapEffect>
+                    <Grid Name="dtgridStackPainelfiltros" Width="350" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Filtros" HorizontalAlignment="Left" Style="{StaticResource _LabelSubInfoPrincipal}" ></Label>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Name="StackPainelFiltros" Grid.Row="1"  Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Stretch">
+                    <TabControl>
+                        <TabItem Header="Básicos" >
+                            <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35" ></RowDefinition>
+                                    <RowDefinition Height="35"></RowDefinition>
+                                    <RowDefinition Height="35"></RowDefinition>
+                                    <RowDefinition Height="35"></RowDefinition>
+                                    <RowDefinition Height="35"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="290"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" >
+                                    <Label   FontSize="8" Style="{StaticResource _LabelDefault}">Data</Label>
+                                </Border>
+                                <Border Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" >
+                                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"  >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="135"></ColumnDefinition>
+                                            <ColumnDefinition Width="15"></ColumnDefinition>
+                                            <ColumnDefinition Width="135"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <DatePicker Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" Height="20"  HorizontalAlignment="Center" Name="dtPickerIni" VerticalAlignment="Top"  Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="0"  />
+                                        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                        <DatePicker Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Top" Name="dtPickerFim" Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="1"  />
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Label  Style="{StaticResource _LabelDefault}">Fonercedor</Label>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <ComboBox Grid.Column="0"   VerticalAlignment="Stretch" ItemsSource="{Binding}"   Margin="0,0,0,0"  Name="cmbFornecedor" Style="{StaticResource _ComboBoxDefault}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Name="RazaoSocial" Text="{Binding RazaoSocialNome}" Width="150"  ></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Border>
+                                <Border Grid.Row="2" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Label   Style="{StaticResource _LabelDefault}">Vl Nota</Label>
+                                </Border>
+                                <Border Grid.Row="2" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"  >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="45*"></ColumnDefinition>
+                                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                                            <ColumnDefinition Width="45*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox  Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" Height="20"  HorizontalAlignment="Stretch" Name="txtValorNotaIni" VerticalAlignment="Top" Style="{StaticResource _TextBoxDefault}" HorizontalContentAlignment="Right"  />
+                                        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                        <TextBox Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" Height="20"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Name="txtValorNotaFim" Style="{StaticResource _TextBoxDefault}" HorizontalContentAlignment="Right"  />
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="3" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Label   Style="{StaticResource _LabelDefault}">Nr Nota</Label>
+                                </Border>
+                                <Border Grid.Row="3" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <TextBox Margin="1,1,1,1" Height="20"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Name="txtNumeroNota" Style="{StaticResource _TextBoxDefault}" HorizontalContentAlignment="Right"  />
+                                </Border>
+                                <Border Grid.Row="4" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Label   Style="{StaticResource _LabelDefault}">Tipo</Label>
+                                </Border>
+                                <Border Grid.Row="4" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"  >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="45*"></ColumnDefinition>
+                                            <ColumnDefinition Width="45*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox Grid.Row="0" Grid.Column="0" Name="chkTipoNormal" IsChecked="True" Content="Normal"></CheckBox>
+                                        <CheckBox Grid.Row="0" Grid.Column="1" Name="chkTipoBonificado" IsChecked="True" Content="Bonificado"></CheckBox>
+                                    </Grid>
+
+
+                                </Border>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </StackPanel>
+            </Grid>
+            <Grid Name="GridList" Grid.Column="1" Width="915"  VerticalAlignment="Top" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="210"></RowDefinition>
+                    <RowDefinition Height="270"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"  HorizontalAlignment="Stretch"  Background="#FFA7A2A2">
+                    <StackPanel.BitmapEffect>
+                        <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                    </StackPanel.BitmapEffect>
+                    <Grid Name="dtgridStackPainelTitulolista"  HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+
+
+
+
+
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Status Operação de Venda" HorizontalAlignment="Left" Style="{StaticResource _LabelSubInfoPrincipal}" ></Label>
+
+                        <Button Name="BtnReport" Margin="0,0,0,0" Grid.Column="9" HorizontalAlignment="Stretch"  Style="{StaticResource _ButtonStandard_Imprimir}" Height="20" Width="20"  IsEnabled="True" ></Button>
+                        <Button Name="BtnBuscar" Margin="0,0,10,0" Grid.Column="10" HorizontalAlignment="Right"  Style="{StaticResource _ButtonStandard_Buscar}" Height="20" Width="20" Click="BtnBuscar_Click"></Button>
+                    </Grid>
+                </StackPanel>
+
+                <DataGrid Grid.Row="1" Name="DGStatusOperacaoVendaList" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True"  Width="75" Header="Data Recebimento" Binding="{Binding DataRecebimento,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="75" Header="Cliente" Binding="{Binding Cliente}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="150" Header="Razão Social" Binding="{Binding RazaoSocialEmissor}"></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="70" Header="Nota Fiscal" Binding="{Binding NumeroNotaFiscal}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="75" Header="Bonificada" Binding="{Binding NotaFiscalBonificada}"></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="90" Header="Valor" Binding="{Binding ValorNotaFiscal, StringFormat={}{0:N2}}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Detalhes">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Name="cmdNotasFiscais" Style="{StaticResource _ButtonStandard_Detalhes}" Height="10" Width="10" ></Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding NotaFiscalBonificada}" Value="SIM">
+                                    <Setter Property="Foreground" Value="Red"></Setter>
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+                </DataGrid>
+
+                <TabControl Grid.Row="2" Background="{x:Null}" FontSize="10">
+                    <TabItem Background="{x:Null}" Header="Itens">
+                        <DataGrid Grid.Column="0" Name="DataGridItens" Width="700" HorizontalAlignment="Left" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn IsReadOnly="True"  Width="125" Header="Descrição" Binding="{Binding Descricao}"></DataGridTextColumn>
+
+                                <DataGridTextColumn IsReadOnly="True"  Width="40" Header="Código" Binding="{Binding CdProduto}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="40" Header="UN" Binding="{Binding EmbalagemEstoque}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Left" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="60" Header="QtdeEst" Binding="{Binding QtdeEmbalagemEstoque}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn IsReadOnly="True"  Width="40" Header="UN Nf" Binding="{Binding EmbalagemNotaFiscal}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Left" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="60" Header="QtdeNF" Binding="{Binding QtdeNotaFiscal}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                                <DataGridTextColumn IsReadOnly="True"  Width="40" Header="UNCMP" Binding="{Binding EmbalagemCompra}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Left" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="60" Header="FatorCmp" Binding="{Binding EmbalagemCompraFator}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+
+                                <DataGridTextColumn IsReadOnly="True"  Width="60" Header="VlUnit" Binding="{Binding ValorUnitario}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="100" Header="Vl Total" Binding="{Binding ValorTotal}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+
+                            </DataGrid.Columns>
+
+                        </DataGrid>
+
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <Grid Name="GridLabels" Width="430" Grid.Column="1" VerticalAlignment="Top">
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

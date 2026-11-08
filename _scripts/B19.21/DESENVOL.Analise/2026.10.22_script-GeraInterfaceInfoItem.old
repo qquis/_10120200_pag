@@ -1,0 +1,299 @@
+USE [DBAMAIN]
+GO
+
+/****** Object:  StoredProcedure [dbo].[USPInterfaceFaturamentoInfoItemProcessamento]    Script Date: 03/10/2026 18:06:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+
+
+
+
+ALTER PROC [dbo].[USPInterfaceFaturamentoInfoItemProcessamento] 
+		(		@DATA					Smalldatetime = Null
+			,	@SeqInterfaceInfo		Smalldatetime = Null
+		)
+AS
+
+
+--DECLARE			@DATA					Smalldatetime = '2020-06-02'
+			--,	@SeqInterfaceInfo		Smalldatetime = Null
+
+
+set nocount on 
+
+if OBJECT_ID('TEMPDB.DBO.#TmpTbInterfacesAProcessar')	is not null drop table #TmpTbInterfacesAProcessar
+if OBJECT_ID('TEMPDB.DBO.#TmpTMDADOS')					is not null drop table #TmpTMDADOS
+if OBJECT_ID('TEMPDB.DBO.#BaseFaturamentoAtualizada')	is not null drop table #BaseFaturamentoAtualizada
+if OBJECT_ID('TEMPDB.DBO.#BaseInterfaceAtualizada')		is not null drop table #BaseInterfaceAtualizada
+if OBJECT_ID('TEMPDB.DBO.#TempTbPedidosProcessados')	is not null drop table #TempTbPedidosProcessados
+if OBJECT_ID('TEMPDB.DBO.#TmpTMDADOS_PENDENTES')		is not null drop table #TmpTMDADOS_PENDENTES	
+
+
+/*  INSERINDO DADOS NA TABELA DE INTERFACE FATURAMENTO */
+	
+	DECLARE @DATAFATURAMENTO_PROCESSAMENTO SMALLDATETIME = (SELECT CONVERT(smalldatetime, CONVERT(CHAR(8), GETDATE(), 112)))
+	
+	IF @DATA IS NULL 
+		BEGIN
+			SELECT  @DATAFATURAMENTO_PROCESSAMENTO = DATEADD(DD,-1,@DATAFATURAMENTO_PROCESSAMENTO)
+		END
+	ELSE
+		BEGIN
+			SELECT  @DATAFATURAMENTO_PROCESSAMENTO = @DATA
+
+	END	
+
+
+/*	
+	delete 
+	from		OXAN_EST.dbo.TbInterfaceFaturamentoInfoItem 
+	where		DataFaturamento = @DATAFATURAMENTO_PROCESSAMENTO 
+---	and			SeqInterfaceInfo in ( select SeqInterfaceInfo from #TmpTbInterfacesAProcessar  )
+*/
+		
+	select		SeqInterfaceInfo = seqinterface 
+	into		#TmpTbInterfacesAProcessar 
+	from		POSTSQL.oxan.[public].tbinterface 
+	where		seqinterface in (1,2,5) 
+
+	
+
+
+	IF OBJECT_ID('tempdb.dbo.#BASE_PRODUTO') is not null drop table tempdb.dbo.#BASE_PRODUTO
+
+
+	select 		ic.seqinterface 
+			,	pr.pr_cdproduto
+			,	pr.pr_descricao 
+			,	pr_embalagemcompra_fator = convert(numeric(13,0), pr.pr_embalagemcompra_fator)
+			,	pr.pr_status
+			,	prb.prb_cdprodutobluesoft_pk
+			,	prb.prb_status
+	into		#BASE_PRODUTO
+	from 		POSTSQL.oxan.[public].tbproduto 				pr 
+	inner join 	POSTSQL.oxan.[public].tbprodutobluesoft 		prb on prb.prb_cdprodutobluesoft_pk = pr.prb_cdprodutobluesoft
+	inner join  POSTSQL.oxan.[public].tbforca_venda_fabricante  fv on fv.fv_fabricante_cdpessoabluesoft = prb.prb_cdpessoabluesoft_fabricante 
+	inner join  POSTSQL.oxan.[public].tbinterface				ic on ic.cdpessoabluesoft = fv.fv_fabricante_cdpessoabluesoft
+	order by ic.seqinterface , pr.pr_descricao 
+
+
+	
+
+
+		/* REGISTRANDO MOVIMENTO SOLICITADO */
+	select		SeqInterfaceInfo				=			pr.SeqInterface
+			,	SEQFATURAMENTO					=			f.SeqFaturamento 
+			,	DATAFATURAMENTO					=			f.DataFaturamento 	
+			,	SeqFaturamentoOrigem			=			o.SeqFaturamentoOrigem 
+			,	SeqItem							=			i.SeqItem 
+			,	CdProduto						=			pr.pr_CdProduto 
+			,	Descricao						=			pr.pr_Descricao 	
+			,	NumeroPedido					=			O.NumeroPedido 
+			,	NumeroNfe						=			O.NumeroNfe 
+			,	ECF								=			isnull(o.ecf,0)
+			,	CupomFiscal						=			isnull(o.cupomfiscal,0)
+			,	EmbalagemEstoque				=			i.EmbalagemEstoque 
+			,	EmbalagemEstoqueQtde			=			i.EmbalagemEstoqueQtde 
+			,	EmbalagemCompra					=			i.EmbalagemCompra 
+			,	EmbalagemCompraQtde				=			I.EmbalagemCompraQtde 
+			,	ValorTotalFaturamentoBruto		=			i.ValorTotalFaturamento
+			,	CdParticipanteCliente			=			f.CdParticipanteCliente 
+			,	CdParticipanteVendedor			=			f.CdParticipanteVendedor
+			,	SeqProcessamentoItemDocumento	=			case f.CdOperacao 
+																	WHEN 1 THEN  '1' + REPLICATE('0',9 - LEN(CONVERT(VARCHAR(9), O.Nfe))) + CONVERT(VARCHAR(9), O.Nfe)
+																	WHEN 2 THEN  '2' 
+																	        + REPLICATE('0', 3 - CONVERT(VARCHAR(2), O.ECF))  + CONVERT(VARCHAR(3), O.ECF) 
+																			+ REPLICATE('0', 6 - LEN(CONVERT(VARCHAR(6), O.CupomFiscal))) + CONVERT(VARCHAR(6), O.CupomFiscal)
+																	else 0 
+																	END
+			,	cdoperacao						=			f.CdOperacao
+	into		#TmpTMDADOS
+	from		OXAN_EST.dbo.TbFaturamentoItens			i
+	inner join  OXAN_EST.dbo.TbFaturamentoOrigem		o	on o.SeqFaturamentoOrigem = i.SeqFaturamentoOrigem 
+	inner join  OXAN_EST.dbo.TbFaturamento				f	on f.SeqFaturamento = o.SeqFaturamento
+	inner join  #BASE_PRODUTO							pr	on pr.pr_cdproduto = i.CdProduto 
+	where		f.StatusFaturamento = 1
+	AND			I.StatusFaturamentoItem = 1
+	AND			F.CdEmpresa = 1
+	AND			F.CdOperacao in (1,2)
+	AND			F.DataFaturamento = @DATAFATURAMENTO_PROCESSAMENTO 
+	AND			NOT EXISTS (			SELECT		1
+										FROM		OXAN_EST.DBO.TbInterfaceFaturamentoInfoItem	a
+										WHERE		a.seqfaturamento = o.seqfaturamento 
+										AND			a.seqfaturamentoorigem = o.seqfaturamentoorigem
+										AND			a.cdproduto = i.cdproduto
+										AND			a.datafaturamento = f.datafaturamento
+										AND			a.seqitem = i.seqitem
+										and			a.CdParticipanteCliente = f.CdParticipanteCliente
+							    )
+	-----------------------------------------------------------------------------------------------------------
+	-----------------------------------------------------------------------------------------------------------
+
+
+
+
+	insert into OXAN_EST.DBO.TbInterfaceFaturamentoInfoItem
+	(		SeqInterfaceInfo				
+		,	SeqFaturamento	
+		,	SeqFaturamentoOrigem
+		,	NumeroPedido 
+		,	Ecf
+		,	CupomFiscal 
+		,	seqitem
+		,	DATAFATURAMENTO				
+		,	CdProduto						
+		,	EmbalagemEstoque
+		,	EmbalagemEstoqueQtde
+		,	EmbalagemCompra
+		,	EmbalagemCompraQtde
+		,	ValorTotalFaturamento			
+		,	DataInfoInicial					
+		,	DataInfoFinal					
+		,	StatusProcessamento		
+		,	CdParticipanteCliente	
+		,	CdParticipanteVendedor
+		,	SeqProcessamentoItemDocumento 
+		,	cdoperacao 
+		
+	) 
+		SELECT		SEQINTERFACEINFO				=	IP.SEQINTERFACEINFO 
+				,	SEQFATURAMENTO					=	ip.seqfaturamento
+				,	SEQFATURAMENTOORIGEM			=	ip.seqfaturamentoorigem
+				,	NUMEROPEDIDO					=	isnull(ip.numeropedido,0)
+				,	ECF								=	isnull(ip.ecf,0)
+				,	CupomFiscal						=	isnull(ip.cupomfiscal,0)
+				,	SeqItem							=	ip.SeqItem 
+				,	DATAFATURAMENTO					=	ip.datafaturamento
+				,	CDPRODUTO						=	ip.cdproduto
+				,	EMBALAGEMESTOQUE				=	ip.embalagemestoque
+				,	EMBALAGEMESTOQUEQTDE			=	ip.embalagemEstoqueQtde
+				,	EMBALAGEMCOMPRA					=	ip.embalagemcompra
+				,	EMBALAGEMCOMPRAQTDE				=	ip.embalagemcompraqtde
+				,	VALORTOTALFATURAMENTOBRUTO		=	ip.valortotalfaturamentobruto 
+				,	DATAINFOINICIAL					=	IP.DATAFATURAMENTO
+				,	DATAINFOFINAL					=	IP.DATAFATURAMENTO
+				,	STATUSPROCESSAMENTO				=	0
+				,	CdParticipanteCliente			=	ip.CdParticipanteCliente 
+				,	CdParticipanteVendedor			=	ip.CdParticipanteVendedor
+				,	SeqProcessamentoItemDocumento   =   ip.SeqProcessamentoItemDocumento 
+				,	cdoperacao						=	ip.cdoperacao 
+		FROM		#TmpTMDADOS ip
+		WHERE		NOT EXISTS (		SELECT		1
+										FROM		OXAN_EST.DBO.TbInterfaceFaturamentoInfoItem					a
+										WHERE		a.seqfaturamento = ip.seqfaturamento 
+										AND			a.seqfaturamentoorigem = ip.seqfaturamentoorigem
+										AND			a.cdproduto = ip.cdproduto
+										AND			a.datafaturamento = ip.datafaturamento
+										AND			a.seqitem = ip.seqitem
+							    )
+		ORDER BY	SEQINTERFACEINFO, SEQFATURAMENTO  ASC
+
+
+
+
+
+
+
+
+
+--- INSERINDO VENDAS SIMULADAS -------------------------------------------------------------------------------------------------------
+insert into OXAN_EST.DBO.TbInterfaceFaturamentoInfoItem
+(		SeqInterfaceInfo				
+	,	SeqFaturamento	
+	,	SeqFaturamentoOrigem
+	,	seqitem
+	,	NumeroPedido
+	,	ECF 
+	,	CupomFiscal
+	,	DATAFATURAMENTO				
+	,	CdProduto						
+	,	EmbalagemEstoque
+	,	EmbalagemEstoqueQtde				
+	,	EmbalagemCompra
+	,	EmbalagemCompraQtde
+	,	ValorTotalFaturamento			
+	,	DataInfoInicial					
+	,	DataInfoFinal					
+	,	StatusProcessamento		
+	,	CdParticipanteVendedor
+	,	CdParticipanteCliente		
+	,	SeqInterfaceFaturamentoAgendamentoSimuladoInfoItem
+	,	SeqProcessamentoItemDocumento 
+	,	cdoperacao 
+) 
+select		SeqInterfaceInfo
+		,	SEQFATURAMENTO				= CONVERT(INT, X.CDPARTICIPANTECLIENTE) + CONVERT(INT,  DAY(DATAFATURAMENTO)) + 9999
+		,	SEQFATURAMENTOORIGEM		= CONVERT(INT, X.CDPARTICIPANTECLIENTE) + CONVERT(INT,  DAY(DATAFATURAMENTO)) + 9999
+		,	SEQITEM						= 99999
+		,	NumeroPedido				= 999999
+		,	ECF							= 999999
+		,	CupomFiscal					= 999999
+		,	DataFaturamento				= X.DATAFATURAMENTO
+		,	CDPRODUTO					= X.cdproduto		
+		,	EmbalagemEstoque			= p.EmbalagemEstoque 
+		,	EmbalagemEstoqueQtde		= X.EmbalagemEstoqueQtde
+		,	EmbalagemCompra				= p.EmbalagemCompra 
+		,	EmbalagemCompraQtde			= convert(numeric(13,4), X.EmbalagemEstoqueQtde / p.EmbalagemCompraQtdeUnitaria)
+		,	ValorTotalFaturamento		= x.ValorTotalFaturamento
+		,	DATAINFOINICIAL				= @DATAFATURAMENTO_PROCESSAMENTO
+		,	DATAINFOFINAL				= @DATAFATURAMENTO_PROCESSAMENTO
+		,	STATUSPROCESSAMENTO         = 0
+		,	CDPARTICIPANTEVENDEDOR      = X.cdparticipantevendedor 
+		,	CDPARTICIPANTECLIENTE       = X.cdparticipantecliente
+		,	SeqInterfaceFaturamentoAgendamentoSimuladoInfoItem
+		,	SeqProcessamentoItemDocumento  = CONVERT(CHAR(1), '9') + REPLICATE('0', 8 - LEN(CONVERT(VARCHAR(9), SeqInterfaceFaturamentoAgendamentoSimuladoInfoItem))) + CONVERT(VARCHAR(8), SeqInterfaceFaturamentoAgendamentoSimuladoInfoItem) 
+		,	99
+FROM		OXAN_EST.DBO.TbInterfaceFaturamentoAgendamentoSimuladoInfoItem X
+INNER JOIN  OXAN_ADM.dbo.TbProduto p on p.CdProduto = x.cdproduto 
+WHERE		X.DATAFATURAMENTO = @DATAFATURAMENTO_PROCESSAMENTO
+and         isnull(x.SeqInterfaceFaturamentoAgendamentoSimuladoInfoItem,0) <> 0
+AND			isnull(x.SeqInterfaceFaturamentoAgendamentoSimuladoInfoItem,0) NOT IN ( SELECT SeqInterfaceFaturamentoAgendamentoSimuladoInfoItem
+																		  FROM   OXAN_EST.DBO.TbInterfaceFaturamentoInfoItem
+																		  WHERE	 DataFaturamento = @DATAFATURAMENTO_PROCESSAMENTO
+																		   and isnull(SeqInterfaceFaturamentoAgendamentoSimuladoInfoItem,0) <> 0 
+																		  )
+
+
+
+
+
+
+/* NUMERO DO DOCUMENTO */	
+	declare @SeqProcessamentoItemDocumento int = ( select MAX(SeqProcessamentoItemDocumento) from OXAN_EST.DBO.TbInterfaceFaturamentoInfoItem  )
+
+
+	update		a	
+			set a.SeqProcessamentoItemDocumento = B.SeqProcessamentoItemDocumento 
+	from		OXAN_EST.DBO.TbInterfaceFaturamentoInfoItem A
+	inner join  (		SELECT		[SeqProcessamentoItemDocumento]		=	ROW_NUMBER() over (order by seqfaturamentoorigem) + @SeqProcessamentoItemDocumento
+								,	[seqfaturamentoorigem]				=	seqfaturamentoorigem
+						FROM		OXAN_EST.DBO.TbInterfaceFaturamentoInfoItem
+						WHERE		SEQPROCESSAMENTOITEMDOCUMENTO IS NULL
+						group by	seqfaturamentoorigem
+				) B ON A.seqfaturamentoorigem = B.seqfaturamentoorigem 
+	AND		CONVERT(CHAR(8), DATAREGISTRO, 112) = CONVERT(CHAR(8), GETDATE(), 112) 
+	and		isnull(a.SeqProcessamentoItemDocumento,0) = 0
+
+
+
+
+declare @TotalRegistros int = (select count(*) from oxan_est.dbo.TbInterfaceFaturamentoInfoItem where DataFaturamento = @DATAFATURAMENTO_PROCESSAMENTO )
+declare @TotalRegistrosSimulados int = (select count(*) from oxan_est.dbo.TbInterfaceFaturamentoInfoItem where DataFaturamento = @DATAFATURAMENTO_PROCESSAMENTO and isnull(SeqInterfaceFaturamentoAgendamentoSimuladoInfoItem,0) <> 0  )
+
+SELECT 'EXEC USPInterfaceFaturamentoInfoItemProcessamento | Registros Processados: ' + convert(varchar(10), @TotalRegistros )
+SELECT 'EXEC USPInterfaceFaturamentoInfoItemProcessamento | Registros Simulados: ' + convert(varchar(10), @TotalRegistrosSimulados )
+
+set nocount off 
+
+
+GO
+
+

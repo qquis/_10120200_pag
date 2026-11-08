@@ -1,0 +1,309 @@
+'use client';
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import moduleUserConnect from "@/api/m0001_sistema/moduleUserConnect";
+
+interface AuthContextType {
+  user: moduleUserConnect;
+  login: (email_main: string, password: string) => void;
+  logout: () => void;
+  openSession: () => void;
+  check: () => Promise<boolean>;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// ==================== CONFIGURAÇÕES DE TEMPO ====================
+const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 horas (controle da aplicação)
+const COOKIE_DURATION_MINUTES = 24 * 60; // 24 horas (expiração do cookie no navegador)
+const CHECK_INTERVAL = 3 * 60 * 60 * 1000; // Verifica a cada 3 horas
+const RENEWAL_THRESHOLD = 1 * 60 * 60 * 1000; // Renova quando restam 1 hora
+const TIME_TOLERANCE = 5 * 60 * 1000; // 5 minutos de tolerância
+
+// ==================== UTILITÁRIOS DE COOKIE ====================
+const setCookie = (name: string, value: string, minutes: number = COOKIE_DURATION_MINUTES) => {
+  if (typeof window === 'undefined') return;
+  
+  const expires = new Date();
+  expires.setTime(expires.getTime() + (minutes * 60 * 1000));
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;secure;samesite=strict`;
+};
+
+const getCookie = (name: string): string | null => {
+  if (typeof window === 'undefined') return null;
+  
+  const nameEQ = name + "=";
+  const ca = document.cookie.split(';');
+  
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+};
+
+const deleteCookie = (name: string) => {
+  if (typeof window === 'undefined') return;
+  
+  document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;secure;samesite=strict`;
+};
+
+// ==================== UTILITÁRIOS DE TEMPO ====================
+const getCurrentTime = (): number => Date.now();
+
+
+
+const isSessionValid = (loginTimestamp: number): boolean => {
+  const currentTime = getCurrentTime();
+  const timeElapsed = currentTime - loginTimestamp;
+  return timeElapsed <= (SESSION_DURATION + TIME_TOLERANCE);
+};
+
+const shouldRenewSession = (loginTimestamp: number): boolean => {
+  const currentTime = getCurrentTime();
+  const timeElapsed = currentTime - loginTimestamp;
+  const timeRemaining = SESSION_DURATION - timeElapsed;
+  return timeRemaining <= RENEWAL_THRESHOLD && timeRemaining > 0;
+};
+
+// ==================== PROVIDER PRINCIPAL ====================
+const AuthProvider = ({ children }: { children: ReactNode }) => {
+  // Estado inicial do usuário
+  const createEmptyUser = (): moduleUserConnect => {
+    const user = new moduleUserConnect();
+    user.user_name = '';
+    user.statusLogin = false;
+    return user;
+  };
+
+  const [user, setUser] = useState<moduleUserConnect>(createEmptyUser());
+
+  // ==================== EFFECTS ====================
+  useEffect(() => {
+    openSession();
+    
+    // Verifica a sessão a cada 3 horas
+    const intervalId = setInterval(() => {
+      checkAndManageSession();
+    }, CHECK_INTERVAL);
+    
+    return () => clearInterval(intervalId);
+  }, []);
+
+  // ==================== GERENCIAMENTO DE SESSÃO ====================
+  const checkAndManageSession = async (): Promise<void> => {
+    try {
+      const userCookie = getCookie("user");
+      const loginTime = getCookie("loginTime");
+      
+      // Se não há cookies, desconecta apenas se estava logado
+      if (!userCookie || !loginTime) {
+        if (user.statusLogin) {
+          handleSessionExpired("Cookies não encontrados");
+        }
+        return;
+      }
+      
+      const loginTimestamp = parseInt(loginTime);
+      
+      // Verifica se a sessão expirou
+      if (!isSessionValid(loginTimestamp)) {
+        handleSessionExpired("Sessão expirou por tempo");
+        return;
+      }
+      
+      // Auto-renovação se necessário
+      if (shouldRenewSession(loginTimestamp) && user.statusLogin) {
+        await renewSession();
+      }
+      
+    } catch (error) {
+      console.error("Erro ao verificar sessão:", error);
+      if (user.statusLogin) {
+        handleSessionExpired("Erro na verificação");
+      }
+    }
+  };
+
+  const renewSession = async (): Promise<void> => {
+    try {
+      const userCookie = getCookie("user");
+      
+      if (!userCookie || !user.statusLogin) {
+        return;
+      }
+      
+      const newLoginTime = getCurrentTime().toString();
+      
+      // Renova os cookies
+      setCookie("user", userCookie);
+      setCookie("loginTime", newLoginTime);
+      
+      //console.log("Sessão renovada automaticamente");
+      
+    } catch (error) {
+      console.error("Erro ao renovar sessão:", error);
+    }
+  };
+
+  const handleSessionExpired = (reason: string): void => {
+    //console.log(`Sessão expirada: ${reason}`);
+    logout();
+    
+    // Mostra alerta apenas se o usuário estava logado
+    if (user.statusLogin) {
+      alert("Sua sessão expirou. Faça login novamente.");
+    }
+  };
+
+  // ==================== FUNÇÕES PRINCIPAIS ====================
+  const openSession = async (): Promise<boolean> => {
+    try {
+      const userCookie = getCookie("user");
+      const loginTime = getCookie("loginTime");
+      
+      if (!userCookie || !loginTime) {
+        setUser(createEmptyUser());
+        return false;
+      }
+      
+      const loginTimestamp = parseInt(loginTime);
+      
+      // Verifica se a sessão ainda é válida
+      if (!isSessionValid(loginTimestamp)) {
+        clearSessionData();
+        setUser(createEmptyUser());
+        return false;
+      }
+      
+      // Restaura o usuário
+      const parsedUser = JSON.parse(decodeURIComponent(userCookie));
+      const restoredUser = new moduleUserConnect();
+      restoredUser.bindingLogin(parsedUser);
+      setUser(restoredUser);
+      
+      return true;
+      
+    } catch (error) {
+      console.error("Erro ao abrir sessão:", error);
+      clearSessionData();
+      setUser(createEmptyUser());
+      return false;
+    }
+  };
+
+  const login = async (email_main: string, password: string): Promise<void> => {
+    // Limpa estado anterior
+    setUser(createEmptyUser());
+    clearSessionData();
+    
+    const newUser = new moduleUserConnect();
+    newUser.email_main = email_main;
+    newUser.PermissaoList = [];
+
+    try {
+      await newUser.login(password);
+      
+      if (newUser.statusLogin) {
+        setUser(newUser);
+        
+        // Salva dados da sessão
+        const userDataForCookie = { ...newUser, password: undefined };
+        const loginTime = getCurrentTime().toString();
+        
+        setCookie("user", encodeURIComponent(JSON.stringify(userDataForCookie)));
+        setCookie("loginTime", loginTime);
+        
+        //console.log("Login realizado com sucesso");
+        
+      } else {
+        setUser(createEmptyUser());
+        throw new Error("Credenciais inválidas.");
+      }
+      
+    } catch (error) {
+      setUser(createEmptyUser());
+      console.error("Erro ao fazer login:", error);
+      throw error instanceof Error ? error : new Error("Erro ao fazer login.");
+    }
+  };
+
+  const check = async (): Promise<boolean> => {
+    try {
+      // Verifica os cookies primeiro
+      const loginTime = getCookie("loginTime");
+      
+      if (!loginTime) {
+        return false;
+      }
+      
+      const loginTimestamp = parseInt(loginTime);
+      
+      if (!isSessionValid(loginTimestamp)) {
+        logout();
+        return false;
+      }
+      
+      if (!user.statusLogin) {
+        return false;
+      }
+      
+      // Verifica com o servidor
+      //const serverCheck = await user.loginCheck(user.user_credential);
+      const serverCheck = await user.loginCheck(user.usuario_login_uuid);
+      user.statusLogin = serverCheck;
+      
+      if (user.statusLogin) {
+        // Renova se necessário
+        if (shouldRenewSession(loginTimestamp)) {
+          await renewSession();
+        }
+      } else {
+        logout();
+      }
+      
+      return user.statusLogin;
+      
+    } catch (error) {
+      console.error("Erro ao verificar sessão:", error);
+      logout();
+      return false;
+    }
+  };
+
+  const logout = (): void => {
+    clearSessionData();
+    setUser(createEmptyUser());
+    
+    // Emite evento para outros componentes
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('userLogout'));
+    }
+    
+    //console.log("Logout realizado");
+  };
+
+  // ==================== UTILITÁRIOS INTERNOS ====================
+  const clearSessionData = (): void => {
+    deleteCookie("user");
+    deleteCookie("loginTime");
+  };
+
+  // ==================== PROVIDER ====================
+  return (
+    <AuthContext.Provider value={{ user, login, logout, openSession, check }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+// ==================== HOOK ====================
+const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth deve ser usado dentro de um AuthProvider");
+  }
+  return context;
+};
+
+export { AuthProvider, useAuth };

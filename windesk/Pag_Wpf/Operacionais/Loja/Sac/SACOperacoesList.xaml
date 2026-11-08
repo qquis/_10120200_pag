@@ -1,0 +1,230 @@
+﻿<Page x:Class="Pag_Wpf.Operacionais.Loja.Sac.SACOperacoesList"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+	Title="SAC - Operações" >
+    <Grid Name="GridCupomFiscal" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Name="RowInfo" Height="92*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="GridCabec" Style="{StaticResource GridBase_Cabecalho}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Style="{StaticResource GridBase_Cabecalho_Border}" Name="BorderTitulo" >
+                <Label Name="LabelTitulo" Style="{StaticResource GridBase_Cabecalho_LabelTitulo}">Operações SAC</Label>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Name="GridInfo" HorizontalAlignment="Center" Background="{x:Null}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Name="ColumnGridInfoList" Width="350"></ColumnDefinition>
+                <ColumnDefinition Name="ColumnGridInfoDados" Width="920"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Name="Gridfiltros" VerticalAlignment="Top" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"></RowDefinition>
+                    <RowDefinition Height="250*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"  Background="#FFA7A2A2">
+                    <StackPanel.BitmapEffect>
+                        <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                    </StackPanel.BitmapEffect>
+                    <Grid Name="dtgridStackPainelfiltros" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label HorizontalAlignment="Left" Style="{StaticResource _LabelSubInfoPrincipal}" >Filtros</Label>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Name="StackPainelFiltros"   Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Stretch">
+                    <TabControl>
+                        <TabItem Header="Básicos" >
+                            <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" ></RowDefinition>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="90"></ColumnDefinition>
+                                    <ColumnDefinition Width="250" ></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Label  Margin="0,0,0,0" Style="{StaticResource _LabelDefault}">Op/E/Cp</Label>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="1"  Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40*"></ColumnDefinition>
+                                            <ColumnDefinition Width="30*"></ColumnDefinition>
+                                            <ColumnDefinition Width="30*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <ComboBox Grid.Column="0"   VerticalAlignment="Stretch" ItemsSource="{Binding}"   Margin="1,1,1,1"  Name="cmbOperadores" Style="{StaticResource _ComboBoxDefault}">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Name="NomeOperador" Text="{Binding NomeOperador}" Width="150"  ></TextBlock>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <ComboBox Grid.Column="1"   ItemsSource="{Binding}"   Margin="1,1,1,1"  Name="cmbECF" Style="{StaticResource _ComboBoxDefault}" HorizontalAlignment="Left" Width="58">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Name="ECF" Text="{Binding ECF}" Width="25"  ></TextBlock>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <TextBox  Grid.Column="2" Margin="1,1,1,1" HorizontalAlignment="Stretch" Name="txtNumeroCupomFiscal" VerticalAlignment="Top" Style="{StaticResource _TextBoxDefault}" HorizontalContentAlignment="Right"     />
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Label Style="{StaticResource _LabelDefault}">Data</Label>
+                                </Border>
+                                <Border Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"  >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="45*"></ColumnDefinition>
+                                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                                            <ColumnDefinition Width="45*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <DatePicker Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" HorizontalAlignment="Center" Name="dtPickerIni" VerticalAlignment="Center"  Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="0" />
+                                        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                        <DatePicker Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="dtPickerFim" Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="1"/>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="2" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Label Margin="0,0,0,0" Style="{StaticResource _LabelDefault}">Operação</Label>
+                                </Border>
+                                <Border Grid.Row="2" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <ComboBox VerticalAlignment="Top" ItemsSource="{Binding}" IsEditable="False" Margin="0,2,0,0" Name="cmbTipoOperacaoSac" Height="25" Style="{StaticResource _ComboBoxDefault}" >
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Name="Descricao" Text="{Binding DescricaoTipo}" ></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Border>
+                                <Border Grid.Row="3" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Label Style="{StaticResource _LabelDefault}">Valor</Label>
+                                </Border>
+                                <Border Grid.Row="3" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"  >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="45*"></ColumnDefinition>
+                                            <ColumnDefinition Width="10*"></ColumnDefinition>
+                                            <ColumnDefinition Width="45*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox  Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" HorizontalAlignment="Stretch" Name="txtvlPgtoIni" VerticalAlignment="Center" Style="{StaticResource _TextBoxDefault}"   HorizontalContentAlignment="Right" />
+                                        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                        <TextBox Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Name="txtvlPgtoFim" Style="{StaticResource _TextBoxDefault}"  HorizontalContentAlignment="Right" />
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Row="4" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <Label Margin="0,0,0,0" Style="{StaticResource _LabelDefault}">Situação</Label>
+                                </Border>
+                                <Border Grid.Row="4" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                    <ComboBox VerticalAlignment="Top" ItemsSource="{Binding}" IsEditable="False" Margin="0,2,0,0" Name="CmbSituacao" Height="25" Style="{StaticResource _ComboBoxDefault}" >
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Name="Descricao" Text="{Binding DescricaoTipo}" ></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </StackPanel>
+            </Grid>
+            <Grid Name="GridList" Grid.Column="1" VerticalAlignment="Top" Margin="10,1,1,1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"></RowDefinition>
+                    <RowDefinition Height="300*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"  Background="#FFA7A2A2">
+                    <StackPanel.BitmapEffect>
+                        <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                    </StackPanel.BitmapEffect>
+                    <Grid Name="dtgridStackPainelTitulolista" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Operações Sac" HorizontalAlignment="Left" Style="{StaticResource _LabelSubInfoPrincipal}" ></Label>
+                        <Button Name="BtnReport" Margin="0,0,0,0" Grid.Column="12" HorizontalAlignment="Stretch"  Style="{StaticResource _ButtonStandard_Imprimir}" Height="20" Width="20"  IsEnabled="True" ></Button>
+                        <Button Name="BtnBuscar" Margin="0,0,10,0" Grid.Column="13" HorizontalAlignment="Right"  Style="{StaticResource _ButtonStandard_Buscar}" Height="20" Width="20" Click="BtnBuscar_Click"></Button>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Name="StackPainelLista" 
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Top"
+                        Margin="1,10,1,1"
+                        Height="290">
+                    <StackPanel.BitmapEffect>
+                        <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                    </StackPanel.BitmapEffect>
+                    <DataGrid Name="DataGridOperacoesSac" HorizontalAlignment="Stretch">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="50" Header="Seq" Binding="{Binding SeqOperacaoSac}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="150" Header="Tipo" Binding="{Binding TipoDescricao}"></DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="70" Header="Data" Binding="{Binding DataLancamento, StringFormat=dd/MM/yyyy}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="60" Header="Hora" Binding="{Binding DataEmissao, StringFormat=HH:mm:ss}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="150" Header="Situação" Binding="{Binding DescricaoSituacao}"/>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="130" Header="Usuário" Binding="{Binding UsuarioNome}"/>
+
+
+                                    
+                                 
+                                </DataGrid.Columns>
+                            </DataGrid>
+                </StackPanel>
+            </Grid>
+            <Grid Name="GridLabels" Grid.Column="1" VerticalAlignment="Top">
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

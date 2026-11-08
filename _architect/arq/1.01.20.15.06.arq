@@ -1,0 +1,105 @@
+sorteio: 10/11 _ 16/12
+valor minimo: 100,00
+
+
+
+Jorge Ferreira
+V1.0, 05/11/2025
+INTRODUÇÃO
+Este documento descreve o endpoint que deverá ser utilizado para a comunicação
+periódica de vendas.
+Atenção
+Somente devem ser enviadas vendas que correspondem aos critérios do sorteio,
+nomeadamente:
+● Vendas efetuadas somente do período de participação
+● Valores mínimos atingidos
+● Obrigatoriedade de CPF de participante
+DADOS ESPERADOS
+Os dados devem ser enviados como JSON, e seguir a seguinte estrutura (body do
+pedido):
+{
+"akey": "abcdef....", ← Será fornecido após configuração do ambiente
+"data": [
+{
+"idorigem": 19871, ← Vosso ID único da venda
+"doc_num": "12345678901", ← CPF do cliente completo 11 dígitos!
+"loja": 1, ← No vosso caso enviam sempre 1
+"cupom": 1234, ← Número único do cupom emitido
+"data_hora": "2025-11-05 12:35:41", ← Data e hora formatada
+"data": "2025-11-05", ← Data formatada
+"fidelidade": 0, ← No vosso caso enviam sempre 0
+"tipo_venda": 1, ← No vosso caso enviam sempre 1
+"valor": 123.58 ← Valor total/final da venda, o ponto é
+separador decimal
+},
+...,
+{
+"idorigem": 19889, ← Vosso ID único da venda
+"doc_num": "00987654321", ← CPF do cliente completo 11 dígitos!
+"loja": 1, ← No vosso caso enviam sempre 1
+"cupom": 6542, ← Número único do cupom emitido
+"data_hora": "2025-11-05 17:12:24", ← Data e hora formatada
+"data": "2025-11-05", ← Data formatada
+"fidelidade": 0, ← No vosso caso enviam sempre 0
+"tipo_venda": 1, ← No vosso caso enviam sempre 1
+"valor": 1025.12 ← Valor total/final da venda, o ponto é
+separador decimal
+}
+]
+}
+RESPOSTAS
+O sistema irá responder com alguma das seguintes mensagens:
+Retorno Descrição
+{
+"status": 200,
+"message": "Vendas importadas: 500",
+"extra": ""
+}
+Resultado esperado de
+sucesso
+{
+"status": 201,
+"message": "Vendas importadas: 199, Erros: 4",
+"extra": [1234,3456,788,8994]
+}
+Resultado parcial de
+sucesso.
+Algumas vendas não puderam
+ser registradas.
+No extra é retornado um
+array de idorigem das
+vendas que deram erro.
+{
+"status": 401,
+"message": "Authentication required",
+"extra": ""
+}
+A chave de autenticação não
+foi enviada ou está
+incorreta.
+{
+"status": 500,
+"message": "Invalid payload",
+"extra": ""
+}
+Não foi enviado o elemento
+com as vendas (data)
+{
+"status": 500,
+"message": "Unkown Service Endpoint",
+"extra": ""
+}
+O endpoint para o qual foi
+realizado o pedido não
+existe ou é inválido para a
+operação/autenticação
+ENDPOINT
+O endpoint será configurado em:
+https://aniversariopremiadooxan.qquis.com/api-services/sales/
+Método: POST
+Chave de autenticação
+55bf55e11f060db80f2dd4ea885f1ce8592eb4edaf896dbe71e4cc6cf5ff044c
+LIMITES E RESTRIÇÕES
+Devem-se seguir os seguintes condições:
+- Não exceder as 500 vendas por iteração sem autorização/validação prévia
+- Preferencialmente não efetuar comunicações entre as 03h e 07h

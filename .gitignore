@@ -1,0 +1,34 @@
+/__bin
+**/*.suocd 
+**/*.env
+**/*.txt
+**/*.exe
+**/*.dll
+**/*.obj
+**/packages
+**/node_modules
+**/BIN
+**/.wwebjs_auth
+**/.wwebjs_cache
+**/Back
+**/_info
+**/*.next
+**/*.pdb
+**/*.application 
+**/*.cache
+**/*.cache
+**/*.manifest 
+**/.next
+**/*.suo
+# Visual Studio files
+**/obj/
+**/bin/
+**/*.user
+**/*.sln.docstates
+# Build results
+**/[Dd]ebug/
+**/[Rr]elease/
+/log/
+**/*-lock.json
+**/ecosystem.config.js
+**/.env.production

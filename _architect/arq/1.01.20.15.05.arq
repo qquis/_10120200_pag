@@ -1,0 +1,22 @@
+
+
+
+25/10/2025
+1) [ok] WEBC _ Implementar contador de erro no login - OK
+2) [ok] Backend - Setar o projeto para não aceitar mais acessos sem o uuid do user definido. 
+    2.2 conferir o WEBC
+    2.3 conferir o WEB 
+3)  INFRA | KINGHOST
+    - Ver a questão da VPN com o site 
+    
+
+29/10/2025 
+1) Colocamos a atualização da base do sorteio juntamente com a atualização das vendas zanthus
+    [m9030]/service/ servicesistemabatch.ts
+                case `F0055`: // __ Processamento de Vendas __________________________________ 
+                    await batch_module_m0055.start(modelsistema_batch_select.sistema_batch_run.sis_batch_run_seq)
+                    await batch_module_m0090.start(modelsistema_batch_select.sistema_batch_run.sis_batch_run_seq)
+                    break;  
+
+
+

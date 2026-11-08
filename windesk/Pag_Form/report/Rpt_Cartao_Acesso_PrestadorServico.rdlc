@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Image Name="Image1">
+        <Source>Embedded</Source>
+        <Value>LOGO</Value>
+        <Sizing>FitProportional</Sizing>
+        <Top>0.36124cm</Top>
+        <Left>0.36798cm</Left>
+        <Height>0.865cm</Height>
+        <Width>2.60562cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
+      <Textbox Name="Textbox4">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Oxan Atacadista Ltda</Value>
+                <Style>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>CNPJ 57.895.328/0001-30</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Av. Rio das Pedras, 729 | Cep 0053-000</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>São Paulo - SP</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.36124cm</Top>
+        <Left>3.32581cm</Left>
+        <Height>2.02917cm</Height>
+        <Width>9.55654cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>N. Cartão</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>2.74319cm</Top>
+        <Left>0.36798cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.5cm</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Line Name="Line4">
+        <Top>2.5668cm</Top>
+        <Left>0.36798cm</Left>
+        <Height>0cm</Height>
+        <Width>12.40875cm</Width>
+        <ZIndex>3</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
+      <Textbox Name="Txtcartao_acesso_numero">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!pcartao_acesso_numero.Value</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>3.4843cm</Top>
+        <Left>0.36798cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.79646cm</Width>
+        <ZIndex>4</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Image Name="imgCodigoBarra">
+        <Source>External</Source>
+        <Value>=Parameters!ppath_cdbarra.Value</Value>
+        <Sizing>FitProportional</Sizing>
+        <Top>2.74319cm</Top>
+        <Left>4.69053cm</Left>
+        <Height>4.35751cm</Height>
+        <Width>8.0862cm</Width>
+        <ZIndex>5</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
+      <Textbox Name="Txturlfigura">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!ppath_cdbarra.Value</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>7.72837cm</Top>
+        <Left>0.36798cm</Left>
+        <Height>0.6cm</Height>
+        <Width>6.95029cm</Width>
+        <ZIndex>6</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <Height>3.5in</Height>
+    <Style />
+  </Body>
+  <Width>5.50179in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="Pag_NetBllF0137_CartaoAcesso">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>a29e9dba-3049-483d-86bb-d3962577db1d</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>Pag_NetBllF0137_CartaoAcesso</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="cartao_acesso_cdbr">
+          <DataField>cartao_acesso_cdbr</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cartao_acesso_data">
+          <DataField>cartao_acesso_data</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="cartao_acesso_numero">
+          <DataField>cartao_acesso_numero</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="cartao_acesso_seq">
+          <DataField>cartao_acesso_seq</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="cartao_acesso_status">
+          <DataField>cartao_acesso_status</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="cartao_acesso_tipo_cd">
+          <DataField>cartao_acesso_tipo_cd</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="cartao_acesso_tipo_descricao">
+          <DataField>cartao_acesso_tipo_descricao</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cartao_acesso_validade_fim">
+          <DataField>cartao_acesso_validade_fim</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="cartao_acesso_validade_ini">
+          <DataField>cartao_acesso_validade_ini</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="cdparticipante">
+          <DataField>cdparticipante</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="cdpessoabluesoft">
+          <DataField>cdpessoabluesoft</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="dtlog_insert">
+          <DataField>dtlog_insert</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="dtlog_update">
+          <DataField>dtlog_update</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="LOCAL_DESCRICAO_cartao_acesso_status">
+          <DataField>LOCAL_DESCRICAO_cartao_acesso_status</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="rh_funcionario_cd">
+          <DataField>rh_funcionario_cd</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>Pag_Net.Bll.F0137_CartaoAcesso</rd:DataSetName>
+        <rd:TableName>model_cartao_acesso</rd:TableName>
+        <rd:ObjectDataSourceType>Pag_Net.Bll.F0137_CartaoAcesso.model_cartao_acesso, Pag_Net_BLL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="pcartao_acesso_numero">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ppath_cdbarra">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <EmbeddedImages>
+    <EmbeddedImage Name="LOGO">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>2a37c4f2-9156-4ec6-b19f-dce015a3fddf</rd:ReportID>
+</Report>

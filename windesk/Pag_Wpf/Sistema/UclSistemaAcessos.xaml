@@ -1,0 +1,160 @@
+﻿<UserControl x:Class="Pag_Wpf.Sistema.UclSistemaAcessos"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:My="clr-namespace:Pag_Wpf.UserControls"
+             
+      mc:Ignorable="d" 
+         Height="520" Width="1000">
+    <Grid Name="GRIDBasic" Background="{StaticResource _BackGroundLinerGradientMain}" MaxHeight="510" MaxWidth="1000">
+        <Grid.RowDefinitions>
+            <RowDefinition Name="RowCabec" Height="Auto"></RowDefinition>
+            <RowDefinition Name="RowDados" Height="Auto"></RowDefinition>
+            <RowDefinition Name="RowFolter" Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="GRIDCabecalho"  Style="{StaticResource UclCabecalho}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55*"></ColumnDefinition>
+                <ColumnDefinition Width="15*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label  Style="{StaticResource UclCabecalhoLabelPrincipal}" >Sistema - Acessos</Label>
+            <Rectangle Grid.Row="0" Grid.ColumnSpan="4" Style="{StaticResource UclLinhaSubtitulo}"></Rectangle>
+            <My:UclButton Grid.Column="1" x:Name="CMDBuscar" Text="Exibir Registros" Height="30"  UclButtonMaxWidth="150"    ImageNoClick="{StaticResource _ButtonImageBrush_Buscar}" ImageClick="{StaticResource _ButtonImageBrush_Buscar_Click}" Click="CMDBuscar_Click"></My:UclButton>
+        </Grid>
+        <Grid Grid.Row="1" Name="GridInfo" Style="{StaticResource UclGridInfo}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="1"></ColumnDefinition>
+                <ColumnDefinition Width="95*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Expander Grid.Column="0" ExpandDirection="Right" >
+                <StackPanel Style="{StaticResource UclStackPainel}">
+                    <Grid VerticalAlignment="Top" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="365"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Content="Filtros" HorizontalAlignment="Left" Style="{StaticResource UclLabelFiltros}" ></Label>
+                            <Rectangle Grid.Row="0" Grid.ColumnSpan="4" Style="{StaticResource UclLinhaSubtitulo}"></Rectangle>
+                        </Grid>
+
+
+                        <TabControl Grid.Row="1" Height="350" VerticalAlignment="Top">
+                            <TabItem Header="Básicos" >
+                                <Grid >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="35" ></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"></ColumnDefinition>
+                                        <ColumnDefinition Width="180"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                        <Label Content="Formulário" Grid.Row="1" HorizontalContentAlignment="Left" Style="{StaticResource _LabelFormInfo}" />
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                        <TextBox Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="TXTFormulario" Style="{StaticResource _TextBoxDefault}" HorizontalContentAlignment="Left" />
+                                    </Border>
+
+
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+                </StackPanel>
+            </Expander>
+            <StackPanel Grid.Column="3"  Style="{StaticResource UclStackPainel}" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"></RowDefinition>
+                        <RowDefinition Height="220"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Style="{StaticResource UclStackPainel}" >
+                        <DataGrid Name="DTGSistemaProcessosFormularios" Grid.Row="0"  HorizontalAlignment="Stretch" Height="200" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Cod." Binding="{Binding Cd_Form_Proc}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="90*" Header="Formulário" Binding="{Binding Descricao}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="CMDDetalhe" Style="{StaticResource _ButtonStandard_Detalhes}" Height="10" Width="10" Click="CMDDetalhe_Click" ></Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Style="{StaticResource UclStackPainel}" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90*"></ColumnDefinition>
+                                <ColumnDefinition Width="10*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <DataGrid Name="DTGSistemaAcessos" Grid.Row="0"  HorizontalAlignment="Stretch" Height="190" MaxHeight="190">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn IsReadOnly="True"  Width="5*" Header="Função" Binding="{Binding Cd_Funcao}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="20*" Header="Função" Binding="{Binding DescricaoFuncao}"></DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="5*" Header="Tarefa" Binding="{Binding Cd_Tarefa}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="15*" Header="Tarefa" Binding="{Binding DescricaoTarefa}"></DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="5*" Header="Parametro" Binding="{Binding Cd_Parametro}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="Parametro" Binding="{Binding ParametroDescricao}"></DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True"  Width="15*" Header="Valor" Binding="{Binding Valor}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                            <My:UclButton Grid.Column="1" x:Name="CMDIncluir" Text="Incluir" Height="30"  UclButtonMaxWidth="150"    ImageNoClick="{StaticResource _ButtonImageBrush_Incluir}" ImageClick="{StaticResource _ButtonImageBrush_Incluir_Click}" Click="CMDIncluir_Click" ></My:UclButton>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
+
+
+
+    

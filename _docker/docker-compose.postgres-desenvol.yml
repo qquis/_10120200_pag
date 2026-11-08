@@ -1,0 +1,17 @@
+services:
+  postgres_desenvol:
+    image: postgres:18
+    container_name: DESENVOL
+    shm_size: 1gb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: post@57895
+    volumes:
+      - pgdata_desenvol:/var/lib/postgresql
+
+volumes:
+  pgdata_desenvol:
+    external: true
+    name: a9d6e8627e778b75894d9c3f3c9d3fab9a5665cffd7b7e8f89c5636abbc3d2b7

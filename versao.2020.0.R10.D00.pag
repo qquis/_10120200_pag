@@ -1,0 +1,174 @@
+
+-----------------------------------------------------------------------------------------------
+B18.15 Commit - 03
+    - Ajuste no zanthus ctrl, que apura as diferenças entre o Pag Faturamento e a zanthus.
+    - web version valid 
+    
+B18.15 Commit - 04
+    - Importar na API os dados de PESO / COMPRIMENTO : Testar impacto de produtos alterados / log para exportar para o pdv
+    
+B18.15 Commit - 07
+    - Importar na API os dados de PESO -> Entrega da primeira parte API/PESO
+    
+B18.16 Commit [Indicar PESOS na tab mercadoria, tela de conferencia de integração na web, etc]
+    - B18.16.01 start
+    
+    
+B18.16 Commit - 02
+    - Indicar peso bruto e variavel na tabela zanthus
+    
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+Arquitetura 20.18
+
+1. Model
+1.1 Finalidade: Trata de objetos (tabelas) de forma unitária ou admite a consulta de registros relacionados.
+
+Modelo modelbaseX
+    static _models: Lista de models em modo objeto inicializado
+    static _modelsGets: Dados prontos 
+    static _modelsRelational: Consulta/Atualizações com tabelas relacionadas  
+    static _modelscripts: Script de atualizações relacionadas / funções 
+
+
+
+2 Reports 
+2.1 Finalidade: Objetivo total em listagem (Não pode fazer updates)
+
+3 service 
+3.1 Finalidade: Executa ações em blocos: EXemplos (integrações)
+
+
+
+Conects DESENVOL
+192.168.15.4 _ LOCAL_DES | 1432
+192.168.1.6  _ DESENVOL  | 5432 
+
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+Arquitetura 20.07
+
+Backend \backend 
+    - Toda a estrutura de backend do sistema 
+
+Service OLD \service
+    - Executa apenas o serviço de atualização de estoque 
+
+front
+    front\web 
+        - nova plataforma web 
+
+    front\service   
+        - execução de serviços
+
+    front\whats
+        - whats de atendimento loja 
+
+    front\whats_adm 
+        - envio de e-mail 
+        - envio de mensagens whats para o grupo adm 
+
+    front\whats_portaria
+        - envio de informações para os motoristas que fazem entrega na portaria
+
+
+windkes
+    sistema desktop     
+
+
+PREMISSA 
+1 service : processamentos de varios registros
+    arquivo Base (faz conexão com o banco)
+    arquivos secundarios (nao faz conexão com o banco)
+
+
+2 model: entidade (propriedades e metodos)
+    arquivo Base (faz conexão com o banco)
+    arquivos secundarios (nao faz conexão com o banco)
+        -->> implementando ainda
+    2.1 Sempre deve herdar um objeto (entidade principal: ex. modelcliente : cliente)
+    2.2 pode possuir modelos que herdam objetos secundarios (modelenderecos : tbenderecos)
+
+
+3 report: listagem 
+    arquivo Base (faz conexão com o banco)
+    arquivos secundarios (nao faz conexão com o banco)
+
+
+
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+
+
+VERSAO 1.01.20.18 __ B01
+    
+    
+    
+    
+    /wk/projects/pag/__VERSAO/backend/src/modules/m0021_produtobluesoft/batch.ts
+        - Alterar para que a leitera seja sem a atualização da regra para que a regra seja atualizada 
+        de maneira separada. 
+
+
+
+
+
+¹ BEM-AVENTURADO o varão que não anda segundo o conselho dos ímpios, nem se detém no caminho dos pecadores, 
+nem se assenta na roda dos escarnecedores.
+² Antes tem o seu prazer na lei do Senhor, e na sua lei medita de dia e de noite.
+³ Pois será como a árvore plantada junto a ribeiros de águas, a qual dá o seu fruto na estação própria, 
+e cujas folhas não caem, e tudo quanto fizer prosperará.
+⁴ Não são assim os ímpios; mas são como a moinha que o vento espalha.
+⁵ Pelo que os ímpios não subsistirão no juízo, nem os pecadores na congregação dos justos.
+⁶ Porque o Senhor conhece o caminho dos justos; mas o caminho dos ímpios perecerá.
+
+Salmos 1:1-6 | RC69
+Bíblia Online
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT f0021_01_1012018_produtobluesoft_crud ( sqlcommand: ='DBINSERT'  , vprb_cdprodutobluesoft_pk:= 1  , vprb_cdprodutobluesoftunitario:= 1 , vprb_descricao:= 'LAMP. FLC LED TUBULAR GLASS 18W BIVOLT'  , vprb_embalagemestoque:= 'UN'  , vprb_fatorestoque:= 1.00  , vprb_status_embalagemcaixa:= False  , vprb_embalagemcompra:= 'UN'  , vprb_embalagemcompra_qtdeunitaria:= 1.00  , vprb_cdbarra_principal:= '10100'  , vprb_cdprodutobluesoft_controleestoque:= 0  , vprb_cdprodutobluesoft_controlepreco:=    0  , vprb_cdsubgrupo:= 4  , vprb_dt_cadastro:= '2015-12-07'  , vprb_dt_ultimaalteracao:= '2015-12-07'  , vprb_cdpessoabluesoft_fabricante:= 0  , vprb_vendaexterna:= False  , vprb_descricao_fiscal:= ' - '  , vprb_cdproduto_compra_padrao:= 0  , vprbf_seq:= 0  , vprb_status:= False  , vprb_tipo_composicao_cd:= 1  , vprb_descricao_gondola:= 'LAMP. FLC LED TUBULAR GLASS 18W BIV'  , vprb_descricao_cupom:= 'LAMP. FLC LED TUBULA'  , vprb_descricao_balanca:= 'LAMP. FLC LED TUBULA'  , vprb_cdpessoabluesoft_fornecedor:= 24999  , vprb_cdpessoabluesoft_fornecedor_troca:= 24999  , vprb_pesobruto:= 1.0000  , vprb_pesoliquido:= 1.0000  , vprb_largura:= 0  , vprb_altura:= 0  , vprb_pesoaproximado:= 0  , vprb_comprimento:= 0  , vprb_blue_fc_cbenef_cd:= ''  , vcommand_api:= false  ) 

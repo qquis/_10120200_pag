@@ -1,0 +1,35 @@
+	update 	tbproduto a
+	set		pr_cesta = true
+	FROM    ( SELECT b.prb_cdprodutobluesoft_unitario FROM tbproduto_composicao b GROUP BY b.prb_cdprodutobluesoft_unitario ) b
+	WHERE   1 = 1
+	AND 	b.prb_cdprodutobluesoft_unitario = a.prb_cdprodutobluesoft;
+
+
+
+	select * from tbproduto_composicao where prb_cdprodutobluesoft_unitario = 223100
+	SELECT pr_cdproduto, pr_descricao, pr_cesta, prb_cdprodutobluesoft,  * FROM TBPRODUTO WHERE PR_CDPRODUTO = 223100
+
+
+	SELECT  a.pr_cdproduto, a.prb_cdprodutobluesoft, a.pr_descricao, b.prb_cdprodutobluesoft_unitario
+	FROM    tbproduto a, 
+	( SELECT b.prb_cdprodutobluesoft_unitario FROM tbproduto_composicao b GROUP BY b.prb_cdprodutobluesoft_unitario ) b
+	WHERE   1 = 1
+	AND 	b.prb_cdprodutobluesoft_unitario = a.prb_cdprodutobluesoft;
+
+
+select * from tbproduto where pr_cesta = 'true' and pr_cdproduto = 223100
+
+
+SELECT 'TRUE'::boolean, 't'::boolean, '1'::boolean, 
+       'FALSE'::boolean, 'f'::boolean, '0'::boolean;
+
+	   UPDATE TBPRODUTO SET PR_CESTA = null  WHERE PR_CDPRODUTO = 223100 
+
+
+UPDATE tbproduto p
+SET pr_cesta = 'true'
+WHERE EXISTS (
+    SELECT 1 
+    FROM tbproduto_composicao c
+    WHERE c.prb_cdprodutobluesoft_unitario = p.prb_cdprodutobluesoft
+);	   

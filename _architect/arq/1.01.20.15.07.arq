@@ -1,0 +1,51 @@
+1.01.20.15.07.arq
+
+
+DESENVOLVIMENTOS
+
+1)    DESENVOLVIMENTO DA TELA DE CONSULTA DE PRODUTO 
+2)    DESENVOLVIMENTO DA TELA DE CONSULTA DE PRODUTO COM FOCO FISCAL
+
+1)    DESENVOLVIMENTO DA TELA DE CONSULTA DE PRODUTO 
+1.1)  Integração com a figura fiscal - ok 
+        a) Criação da leitura da api 
+        b) criação da impoeração 
+1.2)  DESENVOLVIMENTO WEB 
+        a) consulta web basica inicializada
+
+1.3)  ANÁLISE DOS DADOS 
+        a) problema básico com o cadastro de produto    
+        - AJUSTE REALIZADO no importação do PAG WIN 
+
+
+
+
+
+
+
+
+AJUSTES / Atenção
+VERSAO_20.15.7.3 
+
+    BATABASE
+    - NEW TABLES Fiscal 
+    - NEW SERVICE BATCH
+    - NEW PROCEDIMENTO
+    - NEW MODULO
+
+    BACKEND 
+    - NEW       MODULE F0040_fiscal
+    - UPDATE    MODULE F0020_PRODUTO 
+
+    WIN 
+    - ALTERAÇÃO NA integração de produto BLL\F0021_ProdutoBluesoft\pg.F0021_01.ProdutoBluesoft_CRUD.cs
+   
+    Service
+    - UPDATE    API (ADEQUAÇÃO PARA AUMENTO DE TIMEOUT)
+
+    WEB 
+    - UPDATE    WEB Cadastro/Produto 
+    
+
+
+VERSAO B07

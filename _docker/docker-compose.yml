@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  ms_adm:
+    build: 
+      context: ..
+      dockerfile: _docker/Dockerfile
+    image: whats_back:latest
+    container_name: ms_adm
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT_WHATSAPP=3001
+    env_file:
+      - ../front/ms_adm/_env/.env_ms_adm
+    volumes:
+      - ./data/ms_adm/.wwebjs_auth:/app/front/ms_adm/.wwebjs_auth
+      - ./data/ms_adm/session.json:/app/front/ms_adm/session.json
+      - ./logs/ms_adm:/app/front/ms_adm/logs
+    networks:
+      - whats-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  ms_portaria:
+    image: whats_back:latest
+    container_name: ms_portaria
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+      - PORT_WHATSAPP=3002
+    env_file:
+      - ../front/ms_adm/_env/.env_ms_portaria
+    volumes:
+      - ./data/ms_portaria/.wwebjs_auth:/app/front/ms_adm/.wwebjs_auth
+      - ./data/ms_portaria/session.json:/app/front/ms_adm/session.json
+      - ./logs/ms_portaria:/app/front/ms_adm/logs
+    networks:
+      - whats-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+networks:
+  whats-network:
+    driver: bridge

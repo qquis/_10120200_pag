@@ -1,0 +1,35 @@
+import { clsBase, clsTools } from "../../../model/modelbase";
+
+const myBase = new clsBase();
+
+export default class reportProdutoCategoria { 
+    static sql (parametro: any) : string {
+        let sql = ` 
+           select	 	sb.prsg_cdsubgrupo 
+                    , 	sb.prsg_descricao
+                    ,	gr.prg_cdgrupo 
+                    ,	gr.prg_descricao
+                    ,	sc.prs_cdsecao 
+                    ,	sc.prs_descricao
+                    ,	dp.prd_cddepartamento 
+                    ,	dp.prd_descricao
+            from 		tbproduto_subgrupo sb 
+            left join   tbproduto_grupo gr on gr.prg_cdgrupo = sb.prg_cdgrupo 
+            left join   tbproduto_secao sc on sc.prs_cdsecao = gr.prs_cdsecao
+            left join   tbproduto_departamento dp on dp.prd_cddepartamento = sc.prd_cddepartamento
+            where 1 = 1
+            order by dp.prd_descricao 
+                    , sc.prs_descricao 
+                    , gr.prg_descricao 
+                    , sb.prsg_descricao
+                    
+        `
+
+        return sql 
+    }
+    static async get(parametro: any) : Promise<object> { 
+        let sql = this.sql(parametro);
+        let result = await myBase.myDataBase.pag.DataGet(this.sql(parametro));
+        return result;
+    }
+}

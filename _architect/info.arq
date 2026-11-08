@@ -1,0 +1,3 @@
+FUNCAO f0085_51_1012017_zanthus_carga_tributacao
+select * from tbzanthus_tributacao_nfce
+select * from tbzanthus_tributacao_nfce_cod_tributacao

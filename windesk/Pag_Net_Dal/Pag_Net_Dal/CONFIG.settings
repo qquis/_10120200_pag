@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Pag_Net" GeneratedClassName="CONFIG">
+  <Profiles />
+  <Settings>
+    <Setting Name="ServicePagDataSource" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ELIASN</Value>
+    </Setting>
+    <Setting Name="ServicePagUsr" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sa</Value>
+    </Setting>
+    <Setting Name="ServicePagPassWord" Type="System.String" Scope="User">
+      <Value Profile="(Default)">swp141722rej</Value>
+    </Setting>
+    <Setting Name="ServicePagDataBase" Type="System.String" Scope="User">
+      <Value Profile="(Default)">OXAN_OPE</Value>
+    </Setting>
+    <Setting Name="ServicePagTimeConnection" Type="System.String" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="ServicePagTimeCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

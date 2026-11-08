@@ -1,0 +1,16 @@
+
+select * from tbfc_regrafiscal_nfce_produto where dtlog_update >= '2026-03-31 01:01:01'
+select dtlog_update from tbprodutobluesoft
+
+update tbfc_figurafiscal_produto set fc_figurafiscal_cd = 0 where prb_cdprodutobluesoft = 43
+select * from tbfc_figurafiscal_produto where prb_cdprodutobluesoft = 43
+
+
+select pr_cdproduto, pr_pag_fc_cbenef_cd from tbproduto limit 10
+
+update tbproduto  x
+set    pr_pag_fc_cbenef_cd = a.prb_blue_fc_cbenef_cd
+from   tbprodutobluesoft a 
+where  a.prb_cdprodutobluesoftunitario = x.prb_cdprodutobluesoft 
+  and  coalesce(x.pr_pag_fc_cbenef_cd, '') = ''
+  and  coalesce(a.prb_blue_fc_cbenef_cd, '') != coalesce(x.pr_pag_fc_cbenef_cd, '') 

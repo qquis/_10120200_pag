@@ -1,0 +1,160 @@
+﻿<Window x:Class="Pag_Wpf.Cadastro.WindowFormParticipante"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:My="clr-namespace:Pag_Wpf.UserControls"
+      mc:Ignorable="d" 
+                 Height="700" 
+        Width="1000" WindowState="Maximized" Background="{StaticResource _BackGroundLinerGradientMain}">
+    <Viewbox Stretch="Fill" VerticalAlignment="Center" >
+        <Grid Name="GRIDBasic" Margin="0,10,0,0" Background="{StaticResource _BackGroundLinerGradientMain}" Height="700" Width="1000" MaxHeight="700" MaxWidth="1000" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Name="RowCabec" Height="Auto"></RowDefinition>
+                <RowDefinition Name="RowDados" Height="Auto"></RowDefinition>
+                <RowDefinition Name="RowFolter" Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Name="GRIDCabecalho"  Style="{StaticResource UclCabecalho}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40*"></ColumnDefinition>
+
+                    <ColumnDefinition Width="60*"></ColumnDefinition>
+                    <ColumnDefinition Width="10*" ></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <Label  Style="{StaticResource UclCabecalhoLabelPrincipal}" >Detalhe - Participante</Label>
+                <Rectangle Grid.Row="0" Grid.ColumnSpan="4" Style="{StaticResource UclLinhaSubtitulo}"></Rectangle>
+                <My:UclLabelText Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" x:Name="UclLabelNome" Caption="Nome"  Height="30" UclLabelWidth="100" UclTextWidth="335" ></My:UclLabelText>
+                <My:UclButton Grid.Column="2" HorizontalAlignment="Right" x:Name="CMDSair"  Height="30"  UclButtonMaxWidth="100" ToolTip="Sair do Formulário"   ImageNoClick="{StaticResource _ButtonImageBrush_Sair}" ImageClick="{StaticResource _ButtonImageBrush_Sair_Click}" Click="CMDSair_Click"></My:UclButton>
+            </Grid>
+            <Grid Grid.Row="1" Name="GridInfo" Style="{StaticResource UclGridInfo}" Height="550" Margin="0,2,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="1"></ColumnDefinition>
+                    <ColumnDefinition Width="95*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="3"  Style="{StaticResource UclStackPainel}" >
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Height="30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <My:UclLabelText Grid.Row="0" Grid.Column="0" x:Name="UclLabelCdParticipante" Caption="Código" Height="30" UclLabelWidth="150" UclTextWidth="250" ></My:UclLabelText>
+                            <My:UclLabelText Grid.Row="0" Grid.Column="1" x:Name="DataNascimento" Caption="Data Nasc. /Inicio Atividade"  UclLabelWidth="150" UclTextWidth="250" ></My:UclLabelText>
+                        </Grid>
+                        <TabControl Grid.Row="2" Height="500">
+                            <TabItem Header="Conteúdo">
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Height="240" VerticalAlignment="Top">
+                                            <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                            <My:UclLabelText Grid.Row="0" Grid.Column="0" x:Name="UclLabelTipoEntidade" Caption="Tipo Entidade"  UclLabelWidth="100" UclTextWidth="300" ></My:UclLabelText>
+                                            <My:UclLabelText Grid.Row="1" Grid.Column="0" x:Name="UclLabelDocumento" Caption="Documento"  UclLabelWidth="100" UclTextWidth="300" ></My:UclLabelText>
+                                            <My:UclLabelText Grid.Row="2" Grid.Column="0" x:Name="UclLabelDocumentoNumero" Caption="Número"  UclLabelWidth="100" UclTextWidth="300" ></My:UclLabelText>
+                                            <My:UclLabelText Grid.Row="3" Grid.Column="0" x:Name="UclLabelCategoria" Caption="Categoria"  UclLabelWidth="100" UclTextWidth="300" ></My:UclLabelText>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="150"></RowDefinition>
+                                            <RowDefinition Height="150"></RowDefinition>
+                                            <RowDefinition Height="150"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Grid.Row="0" Style="{StaticResource UclStackPainel}" Height="100" Width="100">
+                                            <Label Content="Imagem" Grid.Row="1" HorizontalContentAlignment="Center" Style="{StaticResource _LabelFormInfo}"  />
+                                            <Image Name="ImgParticipante"  HorizontalAlignment="Center" VerticalAlignment="Top" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Style="{StaticResource UclStackPainel}" Margin="3,3,3,3" Height="100" VerticalAlignment="Top">
+                                            <Label Content="Participante X Empresa" Grid.Row="1" HorizontalContentAlignment="Center" Style="{StaticResource _LabelFormInfo}"  />
+                                            <DataGrid Name="DTGParticipanteEmpresa" Height="120" VerticalAlignment="Top" >
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn IsReadOnly="True"  Width="3*" Header="Seq" Binding="{Binding SeqTipoParticipanteEmpresa}"/>
+                                                    <DataGridTextColumn IsReadOnly="True"  Width="20*" Header="Tipo" Binding="{Binding DescricaoTipoParticipanteEmpresa}"></DataGridTextColumn>
+                                                    <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Operação" Binding="{Binding DescricaoOperacao}"></DataGridTextColumn>
+                                                    <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Empresa" Binding="{Binding DescricaoEmpresa}"></DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="2" Style="{StaticResource UclStackPainel}" Height="100" VerticalAlignment="Top">
+                                            <Label Content="Cadastros ERP" Grid.Row="1" HorizontalContentAlignment="Center" Style="{StaticResource _LabelFormInfo}"  />
+                                            <DataGrid Name="DTGParticipanteERP" Height="70" VerticalAlignment="Top">
+                                                <DataGrid.Columns>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="3*" Header="Seq" Binding="{Binding Seq}"/>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="20*" Header="ERP" Binding="{Binding CdErpTipo}"></DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Código" Binding="{Binding CdParticipanteERP}"></DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Status" Binding="{Binding StatusParticipanteERP}"></DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Endereços" IsEnabled="True">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition ></ColumnDefinition>
+                                        <ColumnDefinition ></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <DataGrid Name="DTGEnderecos" Grid.Column="0" HorizontalAlignment="Stretch" Height="250" VerticalAlignment="Top" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Tipo" Binding="{Binding Tipo}"/>
+                                            <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Logradouro" Binding="{Binding LogradouroIbge}"></DataGridTextColumn>
+                                            <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Número" Binding="{Binding Numero}"></DataGridTextColumn>
+                                            <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Complemento" Binding="{Binding Complemento}"></DataGridTextColumn>
+                                            <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Municipio" Binding="{Binding Municipio}"></DataGridTextColumn>
+                                            <DataGridTextColumn IsReadOnly="True"  Width="10*" Header="Estado" Binding="{Binding Estado}"></DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <StackPanel Grid.Column="1" Height="240" VerticalAlignment="Top" Margin="2,0,0,0" DataContext="{Binding ElementName=DTGEnderecos, Path=SelectedItem}">
+                                        <Grid >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <My:UclLabelText Grid.Row="0" Grid.Column="0" x:Name="UclLabelTipo"  Caption="Tipo"  UclLabelWidth="100" UclTextWidth="300" Text="{Binding Path=Tipo}" ></My:UclLabelText>
+                                            <My:UclLabelText Grid.Row="1" Grid.Column="0" x:Name="UclLabelLogradouro"  Caption="Logradouro"  UclLabelWidth="100" UclTextWidth="300" Text="{Binding Path=LogradouroIbge}" ></My:UclLabelText>
+                                            <My:UclLabelText Grid.Row="2" Grid.Column="0" x:Name="UclNumero" Caption="Número"  UclLabelWidth="100" UclTextWidth="300" Text="{Binding Path=Numero}"></My:UclLabelText>
+
+                                            <My:UclLabelText Grid.Row="3" Grid.Column="0" x:Name="UclLabelComplemento" Caption="Complemento"  UclLabelWidth="100" UclTextWidth="300" Text="{Binding Path=Complemento}"></My:UclLabelText>
+                                            <My:UclLabelText Grid.Row="4" Grid.Column="0" x:Name="UclLabelBairro" Caption="Bairro"  UclLabelWidth="100" UclTextWidth="300" Text="{Binding Path=Bairro}"></My:UclLabelText>
+                                            <My:UclLabelText Grid.Row="5" Grid.Column="0" x:Name="UclLabelMunicipio" Caption="Municipio"  UclLabelWidth="100" UclTextWidth="300" Text="{Binding Path=Municipio}"></My:UclLabelText>
+                                            <My:UclLabelText Grid.Row="6" Grid.Column="0" x:Name="UclLabelEstado" Caption="Estado"  UclLabelWidth="100" UclTextWidth="300" Text="{Binding Path=Estado}" ></My:UclLabelText>
+                                            <My:UclLabelText Grid.Row="7" Grid.Column="0" x:Name="UclLabelCEP" Caption="CEP"  UclLabelWidth="100" UclTextWidth="300" Text="{Binding Path=CEP}" ></My:UclLabelText>
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Viewbox>
+
+</Window>

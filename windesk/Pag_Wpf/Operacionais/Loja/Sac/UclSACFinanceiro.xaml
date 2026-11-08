@@ -1,0 +1,312 @@
+﻿<UserControl x:Class="Pag_Wpf.Operacionais.Loja.Sac.UclSACFinanceiro"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+             xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
+             xmlns:My="clr-namespace:Pag_Wpf.UserControls"
+             mc:Ignorable="d" 
+             Height="520" Width="1000">
+    <Grid Name="GRIDBasic" Background="{StaticResource _BackGroundLinerGradientMain}" MaxHeight="510" MaxWidth="1000">
+        <Grid.RowDefinitions>
+            <RowDefinition Name="RowCabec" Height="Auto"></RowDefinition>
+            <RowDefinition Name="RowDados" Height="Auto"></RowDefinition>
+            <RowDefinition Name="RowFolter" Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Name="GRIDCabecalho"  Style="{StaticResource UclCabecalho}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70*"></ColumnDefinition>
+                <ColumnDefinition Width="15*"></ColumnDefinition>
+                <ColumnDefinition Width="15*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label  Style="{StaticResource UclCabecalhoLabelPrincipal}" >SAC - Acomphamento Operacional</Label>
+            <Rectangle Grid.Row="0" Grid.ColumnSpan="4" Style="{StaticResource UclLinhaSubtitulo}"></Rectangle>
+        </Grid>
+        <Grid Grid.Row="1" Name="GRIDInfo" Style="{StaticResource GridBase_Cabecalho}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"></ColumnDefinition>
+                <ColumnDefinition Width="75*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Style="{StaticResource UclStackPainel}">
+                <Grid VerticalAlignment="Top" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15*"></RowDefinition>
+                        <RowDefinition Height="75*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Content="Filtros" HorizontalAlignment="Left" Style="{StaticResource UclLabelFiltros}" ></Label>
+                        <Button Grid.Column="3" Name="BtnOperadoresAtivos" Margin="0,0,0,0"  HorizontalAlignment="Right"  Style="{StaticResource _ButtonStandard_Buscar}" Height="20" Width="20" Click="BtnOperadoresAtivos_Click"></Button>
+                        <Rectangle Grid.Row="0" Grid.ColumnSpan="4" Style="{StaticResource UclLinhaSubtitulo}"></Rectangle>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="79*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" ></RowDefinition>
+                            <RowDefinition Height="225"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.ColumnSpan="2" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition ></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" Style="{StaticResource _LabelDefault}">Data</Label>
+                            <DatePicker Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Name="dtPickerSelecao" Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="1" SelectedDateFormat="Short" />
+                        </Grid>
+                        <DataGrid Grid.Row="1" Name="DataGridOperacaoAtiva" VerticalAlignment="Stretch" Grid.ColumnSpan="2">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn IsReadOnly="True" Width="80*" Header="Nome Operador" Binding="{Binding NomeOperador}"></DataGridTextColumn>
+                                <DataGridTextColumn IsReadOnly="True" Width="20*"  Header="ECF" Binding="{Binding ECF}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTemplateColumn Header="">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="cmdOperacaoDetalhes" Style="{StaticResource _ButtonStandard_Detalhes}" Height="10" Width="10" Click="cmdOperacaoDetalhes_Click"></Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.CellStyle>
+                                <Style TargetType="{x:Type DataGridCell}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ExigeSangria}" Value="True">
+                                            <Setter Property="Foreground" Value="Red"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.CellStyle>
+                        </DataGrid>
+                    </Grid>
+
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1"  Style="{StaticResource UclStackPainel}" Width="700" MaxWidth="700">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70" ></RowDefinition>
+                        <RowDefinition Height="250"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70*"></ColumnDefinition>
+                            <ColumnDefinition Width="15*"></ColumnDefinition>
+                            <ColumnDefinition Width="15*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition ></RowDefinition>
+                            <RowDefinition ></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Operador" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                        <Label Grid.Row="0" Grid.Column="1" Content="ECF" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                        <Label Grid.Row="0" Grid.Column="2" Content="Atendimentos" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+
+                        <Label  Grid.Row="1" Grid.Column="0" Name="lblNomeOperador" VerticalAlignment="Stretch" FontSize="12"  Style="{StaticResource _LabelDefault}"   ></Label>
+                        <Label  Grid.Row="1" Grid.Column="1" Name="lblECF"  VerticalAlignment="Stretch" FontSize="12" HorizontalContentAlignment="Left" Style="{StaticResource _LabelDefault}" ></Label>
+                        <Label  Grid.Row="1" Grid.Column="2" Name="lblRegistros"  VerticalAlignment="Stretch" FontSize="12" HorizontalContentAlignment="Left" Style="{StaticResource _LabelDefault}" ></Label>
+                    </Grid>
+                    <TabControl Grid.Row="1"  Margin="1,1,1,1" MaxWidth="700">
+                        <TabItem Name="TabCItemRecebimentos" Header="Recebimentos Gerais" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" Grid.Row="0" >
+                                    <DataGrid Name="DataGridFinalizadora"  >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn IsReadOnly="True"  Header="Finalizadora" Binding="{Binding Finalizadora}"></DataGridTextColumn>
+                                            <DataGridTextColumn IsReadOnly="True"  Header="Valor Liquido" Binding="{Binding ValorLiquido, StringFormat={}{0:N2}}">
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="HorizontalAlignment" Value="Right" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+                                <Grid Grid.Column="1" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="170" ></RowDefinition>
+                                        <RowDefinition Height="150"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Name="TabCItemProdutoFinanceiro" Header="Produtos Financeiros">
+                            <Border>
+                                <DataGrid  Name="DataGridProdutoFinanceiroItem">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn IsReadOnly="True"  Header="Produto" Binding="{Binding ProdutoFinanceiro}"></DataGridTextColumn>
+                                        <DataGridTextColumn IsReadOnly="True"  Header="Valor Liquido" Binding="{Binding ValorLiquido, StringFormat={}{0:N2}}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </TabItem>
+                        <TabItem Name="TabCItemProdutoFinalizadora" Header="Finalizadora X Prod. Financeiros">
+                            <DataGrid  Name="DataGridProdutoFinanceiro"  >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn IsReadOnly="True"  Header="Finalizadora" Binding="{Binding Finalizadora}"></DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Header="Produto" Binding="{Binding ProdutoFinanceiro}"></DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Header="Valor Liquido" Binding="{Binding ValorLiquido, StringFormat={}{0:N2}}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Name="TabCItemDinheiro" Header="Operação em Dinheiro" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid  HorizontalAlignment="Left">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" ></ColumnDefinition>
+                                        <ColumnDefinition Width="250"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"></RowDefinition>
+                                        <RowDefinition Height="30"></RowDefinition>
+                                        <RowDefinition Height="30"></RowDefinition>
+                                        <RowDefinition Height="30"></RowDefinition>
+                                        <RowDefinition Height="30"></RowDefinition>
+                                        <RowDefinition Height="30"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label  Grid.Row="0" Grid.Column="0" Content="Entrada" VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                    <Label  Grid.Row="1" Grid.Column="0" Content="Reforço" VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                    <Label  Grid.Row="2" Grid.Column="0" Content="Faturamento"  VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                    <Label  Grid.Row="3" Grid.Column="0" Content="Sangria"  VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                    <Label  Grid.Row="4" Grid.Column="0" Content="Saldo"  VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+
+                                    <Label  Grid.Row="0" Grid.Column="1" Name="lblentrada" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" FontSize="10" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                    <Label  Grid.Row="1" Grid.Column="1" Name="lblreforco"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" FontSize="10" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                    <Label  Grid.Row="2" Grid.Column="1" Name="lblfaturamento"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" FontSize="10" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                    <Label  Grid.Row="3" Grid.Column="1" Name="lblsangria"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" FontSize="10" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                    <Label  Grid.Row="4" Grid.Column="1" Name="lblsaldo"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" FontSize="10" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Name="TabCItemGeral" Header="Operações Gerais" >
+                            <Border>
+                                <DataGrid Name="DataGridDetalhes" Margin="1,1,1,1">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn IsReadOnly="True" Width="11*" Header="Finalizadora" Binding="{Binding Finalizadora}"/>
+                                        <DataGridTextColumn IsReadOnly="True" Width="11*" Header="Produto" Binding="{Binding ProdutoFinanceiro}"/>
+                                        <DataGridTextColumn IsReadOnly="True" Width="11*" Header="CupomFiscal" Binding="{Binding CupomFiscal}"/>
+                                        <DataGridTextColumn IsReadOnly="True" Width="11*" Header="Doc" Binding="{Binding CartaoReferencia}"/>
+                                        <DataGridTextColumn IsReadOnly="True" Width="11*" Header="Vl Rec" Binding="{Binding ValorRecebido, StringFormat={}{0:N2}}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn IsReadOnly="True"  Width="11*" Header="Vl Dev" Binding="{Binding ValorDevolvido, StringFormat={}{0:N2}}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn IsReadOnly="True" Width="11*" Header="Valor" Binding="{Binding Valor, StringFormat={}{0:N2}}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn  IsReadOnly="True" Width="11*" Header="Canc" Binding="{Binding ValorCancelado, StringFormat={}{0:N2}}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn  IsReadOnly="True" Width="11*" Header="Liquido" Binding="{Binding ValorLiquido, StringFormat={}{0:N2}}">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </TabItem>
+                        <TabItem Name="TabCItemSuprimentos" Header="Suprimentos" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="160"></RowDefinition>
+                                    <RowDefinition Height="50"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid Name="DataGridSuprimentos" Margin="1,1,1,1">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn IsReadOnly="True" Width="10*" Header="Produto" Binding="{Binding CdProduto}"/>
+                                    <DataGridTextColumn IsReadOnly="True" Width="25*" Header="Descricao" Binding="{Binding Descricao}"/>
+                                    <DataGridTextColumn IsReadOnly="True" Width="5*" Header="Emb" Binding="{Binding Embalagem}"/>
+                                    <DataGridTextColumn IsReadOnly="True" Width="10*" Header="Carregamento" Binding="{Binding Carregamento, StringFormat={}{0:N2}}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True" Width="10*" Header="Qtde" Binding="{Binding Qtde, StringFormat={}{0:N2}}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn IsReadOnly="True" Width="10*" Header="Saldo" Binding="{Binding Saldo, StringFormat={}{0:N2}}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                                <Label Grid.Column="0" Grid.Row="1" Name="LblTotalVolume" Width="100" HorizontalAlignment="Right" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Right">0,00</Label>
+                            </Grid>
+
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </StackPanel>
+
+
+        </Grid>
+        <Grid Grid.Row="2" Name="GRIDFolter">
+        </Grid>
+    </Grid>
+</UserControl>

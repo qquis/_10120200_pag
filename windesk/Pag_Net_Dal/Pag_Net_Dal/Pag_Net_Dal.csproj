@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B714FDC1-B5A3-40A7-8290-20D4F0D596CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Pag_Net</RootNamespace>
+    <AssemblyName>Pag_Net_Dal</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\__bin\desktop\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Old\DaCartaoConsultaOperacao.cs" />
+    <Compile Include="Old\DaNotasFiscais.cs" />
+    <Compile Include="Old\DaArea.cs" />
+    <Compile Include="Old\DaAutorizadorFinanceiro.cs" />
+    <Compile Include="Old\DaClientes.cs" />
+    <Compile Include="Old\DaCrmTerminal.cs" />
+    <Compile Include="Old\DaCupons.cs" />
+    <Compile Include="Old\DaCuponsItens.cs" />
+    <Compile Include="Old\DaCuponsPagamentos.cs" />
+    <Compile Include="Old\DaDepartamento.cs" />
+    <Compile Include="Old\DaDepartamentoSecaoLinha.cs" />
+    <Compile Include="Old\DaDisponibilidade.cs" />
+    <Compile Include="Old\DaECF.cs" />
+    <Compile Include="Old\DaEmpresas.cs" />
+    <Compile Include="Old\DaEquipe.cs" />
+    <Compile Include="Old\DaEquipeRepositor.cs" />
+    <Compile Include="Old\DaErpZanthusLogProdutoPreco.cs" />
+    <Compile Include="Old\DaFabricante.cs" />
+    <Compile Include="Old\DaLinha.cs" />
+    <Compile Include="Old\DaLogTransacoes.cs" />
+    <Compile Include="Old\DalUserAccess.cs" />
+    <Compile Include="Old\DaNotasFiscaisItem.cs" />
+    <Compile Include="Old\DaOperacaoInformacoesGerais.cs" />
+    <Compile Include="Old\DaOperacaoSac.cs" />
+    <Compile Include="Old\DaOperacaoSacFinanceiro.cs" />
+    <Compile Include="Old\DaOperacaoSacOperadoresAtivos.cs" />
+    <Compile Include="Old\DaOperacoes.cs" />
+    <Compile Include="Old\DaOperadores.cs" />
+    <Compile Include="Old\DaPedido.cs" />
+    <Compile Include="Old\DaPedidosEletronicosEmAberto.cs" />
+    <Compile Include="Old\DaPessoa.cs" />
+    <Compile Include="Old\DaProdutosFinanceiros.cs" />
+    <Compile Include="Old\DaSecao.cs" />
+    <Compile Include="Old\DaServicesTime.cs" />
+    <Compile Include="Old\DaSisFuncao.cs" />
+    <Compile Include="Old\DaSisUsuarios.cs" />
+    <Compile Include="Old\DaSitefLog.cs" />
+    <Compile Include="Old\DaSitefLogInterface.cs" />
+    <Compile Include="Old\DaTipos.cs" />
+    <Compile Include="Old\DaVendedor.cs" />
+    <Compile Include="Old\Pag_Net_Dal_Services.cs" />
+    <Compile Include="Pag_Net_Dal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="RedShift\Pag_Net.Dal.RedShift.SPC5000TbDocumentosFiscais.cs" />
+    <Compile Include="RedShift\Pag_Net.Dal.RedShift.SPC0015TbProdutoBlueSoft.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Old\TbErpZanthusStatusProdutoPreco.cs" />
+    <Compile Include="Old\TbSystemLoginAccess.cs" />
+    <Compile Include="Old\TbSystemUserAccessList.cs" />
+    <Compile Include="SqlServer\Pag_Net.Dal.SqlServer.SPC5000TbDocumentosFiscais.cs" />
+    <Compile Include="SqlServer\Pag_Net.Dal.SqlServer.SPC0015TbProdutoBlueSoft.cs" />
+    <Compile Include="SqlServer\Pag_Net.Dal.SqlServer.SPR0050ServicesTimes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PagTools\PagTools.csproj">
+      <Project>{55d7d5a0-3d00-41d7-b5dc-f19ee1ee383d}</Project>
+      <Name>PagTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Pag_Net_Mod\Pag_Net_Mod.csproj">
+      <Project>{E08F284F-283D-4563-94B1-429D75BCBD0A}</Project>
+      <Name>Pag_Net_Mod</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

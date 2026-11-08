@@ -1,0 +1,242 @@
+﻿<Page x:Class="Pag_Wpf.Operacionais.Produto.ProdutoInterfaceCusto"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+	Title="Produto Custo" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Name="RowInfo" Height="600"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="GridCabec" Background="{x:Null}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Style="{StaticResource GridBase_Cabecalho_Border}" Name="BorderTitulo" >
+                <Label Name="LabelTitulo" Style="{StaticResource GridBase_Cabecalho_LabelTitulo}">Produtos Interface X Custo</Label>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Name="GridInfo" HorizontalAlignment="Center" Background="{x:Null}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Name="ColumnGridInfoList" Width="350"></ColumnDefinition>
+                <ColumnDefinition Name="ColumnGridInfoDados" Width="920"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Name="Gridfiltros" Grid.Column="0" VerticalAlignment="Top" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="365"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Width="350" HorizontalAlignment="Stretch"  Background="#FFA7A2A2">
+                    <StackPanel.BitmapEffect>
+                        <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                    </StackPanel.BitmapEffect>
+                    <Grid Name="dtgridStackPainelfiltros" Width="350" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Filtros" HorizontalAlignment="Left" Style="{StaticResource _LabelSubInfoPrincipal}" ></Label>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Name="StackPainelFiltros" Grid.Row="1"  Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Stretch">
+                    <TabControl>
+                        <TabItem Header="Básicos" >
+                            <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35" ></RowDefinition>
+                                    <RowDefinition Height="35" ></RowDefinition>
+                                    <RowDefinition Height="35" ></RowDefinition>
+                                    <RowDefinition Height="35" ></RowDefinition>
+                                    <RowDefinition Height="35" ></RowDefinition>
+                                    <RowDefinition Height="35" ></RowDefinition>
+                                    <RowDefinition Height="35" ></RowDefinition>
+                                    
+                                    
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120"></ColumnDefinition>
+                                    <ColumnDefinition Width="220"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Row="0" Grid.Column="0" Margin="0,0,10,0" >
+                                    <CheckBox Name="CHKDataCustoAtualizacao" Content="Data Atualização" Foreground="Black" HorizontalContentAlignment="Left"  FlowDirection="RightToLeft" Click="CHKDataCustoAtualizacao_Click"></CheckBox>
+                                </Border>
+                                <Border Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" >
+                                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="105"></ColumnDefinition>
+                                            <ColumnDefinition Width="10"></ColumnDefinition>
+                                            <ColumnDefinition Width="105"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <DatePicker Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" Height="20"  HorizontalAlignment="Center" Name="dtPickerIni" VerticalAlignment="Top"  Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="0" SelectedDateChanged="dtPickerIni_SelectedDateChanged" />
+                                        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                        <DatePicker Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Top" Name="dtPickerFim" Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="1" SelectedDateChanged="dtPickerFim_SelectedDateChanged" />
+                                    </Grid>
+                                </Border>
+
+
+
+                                <Border Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" >
+                                    <Label  Margin="0,0,0,0"  Style="{StaticResource _LabelDefault}">Desc. Prod</Label>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="1" >
+                                    <TextBox    Name="txtdescricaoProduto" Style="{StaticResource _TextBoxDefault}" KeyboardNavigation.TabIndex="21" TextChanged="txtdescricaoProduto_TextChanged"></TextBox>
+                                </Border>
+                                <Border Grid.Row="2" Grid.Column="0" Margin="0,0,0,0" >
+                                    <Label  Margin="0,0,0,0"  FontSize="11" Style="{StaticResource _LabelDefault}" Visibility="Hidden">Departamento</Label>
+                                </Border>
+                                <Border Grid.Row="2" Grid.Column="1"  >
+                                    <ComboBox   VerticalAlignment="Stretch" ItemsSource="{Binding}"  HorizontalAlignment="Stretch" Margin="0,0,0,0"  Name="cmbDepartamento" Height="20" Style="{StaticResource _ComboBoxDefault}" SelectionChanged="cmbDepartamento_SelectionChanged" Visibility="Hidden">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Name="DescricaoDepartamento" Text="{Binding DescricaoDepartamento}"  ></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Border>
+                                <Border Grid.Row="3" Grid.Column="0" Margin="0,0,0,0" >
+                                    <Label  Margin="0,0,0,0"  FontSize="11" Style="{StaticResource _LabelDefault}" Visibility="Hidden">Seção</Label>
+                                </Border>
+                                <Border Grid.Row="3" Grid.Column="1"  Margin="0,0,0,0" >
+                                    <ComboBox      Name="cmbSecao"  Style="{StaticResource _ComboBoxDefault}" ItemsSource="{Binding}" SelectionChanged="cmbSecao_SelectionChanged" Visibility="Hidden">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding DescricaoSecao}"  ></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Border>
+                                <Border Grid.Row="4" Grid.Column="0" Margin="0,0,0,0" >
+                                    <Label  Margin="0,0,0,0"  FontSize="11" Style="{StaticResource _LabelDefault}" Visibility="Hidden">Linha</Label>
+                                </Border>
+                                <Border Grid.Row="4" Grid.Column="1"  Margin="0,0,0,0" >
+                                    <ComboBox  Name="cmbLinha" Height="20" Style="{StaticResource _ComboBoxDefault}" ItemsSource="{Binding}" SelectionChanged="cmbLinha_SelectionChanged" Visibility="Hidden">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding DescricaoLinha}"  ></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Border>
+                                <Border Grid.Row="5" Grid.Column="0" Margin="0,0,0,0" >
+                                    <Label  Margin="0,0,0,0"  FontSize="11" Style="{StaticResource _LabelDefault}" Visibility="Hidden">Produtos</Label>
+                                </Border>
+                                <Border Grid.Row="5" Grid.Column="1" >
+                                    <TextBox Name="txtcodigoproduto"  Style="{StaticResource _TextBoxDefault}" TextChanged="txtcodigoproduto_TextChanged" Visibility="Hidden"></TextBox>
+                                </Border>
+                                <Border Grid.Row="6" Grid.Column="0" Margin="0,0,0,0" >
+                                    <Label  Margin="0,0,0,0"  FontSize="11" Style="{StaticResource _LabelDefault}" Visibility="Hidden">Fabricante</Label>
+                                </Border>
+                                <Border Grid.Row="6" Grid.Column="1"  Margin="0,0,0,0" >
+                                    <ComboBox Name="cmbFabricante" Style="{StaticResource _ComboBoxDefault}" ItemsSource="{Binding}" SelectionChanged="cmbFabricante_SelectionChanged" Visibility="Hidden">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Name="DescricaFabricante"  Text="{Binding Descricao}" Width="150" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </StackPanel>
+            </Grid>
+            <Grid Name="GridList" Grid.Column="1" Width="915"  VerticalAlignment="Top" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="360"></RowDefinition>
+
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"  HorizontalAlignment="Stretch"  Background="#FFA7A2A2">
+                    <StackPanel.BitmapEffect>
+                        <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                    </StackPanel.BitmapEffect>
+                    <Grid Name="dtgridStackPainelTitulolista"  HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+
+
+
+
+
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Produtos" HorizontalAlignment="Left" Style="{StaticResource _LabelSubInfoPrincipal}" ></Label>
+                        <Button Name="CMImportar" Margin="0,0,10,0" Grid.Column="9"  HorizontalAlignment="Left"  Style="{StaticResource _ButtonStandard_SelecionaTudo}" Height="20" Width="20" ToolTip="Importação Custos MOINHO " IsEnabled="False" Click="CMImportar_Click"></Button>
+                        <Button Name="BtnBuscar" Margin="0,0,10,0" Grid.Column="10" HorizontalAlignment="Right"  Style="{StaticResource _ButtonStandard_Buscar}" Height="20" Width="20" Click="BtnBuscar_Click"></Button>
+                    </Grid>
+                </StackPanel>
+
+                <DataGrid Grid.Row="1" Name="DTGProdutoCusto" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True"  Width="75" Header="Código" Binding="{Binding CdProduto}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="350" Header="Descrição" Binding="{Binding Descricao}"></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="75" Header="Data Atualizacao" Binding="{Binding DataAtualizacao,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="75" Header="Seq Custo" Binding="{Binding SeqProdutoCusto}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="90" Header="Custo Faturamento" Binding="{Binding ValorCustoPadrao, StringFormat={}{0:N2}}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="90" Header="Custo Atual" Binding="{Binding ValorCustoPadraoAtual, StringFormat={}{0:N2}}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="80" Header="Data Custo" Binding="{Binding DataCusto,StringFormat=dd/MM/yyyy}"></DataGridTextColumn>
+
+                        
+          
+                    </DataGrid.Columns>
+                    <DataGrid.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding NotaFiscalBonificada}" Value="SIM">
+                                    <Setter Property="Foreground" Value="Red"></Setter>
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
+                </DataGrid>
+
+            </Grid>
+            <Grid Name="GridLabels" Width="430" Grid.Column="1" VerticalAlignment="Top">
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

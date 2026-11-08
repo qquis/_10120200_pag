@@ -1,0 +1,1104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{32710C29-CAB5-4AD8-B84F-5EE744D8E86B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Pag_Wpf</RootNamespace>
+    <AssemblyName>Pag_Wpf</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\__bin\desktop\WPF\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>PerfCenterCpl.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.Common\11.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\ReportViewer\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\ReportViewer\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\VBPowerPacks\v12.0\Microsoft.VisualBasic.PowerPacks.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net4-client\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\WPF Toolkit\v3.5.50211.1\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WPF.MDI">
+      <HintPath>..\WPF.MDI.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BIN\WPFToolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="BlueSoft\BlueSoftIntegracao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BlueSoft\BlueSoftIntegracao.Designer.cs">
+      <DependentUpon>BlueSoftIntegracao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Analise\UclComAnaliseMercFabricProd6Meses.xaml.cs">
+      <DependentUpon>UclComAnaliseMercFabricProd6Meses.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Analise\WindowFormComAnaliseMercFabricProd6MesesDT.xaml.cs">
+      <DependentUpon>WindowFormComAnaliseMercFabricProd6MesesDT.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Compras\frmPedidoCompraEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comercial\Compras\frmPedidoCompraEmail.Designer.cs">
+      <DependentUpon>frmPedidoCompraEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Compras\UclPedidoCompra.xaml.cs">
+      <DependentUpon>UclPedidoCompra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Interface\FrmInterfaceComercialFaturamentoSimulado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comercial\Interface\FrmInterfaceComercialFaturamentoSimulado.Designer.cs">
+      <DependentUpon>FrmInterfaceComercialFaturamentoSimulado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Interface\UclInterfaceComercialArquivos.xaml.cs">
+      <DependentUpon>UclInterfaceComercialArquivos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Interface\UclInterfaceComercialFaturamentoAnalise.xaml.cs">
+      <DependentUpon>UclInterfaceComercialFaturamentoAnalise.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Interface\UclInterfaceComercialFaturamentoSimulado.xaml.cs">
+      <DependentUpon>UclInterfaceComercialFaturamentoSimulado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\Titulo\FrmTituloComando.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Financeiro\Titulo\FrmTituloComando.Designer.cs">
+      <DependentUpon>FrmTituloComando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmxIntegracaoPostgreSQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmxIntegracaoPostgreSQL.Designer.cs">
+      <DependentUpon>frmxIntegracaoPostgreSQL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmxComissao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmxComissao.Designer.cs">
+      <DependentUpon>frmxComissao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXContratos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXContratos.Designer.cs">
+      <DependentUpon>FrmXContratos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXContratosItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXContratosItem.Designer.cs">
+      <DependentUpon>FrmXContratosItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXFaturamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXFaturamento.Designer.cs">
+      <DependentUpon>FrmXFaturamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXIntegracao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXIntegracao.Designer.cs">
+      <DependentUpon>FrmXIntegracao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXProdutoPreco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXProdutoPreco.Designer.cs">
+      <DependentUpon>FrmXProdutoPreco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXRecebimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXRecebimento.Designer.cs">
+      <DependentUpon>FrmXRecebimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXFaturamentoBlueSoft.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXFaturamentoBlueSoft.Designer.cs">
+      <DependentUpon>FrmXFaturamentoBlueSoft.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXParticipanteBlueSoft.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXParticipanteBlueSoft.Designer.cs">
+      <DependentUpon>FrmXParticipanteBlueSoft.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXParticipantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXParticipantes.Designer.cs">
+      <DependentUpon>FrmXParticipantes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXProduto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXProduto.Designer.cs">
+      <DependentUpon>FrmXProduto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXProdutoBlueSoft.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXProdutoBlueSoft.Designer.cs">
+      <DependentUpon>FrmXProdutoBlueSoft.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FRMxProdutoCustos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FRMxProdutoCustos.Designer.cs">
+      <DependentUpon>FRMxProdutoCustos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXProdutoDetalhe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXProdutoDetalhe.Designer.cs">
+      <DependentUpon>FrmXProdutoDetalhe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXProdutoHtml.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXProdutoHtml.Designer.cs">
+      <DependentUpon>FrmXProdutoHtml.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Analise\frmInvestimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Analise\frmInvestimento.Designer.cs">
+      <DependentUpon>frmInvestimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Analise\frmInvestimentosAdicionar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Analise\frmInvestimentosAdicionar.Designer.cs">
+      <DependentUpon>frmInvestimentosAdicionar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Analise\UclEstoqueAnalise.xaml.cs">
+      <DependentUpon>UclEstoqueAnalise.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Produto\OperacaoProdutoPrecoList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Produto\OperacaoProdutoPrecoList.Designer.cs">
+      <DependentUpon>OperacaoProdutoPrecoList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Produto\OperacaoProdutoPrecoList_Confirmacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Produto\OperacaoProdutoPrecoList_Confirmacao.Designer.cs">
+      <DependentUpon>OperacaoProdutoPrecoList_Confirmacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\UclTitulo.xaml.cs">
+      <DependentUpon>UclTitulo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Locacao\FrmContrato.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Locacao\FrmContrato.Designer.cs">
+      <DependentUpon>FrmContrato.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administracao\FrmContratoParticipante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administracao\FrmContratoParticipante.Designer.cs">
+      <DependentUpon>FrmContratoParticipante.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\FrmAtivoImobilizado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\FrmAtivoImobilizado.Designer.cs">
+      <DependentUpon>FrmAtivoImobilizado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\FrmAtivoImobilizadoInformacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\FrmAtivoImobilizadoInformacao.Designer.cs">
+      <DependentUpon>FrmAtivoImobilizadoInformacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\FrmLocalizaAtivoImobilizado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\FrmLocalizaAtivoImobilizado.Designer.cs">
+      <DependentUpon>FrmLocalizaAtivoImobilizado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\FrmLocalizaEndereco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\FrmLocalizaEndereco.designer.cs">
+      <DependentUpon>FrmLocalizaEndereco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\FrmLocalizaParticipante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\FrmLocalizaParticipante.Designer.cs">
+      <DependentUpon>FrmLocalizaParticipante.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\FrmParticipante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\FrmParticipante.designer.cs">
+      <DependentUpon>FrmParticipante.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\FrmParticipanteIncluir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\FrmParticipanteIncluir.designer.cs">
+      <DependentUpon>FrmParticipanteIncluir.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\ProdutoCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\ProdutoCategoria.Designer.cs">
+      <DependentUpon>ProdutoCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\ProdutoRelacaoGestor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\ProdutoRelacaoGestor.Designer.cs">
+      <DependentUpon>ProdutoRelacaoGestor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\ProdutoRelacaoLinha.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\ProdutoRelacaoLinha.Designer.cs">
+      <DependentUpon>ProdutoRelacaoLinha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\UclAtivoImobilizado.xaml.cs">
+      <DependentUpon>UclAtivoImobilizado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\UclParticipante.xaml.cs" />
+    <Compile Include="Cadastro\UclProdutoCategoria.xaml.cs">
+      <DependentUpon>UclProdutoCategoria.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\ProdutoLocaliza.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\ProdutoLocaliza.Designer.cs">
+      <DependentUpon>ProdutoLocaliza.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\ProdutoRelacaoCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cadastro\ProdutoRelacaoCategoria.Designer.cs">
+      <DependentUpon>ProdutoRelacaoCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\UclProduto.xaml.cs">
+      <DependentUpon>UclProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastro\WindowFormParticipante.xaml.cs">
+      <DependentUpon>WindowFormParticipante.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Contratos\Contratos.xaml.cs">
+      <DependentUpon>Contratos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Interface\UclInterfaceComercialEstoque.xaml.cs">
+      <DependentUpon>UclInterfaceComercialEstoque.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\Interface\UclInterfaceComercialFaturamento.xaml.cs">
+      <DependentUpon>UclInterfaceComercialFaturamento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\RepresentantesComerciais\RepresentanteComercial.xaml.cs">
+      <DependentUpon>RepresentanteComercial.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\RepresentantesComerciais\RepresentanteFabricante.xaml.cs">
+      <DependentUpon>RepresentanteFabricante.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\RepresentantesComerciais\RepresentanteParticipante.xaml.cs">
+      <DependentUpon>RepresentanteParticipante.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Comercial\RepresentantesComerciais\Representantes.xaml.cs">
+      <DependentUpon>Representantes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\CartaoCredito\InterfaceImportacaoArquivo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Financeiro\CartaoCredito\InterfaceImportacaoArquivo.Designer.cs">
+      <DependentUpon>InterfaceImportacaoArquivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\CartaoCredito\LogSitefImportacaoArquivo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Financeiro\CartaoCredito\LogSitefImportacaoArquivo.Designer.cs">
+      <DependentUpon>LogSitefImportacaoArquivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\CartaoCredito\UclApuracaoOperacoes.xaml.cs">
+      <DependentUpon>UclApuracaoOperacoes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\CartaoCredito\UclConsultaOperacoes.xaml.cs">
+      <DependentUpon>UclConsultaOperacoes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\CartaoCredito\UclInterface.xaml.cs">
+      <DependentUpon>UclInterface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\CartaoCredito\UclInterfaceConsultaRegistros.xaml.cs">
+      <DependentUpon>UclInterfaceConsultaRegistros.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Financeiro\CartaoCredito\UclInterfaceLogSitef.xaml.cs">
+      <DependentUpon>UclInterfaceLogSitef.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Analise\UclFaturamentoData.xaml.cs">
+      <DependentUpon>UclFaturamentoData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Analise\UclFaturamentoVisaoGeral.xaml.cs">
+      <DependentUpon>UclFaturamentoVisaoGeral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Analise\UclRegistroProduto.xaml.cs">
+      <DependentUpon>UclRegistroProduto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Analise\UclRegistroProdutoData.xaml.cs">
+      <DependentUpon>UclRegistroProdutoData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Distribuicao\StatusOperacaoVenda.xaml.cs">
+      <DependentUpon>StatusOperacaoVenda.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Expedicao\Devolucao\UclDevolucao.xaml.cs">
+      <DependentUpon>UclDevolucao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Expedicao\Entrada\UclNotasFiscais.xaml.cs">
+      <DependentUpon>UclNotasFiscais.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Expedicao\ExpedicaoOperacao.xaml.cs">
+      <DependentUpon>ExpedicaoOperacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Expedicao\ExpedicaoOperacaoRecebimentoLancamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Expedicao\ExpedicaoOperacaoRecebimentoLancamento.Designer.cs">
+      <DependentUpon>ExpedicaoOperacaoRecebimentoLancamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Faturamento\UclFaturamentoDocumento.xaml.cs">
+      <DependentUpon>UclFaturamentoDocumento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Locacao\frmContratoLocacaoFaturamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Locacao\frmContratoLocacaoFaturamento.Designer.cs">
+      <DependentUpon>frmContratoLocacaoFaturamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Locacao\FrmContratoLocacaoRubrica.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Locacao\FrmContratoLocacaoRubrica.Designer.cs">
+      <DependentUpon>FrmContratoLocacaoRubrica.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Locacao\UclLocacao.xaml.cs">
+      <DependentUpon>UclLocacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Locacao\UclLocacaoParcelasFaturamento.xaml.cs">
+      <DependentUpon>UclLocacaoParcelasFaturamento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Locacao\UclLocacaoParcelasFinanceiro.xaml.cs">
+      <DependentUpon>UclLocacaoParcelasFinanceiro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Execucao\UclAtualizacao.xaml.cs">
+      <DependentUpon>UclAtualizacao.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Execucao\UclEtiquetaGondola.xaml.cs">
+      <DependentUpon>UclEtiquetaGondola.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\FrenteCaixa\UclCupomFiscal.xaml.cs">
+      <DependentUpon>UclCupomFiscal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Sac\SACOperacoesList.xaml.cs">
+      <DependentUpon>SACOperacoesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Sac\UclSACFinanceiro.xaml.cs">
+      <DependentUpon>UclSACFinanceiro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Sac\UclSACOperacoes.xaml.cs">
+      <DependentUpon>UclSACOperacoes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Produto\OperacaoPrecoAplicacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Produto\OperacaoPrecoAplicacao.Designer.cs">
+      <DependentUpon>OperacaoPrecoAplicacao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Produto\OperacaoPrecoAdministracao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Produto\OperacaoPrecoAdministracao.Designer.cs">
+      <DependentUpon>OperacaoPrecoAdministracao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Produto\OperacaoProdutoPreco.xaml.cs">
+      <DependentUpon>OperacaoProdutoPreco.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Produto\ProdutoInterfaceCusto.xaml.cs">
+      <DependentUpon>ProdutoInterfaceCusto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Produto\UclOperacaoProdutoPreco.xaml.cs">
+      <DependentUpon>UclOperacaoProdutoPreco.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Produto\UclOperacaoProdutoRegistroLancados.xaml.cs">
+      <DependentUpon>UclOperacaoProdutoRegistroLancados.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Produto\UclOperacaoProdutoRegistroPendentes.xaml.cs">
+      <DependentUpon>UclOperacaoProdutoRegistroPendentes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Produto\UclProdutoInterfaceCusto.xaml.cs">
+      <DependentUpon>UclProdutoInterfaceCusto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Tesouraria\LogSitef.xaml.cs">
+      <DependentUpon>LogSitef.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Sac\SACFinanceiro.xaml.cs">
+      <DependentUpon>SACFinanceiro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Sac\SACOperacoes.xaml.cs">
+      <DependentUpon>SACOperacoes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Sac\SACPOSLanca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Sac\SACPOSLanca.Designer.cs">
+      <DependentUpon>SACPOSLanca.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\FrenteCaixa\CupomFiscalConsulta.xaml.cs">
+      <DependentUpon>CupomFiscalConsulta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Sac\CupomFiscalDevolucao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Operacionais\Loja\Sac\CupomFiscalDevolucao.Designer.cs">
+      <DependentUpon>CupomFiscalDevolucao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Expedicao\Entrada\NotasFiscais.xaml.cs">
+      <DependentUpon>NotasFiscais.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Distribuicao\PedidoDistribuidorRentabilidade.xaml.cs">
+      <DependentUpon>PedidoDistribuidorRentabilidade.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Operacionais\Tesouraria\UclLogSitef.xaml.cs">
+      <DependentUpon>UclLogSitef.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReportForm\ReportViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportForm\ReportViewForm.Designer.cs">
+      <DependentUpon>ReportViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sistema\frmSistemaAcessos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sistema\frmSistemaAcessos.Designer.cs">
+      <DependentUpon>frmSistemaAcessos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sistema\UclManagarDataBaseSpWho.xaml.cs">
+      <DependentUpon>UclManagarDataBaseSpWho.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sistema\UclProcessos.xaml.cs">
+      <DependentUpon>UclProcessos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sistema\UclSistemaAcessos.xaml.cs">
+      <DependentUpon>UclSistemaAcessos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ImageButton.cs" />
+    <Compile Include="UserControls\UclButton.xaml.cs">
+      <DependentUpon>UclButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UclLabelText.xaml.cs">
+      <DependentUpon>UclLabelText.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Cadastro\UclAtivoImobilizado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cadastro\UclParticipante.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Cadastro\UclProdutoCategoria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cadastro\UclProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cadastro\WindowFormParticipante.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\Analise\UclComAnaliseMercFabricProd6Meses.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\Analise\WindowFormComAnaliseMercFabricProd6MesesDT.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\Compras\UclPedidoCompra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\Contratos\Contratos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\Interface\UclInterfaceComercialArquivos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\Interface\UclInterfaceComercialEstoque.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\Interface\UclInterfaceComercialFaturamento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\Interface\UclInterfaceComercialFaturamentoAnalise.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\Interface\UclInterfaceComercialFaturamentoSimulado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\RepresentantesComerciais\RepresentanteComercial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\RepresentantesComerciais\RepresentanteFabricante.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Comercial\RepresentantesComerciais\RepresentanteParticipante.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Comercial\RepresentantesComerciais\Representantes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Financeiro\CartaoCredito\UclApuracaoOperacoes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Financeiro\CartaoCredito\UclConsultaOperacoes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Financeiro\CartaoCredito\UclInterface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Financeiro\CartaoCredito\UclInterfaceConsultaRegistros.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Financeiro\CartaoCredito\UclInterfaceLogSitef.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Analise\UclEstoqueAnalise.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\UclTitulo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Analise\UclFaturamentoData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Analise\UclFaturamentoVisaoGeral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Analise\UclRegistroProduto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Analise\UclRegistroProdutoData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Distribuicao\StatusOperacaoVenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Expedicao\Devolucao\UclDevolucao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Expedicao\Entrada\UclNotasFiscais.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Expedicao\ExpedicaoOperacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Faturamento\UclFaturamentoDocumento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Locacao\UclLocacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Locacao\UclLocacaoParcelasFaturamento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Locacao\UclLocacaoParcelasFinanceiro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Loja\Execucao\UclAtualizacao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Loja\Execucao\UclEtiquetaGondola.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Loja\FrenteCaixa\UclCupomFiscal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Loja\Sac\SACOperacoesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Loja\Sac\UclSACFinanceiro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Loja\Sac\UclSACOperacoes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Produto\OperacaoProdutoPreco.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Produto\ProdutoInterfaceCusto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Produto\UclOperacaoProdutoPreco.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Produto\UclOperacaoProdutoRegistroLancados.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Produto\UclOperacaoProdutoRegistroPendentes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Produto\UclProdutoInterfaceCusto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Tesouraria\LogSitef.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Loja\Sac\SACFinanceiro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Loja\Sac\SACOperacoes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Loja\FrenteCaixa\CupomFiscalConsulta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Expedicao\Entrada\NotasFiscais.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Distribuicao\PedidoDistribuidorRentabilidade.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Operacionais\Tesouraria\UclLogSitef.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PagDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Sistema\UclManagarDataBaseSpWho.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sistema\UclProcessos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sistema\UclSistemaAcessos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\UclButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UclLabelText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="BlueSoft\BlueSoftIntegracao.resx">
+      <DependentUpon>BlueSoftIntegracao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comercial\Compras\frmPedidoCompraEmail.resx">
+      <DependentUpon>frmPedidoCompraEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comercial\Interface\FrmInterfaceComercialFaturamentoSimulado.resx">
+      <DependentUpon>FrmInterfaceComercialFaturamentoSimulado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Financeiro\Titulo\FrmTituloComando.resx">
+      <DependentUpon>FrmTituloComando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmxIntegracaoPostgreSQL.resx">
+      <DependentUpon>frmxIntegracaoPostgreSQL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmxComissao.resx">
+      <DependentUpon>frmxComissao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXContratos.resx">
+      <DependentUpon>FrmXContratos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXContratosItem.resx">
+      <DependentUpon>FrmXContratosItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXFaturamento.resx">
+      <DependentUpon>FrmXFaturamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXIntegracao.resx">
+      <DependentUpon>FrmXIntegracao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXProdutoPreco.resx">
+      <DependentUpon>FrmXProdutoPreco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXRecebimento.resx">
+      <DependentUpon>FrmXRecebimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXFaturamentoBlueSoft.resx">
+      <DependentUpon>FrmXFaturamentoBlueSoft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXParticipanteBlueSoft.resx">
+      <DependentUpon>FrmXParticipanteBlueSoft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXParticipantes.resx">
+      <DependentUpon>FrmXParticipantes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXProduto.resx">
+      <DependentUpon>FrmXProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXProdutoBlueSoft.resx">
+      <DependentUpon>FrmXProdutoBlueSoft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FRMxProdutoCustos.resx">
+      <DependentUpon>FRMxProdutoCustos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXProdutoDetalhe.resx">
+      <DependentUpon>FrmXProdutoDetalhe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXProdutoHtml.resx">
+      <DependentUpon>FrmXProdutoHtml.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Analise\frmInvestimento.resx">
+      <DependentUpon>frmInvestimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Analise\frmInvestimentosAdicionar.resx">
+      <DependentUpon>frmInvestimentosAdicionar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Locacao\FrmContrato.resx">
+      <DependentUpon>FrmContrato.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administracao\FrmContratoParticipante.resx">
+      <DependentUpon>FrmContratoParticipante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\FrmAtivoImobilizado.resx">
+      <DependentUpon>FrmAtivoImobilizado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\FrmAtivoImobilizadoInformacao.resx">
+      <DependentUpon>FrmAtivoImobilizadoInformacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\FrmLocalizaAtivoImobilizado.resx">
+      <DependentUpon>FrmLocalizaAtivoImobilizado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\FrmLocalizaEndereco.resx">
+      <DependentUpon>FrmLocalizaEndereco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\FrmLocalizaParticipante.resx">
+      <DependentUpon>FrmLocalizaParticipante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\FrmParticipante.resx">
+      <DependentUpon>FrmParticipante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\FrmParticipanteIncluir.resx">
+      <DependentUpon>FrmParticipanteIncluir.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\ProdutoCategoria.resx">
+      <DependentUpon>ProdutoCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\ProdutoLocaliza.resx">
+      <DependentUpon>ProdutoLocaliza.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\ProdutoRelacaoCategoria.resx">
+      <DependentUpon>ProdutoRelacaoCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\ProdutoRelacaoGestor.resx">
+      <DependentUpon>ProdutoRelacaoGestor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cadastro\ProdutoRelacaoLinha.resx">
+      <DependentUpon>ProdutoRelacaoLinha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Financeiro\CartaoCredito\InterfaceImportacaoArquivo.resx">
+      <DependentUpon>InterfaceImportacaoArquivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Financeiro\CartaoCredito\LogSitefImportacaoArquivo.resx">
+      <DependentUpon>LogSitefImportacaoArquivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Expedicao\ExpedicaoOperacaoRecebimentoLancamento.resx">
+      <DependentUpon>ExpedicaoOperacaoRecebimentoLancamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Locacao\frmContratoLocacaoFaturamento.resx">
+      <DependentUpon>frmContratoLocacaoFaturamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Locacao\FrmContratoLocacaoRubrica.resx">
+      <DependentUpon>FrmContratoLocacaoRubrica.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Loja\Sac\SACPOSLanca.resx">
+      <DependentUpon>SACPOSLanca.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Loja\Sac\CupomFiscalDevolucao.resx">
+      <DependentUpon>CupomFiscalDevolucao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Produto\OperacaoPrecoAplicacao.resx">
+      <DependentUpon>OperacaoPrecoAplicacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Produto\OperacaoPrecoAdministracao.resx">
+      <DependentUpon>OperacaoPrecoAdministracao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Produto\OperacaoProdutoPrecoList.resx">
+      <DependentUpon>OperacaoProdutoPrecoList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Operacionais\Produto\OperacaoProdutoPrecoList_Confirmacao.resx">
+      <DependentUpon>OperacaoProdutoPrecoList_Confirmacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportForm\ReportViewForm.resx">
+      <DependentUpon>ReportViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportForm\rptPedidoCompra.rdlc" />
+    <EmbeddedResource Include="ReportForm\rptTbComercioInformacoesGerais.rdlc" />
+    <EmbeddedResource Include="ReportForm\rptTbComissao.rdlc" />
+    <EmbeddedResource Include="ReportForm\rptTbFaturamento.rdlc" />
+    <EmbeddedResource Include="ReportForm\rptTbNotasFiscaisEntrada.rdlc" />
+    <EmbeddedResource Include="ReportForm\rptTbResumoRegistroInterface.rdlc" />
+    <EmbeddedResource Include="ReportForm\rptTbSitefLog.rdlc" />
+    <EmbeddedResource Include="Sistema\frmSistemaAcessos.resx">
+      <DependentUpon>frmSistemaAcessos.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\Pag_Net.Bll.Comercial.UVWRepresentanteFabricanteList.datasource" />
+    <None Include="Properties\DataSources\Pag_Net.Models.ModelTbErpZanthusStatusProdutoPreco.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PagTools\PagTools.csproj">
+      <Project>{55d7d5a0-3d00-41d7-b5dc-f19ee1ee383d}</Project>
+      <Name>PagTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pag_Net_BLL\Pag_Net_BLL\Pag_Net_BLL.csproj">
+      <Project>{32FB14AE-37A1-46FD-B480-ECDD5CED9E47}</Project>
+      <Name>Pag_Net_BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pag_Net_Mod\Pag_Net_Mod.csproj">
+      <Project>{E08F284F-283D-4563-94B1-429D75BCBD0A}</Project>
+      <Name>Pag_Net_Mod</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Comercial\Contratos\Mercadologico\" />
+    <Folder Include="Comercial\Contratos\RelacaoComercial\" />
+    <Folder Include="Operacionais\Fiscal\" />
+    <Folder Include="Resultados\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PerfCenterCpl.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\atualiza.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\detalhe.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\baixo_dupla.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\baixo_dupla1.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

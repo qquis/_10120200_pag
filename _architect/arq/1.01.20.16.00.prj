@@ -1,0 +1,155 @@
+
+Testes de produtos por situacao tributaria 
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+COMANDO REINICIAR O DOCKER | SERVIDOR LINUX
+
+cd opt/docker
+docker compose down && docker compose up -d 
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+1) Ver as tributações testes 
+
+        1.1) Lista de Tributações TESTES 
+                CST 000 - 32905 E 37398
+                CST 020 18 38,88 - 2961
+                CST 000 18 - 3608 
+                CST 020 12 41,67 - 1378
+                CST 060 - 759
+                CST 060 - 200801
+                CST 040 - 4107
+
+        1.2) Conferencia na API da BLUESOFT 
+
+
+2) Relembrar a postgre/funcaio que faz o DE/PARA para a tributação PDV
+2.1 __ f0021_90_1012007_produtobluesoft_processamento
+        A funcao alimenta a tabela tbzanthustabtributacao_cod_tributacao que tem o DE PARA com a tribuacao zanthus 
+
+2.2 __ f0085_10_1012014_zanthusprocessamento 
+		SCRIPT QUE GERA OS DADOS DAS TAB ZANTHUS REPRESENTADA NO PAG 
+
+
+2.3 __ class script com o select tab_mercadoria que vai alimentar a tab_mercadoria_zanthus
+/wk/projects/pag/__VERSAO/backend/src/modules/m0085_zanthus/report/report.ZanthusTabMercadoria_Select.ts
+
+2.4 __ class update tab_regra_mercadoria 
+/wk/projects/pag/__VERSAO/backend/src/modules/m0085_zanthus/tbs/tbZanthusTabMercadoria.ts
+
+2.5 __ class update tab_regras_icms
+/wk/projects/pag/__VERSAO/backend/src/modules/m0085_zanthus/tbs/tbZanthusTabRegraIcms.ts
+
+
+PAG - TABS
+tbfc_regrafiscal_nfce_produto
+
+ZANTHUS TABS
+select * from tab_mercadoria limit 10
+SELECT * FROM tbzanthustab_mercadoria WHERE COD_MERCADORIA = '00000000000296120'
+SELECT * FROM tbzanthustab_regra_icms WHERE COD_MERCADORIA = '00000000000296120'
+SELECT * FROM TAB_MERCADORIA WHERE COD_MERCADORIA = '00000000000296120'
+
+
+-------------- ANALIASE DA TABELA DE APURACAO DO COD_TRIBUTACAO_MERCADORIA---------
+
+	insert into tbzanthustabtributacao_cod_tributacao
+		(
+				prbt_icms_saida_cst						
+			,	prbt_icms_aliquota_interna				
+			,	prbt_icms_reducao		
+			,	processado 
+
+		)
+	SELECT 			prbt_icms_saida_cst
+				,	prbt_icms_aliquota_interna
+				,	prbt_icms_reducao  
+				, 	0
+	FROM 			TBPRODUTOBLUESOFT_TRIBUTACAO tr
+	where  			TR.OP_CDOPERACAO = 2 
+	AND				TR.PRBT_REGRAFISCAL_VERSAO = 99999
+	group by 	prbt_icms_saida_cst
+			,	prbt_icms_aliquota_interna
+			,	prbt_icms_reducao 
+			--,	cast(prbt_icms_aliquota_interna * (1 - (coalesce(prbt_icms_reducao,0)/100)) as numeric(13,2))
+	order by 	prbt_icms_saida_cst
+			,	prbt_icms_aliquota_interna
+			,	prbt_icms_reducao
+
+
+select  	icms_codigo_tributacao
+		, 	icms_reducao
+		, 	icms_aliquota
+		, 	icms_aliquota_final 
+from 		tbfc_regrafiscal_nfce_produto 
+where pr_cdproduto = 43
+-----------------------------------------------------------------------------------
+
+
+SCRIPT DE EXEMPLO DO UPDATE NO BANCO DE dados
+
+BEGIN TRANSACTION;
+UPDATE TAB_MERCADORIA 
+SET COD_TRIBUTACAO_MERCADORIA = 10
+  , COD_SITUACAO_TRIBUTARIA = '20'
+  , ALIQUOTA_ICMS = NULL
+WHERE COD_MERCADORIA IN ( '00000000000101801', '00000000000471619', '00000000000101792')
+
+
+UPDATE TAB_REGRAS_ICMS
+SET    	CST = '00'
+	,	ALIQUOTA = 11
+	,	PERC_REDUCAO = 0
+WHERE COD_MERCADORIA IN ( '00000000000101801', '00000000000471619', '00000000000101792')
+AND  FLG_TIPO_IMPOSTO = 0 
+-- COMMIT
+
+
+
+
+
+
+
+
+------------------ SCRIPT TESTE EXECUTADO MAS COM ERRO NA FINALIZAÇÃO DA RZ ---------------------------------
+
+--select * from tab_tributacao_pdv
+select M43AJ,* from zan_m43 where m00af='2025-12-17' and m00za=1 and m00ac=19
+ SELECT cod_mercadoria, descricao,  cod_tributacao_mercadoria, percentual_reduz_b_calculo, aliquota_icms FROM tab_mercadoria WHERE COD_MERCADORIA  = '00000000000471619'
+ BEGIN TRANSACTION;
+ UPDATE tab_mercadoria
+ SET    COD_TRIBUTACAO_MERCADORIA = 10 
+     ,  PERCENTUAL_REDUZ_B_CALCULO = 8.3300
+	 ,  ALIQUOTA_ICMS = 12 
+	 ,  DESCRICAO = 'CAPA DE FILE-TST'
+ WHERE COD_MERCADORIA  = '00000000000471619'
+
+---SELECT cod_mercadoria, cst, aliquota, perc_reducao FROM tab_regras_icms  WHERE COD_MERCADORIA  = '00000000000471619' and flg_tipo_imposto = 0
+UPDATE  tab_regras_icms
+SET ALIQUOTA = 12
+, PERC_REDUCAO = 8.33
+, CST = 20
+ WHERE COD_MERCADORIA  = '00000000000471619' and flg_tipo_imposto = 0
+COMMIT 
+
+--- PDV 15 CONTRA FILA (PRODUTO ANTIGO)
+
+
+
+
+
+
+
+
+
+INSERT INTO tab_servico (grupo_servico,ordem_servico,cod_servidor,cod_servico,descricao,classe,metodo,conexao,usuario,data_cadastro,data_ultima_alteracao,controle) (select 3,1,cod_servidor,229,'MONTAR LISTA PRODUTOS MAIS VENDIDOS','MIRAGE_CONHECIDOS','montarListaProdutosMaisVendidos','0','Zanthus','2025-08-13 00:00:00','2025-08-13 00:00:00','000' from tab_servidor);

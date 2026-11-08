@@ -1,0 +1,8 @@
+﻿<Window x:Class="Pag_Wpf.wUsuarioList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="wUsuarioList" Height="300" Width="300">
+    <Grid>
+        <DataGrid AutoGenerateColumns="False" Height="200" HorizontalAlignment="Left" Margin="70,76,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="200" />
+    </Grid>
+</Window>

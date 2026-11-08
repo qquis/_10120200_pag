@@ -1,0 +1,16 @@
+{
+  "name": "tools",
+  "version": "20.15.0",
+  "description": "Pag Tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Elias Silva",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
+    "dotenv": "^16.3.0"
+  }
+}

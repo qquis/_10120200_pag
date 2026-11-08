@@ -1,0 +1,667 @@
+﻿<Page x:Class="Pag_Wpf.Operacionais.PedidoDistribuidorRentabilidade"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+	Title="Cupom Fiscal">
+    <Grid Name="GridCupomFiscal" 
+          Background="{StaticResource _BackGroundLinerGradientMain}" 
+          Margin="0,0,0,0"  MaxWidth="900" Width="885" MinHeight="500" MaxHeight="600" >
+        <ScrollViewer Visibility="Visible"   
+        HorizontalScrollBarVisibility="Auto"
+        VerticalScrollBarVisibility="Auto"
+        Margin="0,0,0,0" 
+        VerticalAlignment="Stretch" 
+        HorizontalAlignment="Stretch" >
+            <Grid  Margin="0,0,0,0" 
+                   MaxWidth="{Binding ElementName=GridCupomFiscal,Path=ActualWidth}" 
+                   MaxHeight="{Binding ElementName=GridCupomFiscal,Path=ActualHeight}"
+                   >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8*"></RowDefinition>
+                    <RowDefinition Name="RowInfo" Height="92*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Name="GridCabec" Background="{x:Null}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Border BorderThickness="0,0,0,4" Margin="0,0,0,10" BorderBrush="Blue" Grid.Row="0" Name="BorderTitulo" >
+                        <Label Name="LabelTitulo" Content="Pedido de Venda Distribuição" FontSize="14" FontFamily="Gill Sans MT Condensed" Foreground="#FF1313D0" FontStretch="Condensed"></Label>
+                    </Border>
+                </Grid>
+                <Grid Grid.Row="1" Name="GridInfo" HorizontalAlignment="Center" Background="{x:Null}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Name="ColumnGridInfoList" Width="260"></ColumnDefinition>
+                        <ColumnDefinition Name="ColumnGridInfoDados" Width="600"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Name="Gridfiltros" Grid.Column="0" Width="250"  VerticalAlignment="Top" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="180"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Width="250" HorizontalAlignment="Left"  Background="#FFA7A2A2">
+                            <StackPanel.BitmapEffect>
+                                <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                            </StackPanel.BitmapEffect>
+                            <Grid Name="dtgridStackPainelfiltros" Width="250" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Filtros" HorizontalAlignment="Left" Style="{StaticResource _LabelSubInfoPrincipal}" ></Label>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Name="StackPainelFiltros" Grid.Row="1"  Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Left">
+                            <TabControl Background="{x:Null}" FontSize="9" >
+                                <TabItem Background="{x:Null}" Header="Básicos" >
+                                    <Grid >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="25" ></RowDefinition>
+                                            <RowDefinition Height="25"></RowDefinition>
+                                            <RowDefinition Height="25"></RowDefinition>
+                                            <RowDefinition Height="25"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="45"></ColumnDefinition>
+                                            <ColumnDefinition Width="190"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                            <Label  Margin="0,0,0,0"  FontSize="8" Style="{StaticResource _LabelDefault}">Vendedor</Label>
+                                        </Border>
+                                        <Border Grid.Row="1" Grid.Column="1"  Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+
+                                            <ComboBox VerticalAlignment="Top" ItemsSource="{Binding}"  IsEditable="False"  Margin="0,2,0,0"  Name="cmbVendedor" Height="20" FontSize="9" Style="{StaticResource _ComboBoxDefault}" >
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Name="NomeVendedor" Text="{Binding NomeVendedor}" Width="150"  ></TextBlock>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            
+                                        </Border>
+                                        <Border Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                            <Label   FontSize="8" Style="{StaticResource _LabelDefault}">Data</Label>
+                                        </Border>
+                                        <Border Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                            <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"  >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="45*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="45*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <DatePicker Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" Height="20"  HorizontalAlignment="Center" Name="dtPickerIni" VerticalAlignment="Top"  Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="0" />
+                                                <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                                <DatePicker Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Top" Name="dtPickerFim" Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="1"/>
+                                            </Grid>
+                                        </Border>
+                                        <Border Grid.Row="2" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                            <Label   FontSize="8" Style="{StaticResource _LabelDefault}">Código</Label>
+                                        </Border>
+                                        <Border Grid.Row="2" Grid.Column="1" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                            <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"  >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="15*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="15*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="45*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBox  Grid.Row="0" Grid.Column="0" Margin="1,1,1,1" Height="20"  HorizontalAlignment="Stretch" Name="txtCdCliente" VerticalAlignment="Top" Style="{StaticResource _TextBoxDefault}" HorizontalContentAlignment="Right" MaxLength="5" />
+                                                <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">Cliente</Label>
+                                                <TextBox Grid.Row="0" Grid.Column="2" Margin="1,1,1,1" Height="20"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Name="txtNomeCliente" Style="{StaticResource _TextBoxDefault}" HorizontalContentAlignment="Right" MaxLength="40" />
+                                            </Grid>
+                                        </Border>
+                                        <Border Grid.Row="3" Grid.Column="0" Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+                                            <Label   FontSize="8" Style="{StaticResource _LabelDefault}">Fabricante</Label>
+                                        </Border>
+                                        <Border Grid.Row="4" Grid.Column="1"  Margin="0,0,0,0" BorderThickness="1,1,1,1" BorderBrush="Silver">
+
+                                            <ComboBox VerticalAlignment="Top" ItemsSource="{Binding}"  IsEditable="False"  Margin="0,2,0,0"  Name="cmbfabricante" Height="20" FontSize="9" Style="{StaticResource _ComboBoxDefault}" >
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Name="DescricaoFabricante" Text="{Binding DescricaoFabricante}" Width="150"  ></TextBlock>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+
+                                        </Border>
+
+
+                                    </Grid>
+                                </TabItem>
+                            </TabControl>
+                        </StackPanel>
+                    </Grid>
+
+
+                    <Grid Name="GridList" Grid.Column="1" Width="600"  VerticalAlignment="Top" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="150"></RowDefinition>
+                            <RowDefinition Height="200"></RowDefinition>
+                            <RowDefinition Height="65"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Width="600" HorizontalAlignment="Right"  Background="#FFA7A2A2">
+                            <StackPanel.BitmapEffect>
+                                <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                            </StackPanel.BitmapEffect>
+                            <Grid Name="dtgridStackPainelTitulolista" Width="600" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="118"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+
+
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Rentabilidade " HorizontalAlignment="Left" Style="{StaticResource _LabelSubInfoPrincipal}" ></Label>
+                                <Button Name="BtnReport" Margin="0,0,0,0" Grid.Column="12" HorizontalAlignment="Stretch"  Style="{StaticResource _ButtonStandard_Imprimir}" Height="20" Width="20" ></Button>
+                                <Button Name="BtnBuscar" Margin="0,0,10,0" Grid.Column="13" HorizontalAlignment="Right"  Style="{StaticResource _ButtonStandard_Buscar}" Height="20" Width="20" Click="BtnBuscar_Click"></Button>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Name="StackPainelLista" 
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="center" 
+                                    VerticalAlignment="Top"
+                                    Margin="1,10,1,1"
+                                    Width="600" MaxWidth="600"  Height="140">
+                            <StackPanel.BitmapEffect>
+                                <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                            </StackPanel.BitmapEffect>
+                            <DataGrid Name="DataGridPedido" MaxWidth="600" MinWidth="600" HorizontalAlignment="Stretch"  SelectionChanged="DataGridPedido_SelectionChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="50" Header="Pedido" Binding="{Binding NumeroPedido}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="45" Header="Vend" Binding="{Binding CodigoVendedor}"></DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="100" Header="Vendedor" Binding="{Binding NomeVendedor}"></DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="110" Header="Cliente" Binding="{Binding NomeCliente}"></DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="70" Header="Valor" Binding="{Binding ValorPedido, StringFormat={}{0:N2}}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="55" Header="% Bruta" Binding="{Binding MargemBruta, StringFormat={}{0:N2}}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn IsReadOnly="True"  Width="55" Header="% Aplic" Binding="{Binding MargemAplicada, StringFormat={}{0:N2}}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn IsReadOnly="True"  Width="55" Header="% Liq" Binding="{Binding MargemLiquida, StringFormat={}{0:N2}}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTemplateColumn Header="Detalhes">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Name="cmdDetalhesItens" Style="{StaticResource _ButtonStandard_Detalhes}" Height="10" Width="10" Click="cmdDetalhesItens_Click"></Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Name="StackPainelDetalhes" 
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="center" 
+                                    VerticalAlignment="Top"
+                                    Margin="1,1,1,1"
+                                    MinWidth="600" Width="600" MaxWidth="600"  Height="200">
+                            <StackPanel.BitmapEffect>
+                                <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                            </StackPanel.BitmapEffect>
+                            <TabControl Background="{x:Null}" HorizontalAlignment="Stretch" FontSize="9" Height="201" Width="600">
+                                <TabItem Header="Pedido" Background="{x:Null}">
+                                    <StackPanel Grid.Row="2"
+                                Margin="0,0,0,0" Width="590"
+                                DataContext="{Binding ElementName=DataGridPedido, Path=SelectedItem}" 
+                                Language="Br-Pt"
+                                Background="{x:Null}">
+                                        <Grid  Name="GridForm" Margin="5,5,5,5" Background="{x:Null}" >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition ></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60" ></ColumnDefinition>
+                                                <ColumnDefinition Width="140"> </ColumnDefinition>
+                                                <ColumnDefinition Width="75" ></ColumnDefinition>
+                                                <ColumnDefinition Width="50" ></ColumnDefinition>
+                                                <ColumnDefinition Width="75" ></ColumnDefinition>
+                                                <ColumnDefinition Width="50" ></ColumnDefinition>
+                                                <ColumnDefinition Width="75" ></ColumnDefinition>
+                                                <ColumnDefinition Width="50" ></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Row="0" Grid.Column="0" BorderThickness="0,0,0,1" BorderBrush="White"/>
+                                            <Border Grid.Row="0" Grid.Column="1" BorderThickness="0,0,0,1" BorderBrush="White">
+                                                <Label   Content="Informações Básicas" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Style="{StaticResource _LabelDefault}" ></Label>
+                                            </Border>
+
+
+                                            <Border Grid.Row="0" Grid.Column="2" BorderThickness="0,0,0,1" BorderBrush="White"/>
+                                            <Border Grid.Row="0" Grid.Column="3" BorderThickness="0,0,0,1" BorderBrush="White">
+                                                <Label   Content="Valor" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Style="{StaticResource _LabelDefault}" ></Label>
+                                            </Border>
+
+                                            <Border Grid.Row="0" Grid.Column="4" BorderThickness="0,0,0,1" BorderBrush="White"/>
+                                            <Border Grid.Row="0" Grid.Column="5" BorderThickness="0,0,0,1" BorderBrush="White">
+                                                <Label   Content="Margem" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Style="{StaticResource _LabelDefault}" ></Label>
+                                            </Border>
+
+                                            <Border Grid.Row="0" Grid.Column="6" BorderThickness="0,0,0,1" BorderBrush="White"/>
+                                            <Border Grid.Row="0" Grid.Column="7" BorderThickness="0,0,0,1" BorderBrush="White">
+                                                <Label   Content="Verba" HorizontalAlignment="Right" VerticalAlignment="Bottom"  Style="{StaticResource _LabelDefault}" ></Label>
+                                            </Border>
+
+
+
+
+
+                                            <Label  Grid.Row="1" Grid.Column="0" Content="Cliente" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                            <Label  Grid.Row="2" Grid.Column="0" Content="Vendedor" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                            <Label  Grid.Row="3" Grid.Column="0" Content="Prazo" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                            <Label  Grid.Row="4" Content="Tipo Tabela" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                            <Label  Grid.Row="5" Grid.Column="0" Content="Status" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="6" Grid.Column="0" Content="Tipo Pedido" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+
+                                            <Label  Grid.Row="1" Grid.Column="2" Content="Valor Base" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="2" Grid.Column="2" Content="Valor Tabela" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="3" Grid.Column="2" Content="-/+ Desc. Apl" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="4" Grid.Column="2" Content="(=) Vl. Aplicado" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="5" Grid.Column="2" Content="(-) Desc. Fin" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="6" Grid.Column="2" Content="(=) Valor Liq" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+
+
+                                            <Label  Grid.Row="1" Grid.Column="4" Content="R$ Custo T." VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                            <Label  Grid.Row="2" Grid.Column="4" Content="% Bruta" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="3" Grid.Column="4" Content="% Financeira" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="4" Grid.Column="4" Content="% Aplicada" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="5" Grid.Column="4" Content="% Contrato" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="6" Grid.Column="4" Content="% Liquida" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+
+
+
+
+                                            <Label  Grid.Row="1" Grid.Column="6" Content="Verba Vend." VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                            <Label  Grid.Row="2" Grid.Column="6" Content="Verba Forn." VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="3" Grid.Column="6" Content="% VV X Ped" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="4" Grid.Column="6" Content="% VF X Ped" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="5" Grid.Column="6" Content="" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="6" Grid.Column="6" Content="" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="5" Grid.Column="7" Content="" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="6" Grid.Column="7" Content="" VerticalAlignment="Bottom" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+
+
+                                            <Label  Grid.Row="1" Grid.Column="1" Name="lblNomeCliente" Content="{Binding Path=NomeCliente}" VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                            <Label  Grid.Row="2" Grid.Column="1" Name="lblNomeVendedor" Content="{Binding Path=NomeVendedor}"  VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                            <Label  Grid.Row="3" Grid.Column="1" Name="lblPrazo" Content="{Binding Path=PrazoPagamento}" VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="4" Grid.Column="1" Name="lblTipoTabela" Content="{Binding Path=TipoTabela}"  VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="5" Grid.Column="1" Name="lblStatusPedido" Content="{Binding Path=StatusPedido}"  VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="6" Grid.Column="1" Name="lblTipoPedido" Content="{Binding Path=TipoPedido}"  VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+
+
+
+                                            <Label  Grid.Row="1" Grid.Column="3" Name="lblValorBase" Content="{Binding Path=ValorFaturamentoBruto, StringFormat={}{0:N2}}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="2" Grid.Column="3" Name="lblValorTabela" Content="{Binding Path=ValorFaturamento, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="3" Grid.Column="3" Name="lblDescApl" Content="{Binding Path=ValorDescontoTotal, StringFormat={}{0:N2}}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+                                            <Label  Grid.Row="4" Grid.Column="3" Name="lblValorAplicado" Content="{Binding Path=ValorFaturamentoAplicado, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="5" Grid.Column="3" Name="lblDescFinanceiro" Content="{Binding Path=ValorDescontoFinanceiroTotal, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="6" Grid.Column="3" Name="lblValorLiquido" Content="{Binding Path=ValorFaturamentoFinanceiro, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" ></Label>
+
+
+
+                                            <Label  Grid.Row="1" Grid.Column="5" Name="lblCustoTotal" Content="{Binding Path=ValorCustoTotal, StringFormat={}{0:N2}}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="2" Grid.Column="5" Name="lblMargemBruta" Content="{Binding Path=MargemBruta, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="3" Grid.Column="5" Name="lblMargemFinanceira" Content="{Binding Path=MargemFinanceira, StringFormat={}{0:N2}}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="4" Grid.Column="5" Name="lblMargemAplicada" Content="{Binding Path=MargemAplicada, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="5" Grid.Column="5" Name="lblMargemFinanceiraAplicada" Content="{Binding Path=MargemAplicadaFinanceira, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="6" Grid.Column="5" Name="lblMargemLiquida" Content="{Binding Path=MargemLiquida, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+
+
+                                            <Label  Grid.Row="1" Grid.Column="7" Name="lblValorVerbaTotal" Content="{Binding Path=ValorVerbaTotal, StringFormat={}{0:N2}}" VerticalAlignment="Top" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White" Height="22"></Label>
+                                            <Label  Grid.Row="2" Grid.Column="7" Name="lblValorVerbaFabricanteTotal" Content="{Binding Path=ValorVerbaFabricanteTotal, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="3" Grid.Column="7" Name="lblPercentualVerba" Content="{Binding Path=PencentualVerba, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                            <Label  Grid.Row="4" Grid.Column="7" Name="lblPercentualVerbaTotal" Content="{Binding Path=PercentualVerbaTotal, StringFormat={}{0:N2}}"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,0,0,1" BorderBrush="White"></Label>
+                                        </Grid>
+                                    </StackPanel>
+                                </TabItem>
+                                <TabItem Header="Itens" Background="{x:Null}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="298"></ColumnDefinition>
+                                            <ColumnDefinition Width="298"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <DataGrid Name="DataGridPedidoItens" Grid.Column="0"   HorizontalAlignment="Stretch">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="35" Header="Produto" Binding="{Binding CdProduto}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="170" Header="Descricão" Binding="{Binding DescricaoProduto}"></DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="60" Header="Valor" Binding="{Binding ValorItemPrecoAplicado, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+
+
+
+
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+
+                                        <StackPanel Name="StackPainelInfoItens" DataContext="{Binding ElementName=DataGridPedidoItens, Path=SelectedItem}" Grid.Column="1" Margin="0,0,2,0">
+                                            <Grid Grid.Row="0" Margin="5,0,0,0" Background="{x:Null}" Language="Br-Pt" >
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="21"></RowDefinition>
+                                                    <RowDefinition Height="21"></RowDefinition>
+                                                    <RowDefinition Height="125"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                    <Grid Margin="5,0,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="60*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="120*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="60*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="60*"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0" Name="TitCdProduto" Content="Código" VerticalAlignment="Top" HorizontalContentAlignment="Center" Style="{StaticResource _LabelDefault}" ></Label>
+                                                    <Label Grid.Row="0" Grid.Column="1" Name="TitDescricao" Content="Descrição" VerticalAlignment="Top" HorizontalContentAlignment="Center" Style="{StaticResource _LabelDefault}"></Label>
+                                                    <Label Grid.Row="0" Grid.Column="2" Name="TitQtde" Content="Qtde" VerticalAlignment="Top" HorizontalContentAlignment="Center" Style="{StaticResource _LabelDefault}"></Label>
+                                                    <Label Grid.Row="0" Grid.Column="3" Name="TitCustoTotalItem" Content="Custo" VerticalAlignment="Top" HorizontalContentAlignment="Center" Style="{StaticResource _LabelDefault}" ></Label>
+                                                    </Grid>
+                                                    <Grid Grid.Row="1"  Background="{x:Null}" Margin="5,0,0,0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                                            <ColumnDefinition Width="120"></ColumnDefinition>
+                                                            <ColumnDefinition Width="40"></ColumnDefinition>
+                                                            <ColumnDefinition Width="60"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Grid.Row="1" Grid.Column="0" Name="lblCdProduto" Content="{Binding Path=CdProduto}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,1" BorderBrush="White"></Label>
+                                                        <Label Grid.Row="1" Grid.Column="1" Name="lblDescricao" Content="{Binding Path=DescricaoProduto}" VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,1" BorderBrush="White" ></Label>
+                                                        <Label Grid.Row="1" Grid.Column="2" Name="lblQtde" Content="{Binding Path=Qtde}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,1" BorderBrush="White" ></Label>
+                                                        <Label Grid.Row="1" Grid.Column="3" Name="lblCustoTotalItem" Content="{Binding Path=CustoTotalItem}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,1,1" BorderBrush="White" ></Label>
+                                                    </Grid>
+                                                <Grid Grid.Row="2" Name="GridFormx" Margin="5,0,0,0" Background="{x:Null}" >
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                        <RowDefinition></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="60" ></ColumnDefinition>
+                                                        <ColumnDefinition Width="60"></ColumnDefinition>
+                                                        <ColumnDefinition Width="40" ></ColumnDefinition>
+                                                        <ColumnDefinition Width="60" ></ColumnDefinition>
+                                                        <ColumnDefinition Width="60" ></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label  Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" ></Label>
+                                                    <Label  Grid.Row="0" Grid.Column="1" Content="R$" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Style="{StaticResource _LabelDefault}" ></Label>
+                                                    <Label  Grid.Row="0" Grid.Column="2" Content="D +/-" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Style="{StaticResource _LabelDefault}" ></Label>
+                                                    <Label  Grid.Row="0" Grid.Column="3" Content="VB" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Style="{StaticResource _LabelDefault}" ></Label>
+                                                    <Label  Grid.Row="0" Grid.Column="4" Content="%" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Style="{StaticResource _LabelDefault}" ></Label>
+
+                                                    <Label  Grid.Row="1" Grid.Column="0" Content="Valor Base" VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="1" Grid.Column="1" Content="{Binding Path=ValorItemPrecoBasico, StringFormat={}{0:N2}}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White"></Label>
+                                                    <Label Grid.Column="3"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White" Margin="0,24,0,1" Grid.RowSpan="2"></Label>
+                                                    <Label  Grid.Row="1" Grid.Column="4" Content="{Binding Path=PercentualMargemBruta, StringFormat={}{0:N2}}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,1,0" BorderBrush="White"  ></Label>
+
+                                                    <Label  Grid.Row="2" Grid.Column="0" Content="Tabela" VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="2" Grid.Column="1" Content="{Binding Path=ValorItemPrecoTabela, StringFormat={}{0:N2}}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="2" Grid.Column="2"  VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="2" Grid.Column="3"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right"  Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White"></Label>
+                                                    <Label  Grid.Row="2" Grid.Column="4" Content="{Binding Path=PercentualMargemFinanceira, StringFormat={}{0:N2}}" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,1,0" BorderBrush="White" ></Label>
+
+                                                    <Label  Grid.Row="3" Grid.Column="0" Content="Aplicado" VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="3" Grid.Column="1" Content="{Binding Path=ValorItemPrecoAplicado, StringFormat={}{0:N2}}" VerticalAlignment="Stretch"  HorizontalContentAlignment="Right"   Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="3" Grid.Column="2" Content="{Binding Path=PercentualDescontoAplicado, StringFormat={}{0:N2}}" VerticalAlignment="Stretch"  HorizontalContentAlignment="Right"  Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="3" Grid.Column="3" Content="{Binding Path=ValorVerbaAplicada, StringFormat={}{0:N2}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  HorizontalContentAlignment="Right"   Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,0" BorderBrush="White"></Label>
+                                                    <Label  Grid.Row="3" Grid.Column="4" Content="{Binding Path=PercentualMargemAplicada, StringFormat={}{0:N2}}" VerticalAlignment="Stretch"  HorizontalContentAlignment="Right"  Style="{StaticResource _LabelDefault}" BorderThickness="1,1,1,0" BorderBrush="White" ></Label>
+
+                                                    <Label  Grid.Row="4" Grid.Column="0" Content="Líquido" VerticalAlignment="Stretch" Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,1" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="4" Grid.Column="1" Content="{Binding Path=ValorItemPrecoFinanceiroAplicado, StringFormat={}{0:N2}}" VerticalAlignment="Stretch"  HorizontalContentAlignment="Right"  Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,1" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="4" Grid.Column="2" Content="{Binding Path=PercentualDescontoFinanceiro, StringFormat={}{0:N2}}" VerticalAlignment="Stretch"  HorizontalContentAlignment="Right"  Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,1" BorderBrush="White" ></Label>
+                                                    <Label  Grid.Row="4" Grid.Column="3" Content="{Binding Path=ValorVerbaFornecedor, StringFormat={}{0:N2}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  HorizontalContentAlignment="Right"   Style="{StaticResource _LabelDefault}" BorderThickness="1,1,0,1" BorderBrush="White"></Label>
+                                                    <Label  Grid.Row="4" Grid.Column="4" Content="{Binding Path=PercentualMargemLiquida, StringFormat={}{0:N2}}" VerticalAlignment="Stretch"  HorizontalContentAlignment="Right"  Style="{StaticResource _LabelDefault}" BorderThickness="1,1,1,1" BorderBrush="White" ></Label>
+
+                                                </Grid>
+                                            </Grid>
+                                            
+                                            
+
+                                        </StackPanel>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="Fabricante" Background="{x:Null}">
+                                    <StackPanel Width="594" Height="171">
+                                        <DataGrid Name="DataGridPedidoFabricante" Grid.Column="0" HorizontalAlignment="Stretch" Height="167" Width="594">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="140*" Header="Descrição" Binding="{Binding Descricao}"></DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="Itens" Binding="{Binding NumeroItens, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="VB Vend" Binding="{Binding ValorVerbaAplicada, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="VB Forn" Binding="{Binding ValorVerbaFornecedor, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="Custo" Binding="{Binding CustoTotalItem, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="Contr" Binding="{Binding ValorItemPrecoFinanceiroAplicado, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="Aplic" Binding="{Binding ValorItemPrecoAplicado, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="% Bruta" Binding="{Binding PercentualMargemBruta, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="% Fin" Binding="{Binding PercentualMargemFinanceira, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="% Aplic" Binding="{Binding PercentualMargemAplicada, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="% FinAplic" Binding="{Binding PercentualMargemFinanceiraAplicada, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                                <DataGridTextColumn IsReadOnly="True"  Width="45*" Header="% Liq" Binding="{Binding PercentualMargemLiquida, StringFormat={}{0:N2}}">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+
+                                    </StackPanel>
+
+                                </TabItem>
+                            </TabControl>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Name="StackPainelFooterGrid" 
+                                    Width="600"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right" 
+                                    Margin="1,10,1,1" Background="#FFA7A2A2">
+                            <StackPanel.BitmapEffect>
+                                <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                            </StackPanel.BitmapEffect>
+
+                            <Grid HorizontalAlignment="Right"  >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition  Width="35" ></ColumnDefinition>
+                                    <ColumnDefinition  Width="60"></ColumnDefinition>
+                                    <ColumnDefinition  Width="80"></ColumnDefinition>
+                                    <ColumnDefinition  Width="80"></ColumnDefinition>
+                                    <ColumnDefinition  Width="80"></ColumnDefinition>
+                                    <ColumnDefinition  Width="80"></ColumnDefinition>
+                                    <ColumnDefinition  Width="60"></ColumnDefinition>
+                                    <ColumnDefinition  Width="60"></ColumnDefinition>
+                                    <ColumnDefinition  Width="46" ></ColumnDefinition>
+
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40*"></RowDefinition>
+                                    <RowDefinition Height="60*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" FontSize="8" VerticalAlignment="Top" Foreground="Blue" Background="{StaticResource _BackGroundLinerGradientMain}">Reg.</Label>
+                                <Label Grid.Column="1" Grid.Row="0" FontSize="8" VerticalAlignment="Top" Foreground="Blue" Background="{StaticResource _BackGroundLinerGradientMain}">Custo</Label>
+                                <Label Grid.Column="2" Grid.Row="0" FontSize="8" VerticalAlignment="Top" Foreground="Blue" Background="{StaticResource _BackGroundLinerGradientMain}">Base</Label>
+                                <Label Grid.Column="3" Grid.Row="0" FontSize="8" VerticalAlignment="Top" Foreground="Blue" Background="{StaticResource _BackGroundLinerGradientMain}">Tabela</Label>
+                                <Label Grid.Column="4" Grid.Row="0" FontSize="8" VerticalAlignment="Top" Foreground="Blue" Background="{StaticResource _BackGroundLinerGradientMain}">Aplicado</Label>
+                                <Label Grid.Column="5" Grid.Row="0" FontSize="8" VerticalAlignment="Top" Foreground="Blue" Background="{StaticResource _BackGroundLinerGradientMain}">Contrato</Label>
+                                <Label Grid.Column="6" Grid.Row="0" FontSize="8" VerticalAlignment="Top" Foreground="Blue" Background="{StaticResource _BackGroundLinerGradientMain}">Vb Vend</Label>
+                                <Label Grid.Column="7" Grid.Row="0" FontSize="8" VerticalAlignment="Top" Foreground="Blue" Background="{StaticResource _BackGroundLinerGradientMain}">Vb Forn</Label>
+                                
+                                <Label Grid.Column="8" Grid.Row="0" FontSize="8" VerticalAlignment="Top" Foreground="Blue" Background="{StaticResource _BackGroundLinerGradientMain}">% Liq</Label>
+                                <Label Grid.Column="0" Grid.Row="1" Name="LblTRegistros"  BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                <Label Grid.Column="1" Grid.Row="1" Name="LblTCustoValor" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                <Grid Grid.Column="2" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40*"></ColumnDefinition>
+                                        <ColumnDefinition Width="60*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="1" Grid.Row="0" Name="LblTBaseValor" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                    <Label Grid.Column="0" Grid.Row="0" Name="LblTBaseMargem" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                </Grid>
+
+
+                                <Grid Grid.Column="3" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40*"></ColumnDefinition>
+                                        <ColumnDefinition Width="60*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="1" Grid.Row="0" Name="LblTTabelaValor" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                    <Label Grid.Column="0" Grid.Row="0" Name="LblTTabelaMargem" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                </Grid>
+
+
+
+                                <Grid Grid.Column="4" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40*"></ColumnDefinition>
+                                        <ColumnDefinition Width="60*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="1" Grid.Row="0" Name="LblTAplicadoValor" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                    <Label Grid.Column="0" Grid.Row="0" Name="LblTAplicadoMargem" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                </Grid>
+
+
+                                <Grid Grid.Column="5" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40*"></ColumnDefinition>
+                                        <ColumnDefinition Width="60*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="1" Grid.Row="0" Name="LblTFinanceiroValor" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                    <Label Grid.Column="0" Grid.Row="0" Name="LblTFinanceiroMargem" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                </Grid>
+
+
+                                <Label Grid.Column="6" Grid.Row="1" Name="LblTVerbaVendedor"  BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                <Label Grid.Column="7" Grid.Row="1" Name="LblTVerbaFabricante" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+                                <Label Grid.Column="8" Grid.Row="1" Name="LblTMargemLiquida" BorderBrush="Black" BorderThickness="1" FontSize="8" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="Black"></Label>
+
+                            </Grid>
+
+                        </StackPanel>
+                    </Grid>
+                    <Grid Name="GridLabels" Width="430" Grid.Column="1" VerticalAlignment="Top">
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

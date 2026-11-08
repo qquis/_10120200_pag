@@ -1,0 +1,57 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Pag_Net" GeneratedClassName="CONFIG">
+  <Profiles />
+  <Settings>
+    <Setting Name="ServicePagLogPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Projects\Pag\BIN\spool</Value>
+    </Setting>
+    <Setting Name="DataBaseUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">USRSRV</Value>
+    </Setting>
+    <Setting Name="ServicePagLogName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ServiceLogs.txt</Value>
+    </Setting>
+    <Setting Name="SystemId" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SER</Value>
+    </Setting>
+    <Setting Name="SystemEnvironment" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PRD</Value>
+    </Setting>
+    <Setting Name="SystemNetWork" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LAN</Value>
+    </Setting>
+    <Setting Name="DataBaseUserPassWord" Type="System.String" Scope="User">
+      <Value Profile="(Default)">!usrserv729</Value>
+    </Setting>
+    <Setting Name="InfoXFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Projects\Pag\Bin\Configs\infox.dll</Value>
+    </Setting>
+    <Setting Name="ServiceOwner" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SRV03</Value>
+    </Setting>
+    <Setting Name="PagAPI" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://192.168.1.6:57895</Value>
+    </Setting>
+    <Setting Name="DataBaseService" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SRV02,1433</Value>
+    </Setting>
+    <Setting Name="DataBaseName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DBAMAIN</Value>
+    </Setting>
+    <Setting Name="DiaSemanaInicial" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="DiaSemanaFinal" Type="System.String" Scope="User">
+      <Value Profile="(Default)">7</Value>
+    </Setting>
+    <Setting Name="HoraInicial" Type="System.String" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="HoraFinal" Type="System.String" Scope="User">
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="SystemSRRReprocessamento" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

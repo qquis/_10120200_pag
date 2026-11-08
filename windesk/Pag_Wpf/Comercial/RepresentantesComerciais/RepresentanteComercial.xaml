@@ -1,0 +1,190 @@
+﻿<Page x:Class="Pag_Wpf.Comercial.RepresentantesComerciais.RepresentanteComercial"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+	Title="Cadastro de Produtos" >
+    <Grid Name="GridCupomFiscal" Style="{StaticResource GridBase}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Name="RowInfo" Height="92*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="GridCabec" Style="{StaticResource GridBase_Cabecalho}">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Name="BorderTitulo" Style="{StaticResource GridBase_Cabecalho_Border}" >
+                <Label  Style="{StaticResource GridBase_Cabecalho_LabelTitulo}">Contratos - Cadastros</Label>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Name="GridInfo" Style="{StaticResource GridBase_Cabecalho}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Name="ColumnGridInfoList"  Width="350"></ColumnDefinition>
+                <ColumnDefinition Name="ColumnGridInfoDados" Width="900"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Name="Gridfiltros"  VerticalAlignment="Top" Margin="10,1,1,1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"></RowDefinition>
+                    <RowDefinition Height="180*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"  Background="#FFA7A2A2">
+                    <StackPanel.BitmapEffect>
+                        <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                    </StackPanel.BitmapEffect>
+                    <Grid Name="dtgridStackPainelfiltros" HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Style="{StaticResource GridBase_Cabecalho_LabelTitulo}" HorizontalAlignment="Stretch" >Filtros</Label>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Name="StackPainelFiltros" Orientation="Horizontal" Margin="0,5,0,0" HorizontalAlignment="Stretch">
+                    <TabControl>
+                        <TabItem Header="Básicos" >
+                            <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35" ></RowDefinition>
+                                    <RowDefinition Height="35"></RowDefinition>
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"></ColumnDefinition>
+                                    <ColumnDefinition Width="250"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Content="Descrição" FontSize="14" HorizontalContentAlignment="Left" Style="{StaticResource _LabelFormInfo}" ></Label>
+                                <TextBox Grid.Row="0" Grid.Column="1" Name="TXTDescricao" Style="{StaticResource _TextBoxDefault}" TextChanged="TXTDescricao_TextChanged"></TextBox>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </StackPanel>
+            </Grid>
+            <Grid Name="GridList" Grid.Column="1" VerticalAlignment="Stretch" Margin="5,1,1,1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="200"></RowDefinition>
+                    <RowDefinition Height="230"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"  Background="#FFA7A2A2">
+                    <StackPanel.BitmapEffect>
+                        <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                    </StackPanel.BitmapEffect>
+                    <Grid Name="dtgridStackPainelTitulolista" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Representantes" Style="{StaticResource _LabelSubInfoPrincipal}" ></Label>
+                        <Label Grid.Column="4" Content="Incluir" HorizontalContentAlignment="center" VerticalContentAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="14" ></Label>
+                        <Button Name="cmdInserirRepresentanteSelecionado" Margin="0,0,0,0" Grid.Column="4" HorizontalAlignment="Right"  Style="{StaticResource _ButtonStandard_Incluir}" Height="20" Width="20"  IsEnabled="True" Click="cmdInserirRepresentanteSelecionado_Click"></Button>
+                        <Label Grid.Column="5" Content="Buscar" HorizontalContentAlignment="center" VerticalContentAlignment="Center" VerticalAlignment="Center" Foreground="White"  FontSize="14" ></Label>
+                        <Button Name="cmdBuscar" Margin="0,0,10,0" Grid.Column="5" HorizontalAlignment="Right"  Style="{StaticResource _ButtonStandard_Buscar}" Height="20" Width="20" Click="cmdBuscar_Click"></Button>
+                    </Grid>
+                </StackPanel>
+                <DataGrid Name="DTGRepresentantesComerciais" Grid.Row="1"  HorizontalAlignment="Stretch" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True"  Width="50" Header="Código" Binding="{Binding CdRepresentante}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True"  Width="250" Header="Descrição" Binding="{Binding Descricao}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Detalhes" Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Name="cmdRepresentanteDetalhes" Style="{StaticResource _ButtonStandard_Detalhes}" Height="15" Width="15" Click="cmdRepresentanteDetalhes_Click"></Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <TabControl Name="TABCONTROL_REPRESENTANTES" Grid.Row="2" Margin="1,1,1,1">
+                    <TabItem Header="Agentes Relacionados" FontSize="13">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45*"></ColumnDefinition>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                                <ColumnDefinition Width="45*"></ColumnDefinition>
+                                <ColumnDefinition Width="5*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"  Background="#FFA7A2A2">
+                                <Label Grid.Row="0" Grid.Column="0" Content="Fabricante" FontSize="13"  Style="{StaticResource _LabelSubInfoPrincipal}" ></Label>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"  Background="#FFA7A2A2">
+                                <Label Grid.Row="0" Grid.Column="0" Content="Participante" FontSize="13" Style="{StaticResource _LabelSubInfoPrincipal}" ></Label>
+                            </StackPanel>
+                            <Grid Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Button Name="cmdInserirFabricanteSelecionado" Margin="0,0,0,0" Grid.Row="0" HorizontalAlignment="Stretch"  Style="{StaticResource _ButtonStandard_Incluir}" Height="20" Width="20" Click="cmdInserirFabricanteSelecionado_Click"></Button>
+                            </Grid>
+                            <Grid Grid.Column="3" Grid.Row="1"  HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Button Name="cmdInserirParticipanteSelecionado" Margin="0,0,0,0" Grid.Row="0" HorizontalAlignment="Stretch"  Style="{StaticResource _ButtonStandard_Incluir}" Height="20" Width="20" Click="cmdInserirParticipanteSelecionado_Click"></Button>
+                            </Grid>
+                            <DataGrid Grid.Column="0" Grid.Row="1" Name="DTGFabricantes" HorizontalAlignment="Stretch">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="50" Header="Codigo" Binding="{Binding CdFabricante}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="190" Header="Descricao" Binding="{Binding FabricanteDescricao}"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Header="Excluir" Width="50">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Name="cmdExcluirFabricanteSelecionado" Style="{StaticResource _ButtonStandard_Excluir}" Height="15" Width="15" Click="cmdExcluirFabricanteSelecionado_Click"></Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <DataGrid Grid.Column="2" Grid.Row="1" Name="DTGParticipantes" HorizontalAlignment="Stretch">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn IsReadOnly="True"  Width="50" Header="Codigo" Binding="{Binding CdParticipante}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"    Width="140" Header="Nome" Binding="{Binding ParticipanteNome}"></DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="True"    Width="140" Header="CNPJ" Binding="{Binding ParticipanteDocumento}"></DataGridTextColumn>
+                                    <DataGridTemplateColumn Header="Excluir" Width="50">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Name="cmdExcluirParticipanteSelecionado" Style="{StaticResource _ButtonStandard_Excluir}" Height="15" Width="15" Click="cmdExcluirParticipanteSelecionado_Click"></Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Contratos" FontSize="13"></TabItem>
+                </TabControl>
+            </Grid>
+            <Grid Grid.Column="1" Name="GridLabels"  VerticalAlignment="Top">
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

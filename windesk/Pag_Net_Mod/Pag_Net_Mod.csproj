@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E08F284F-283D-4563-94B1-429D75BCBD0A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Pag_Net</RootNamespace>
+    <AssemblyName>Pag_Net_Mod</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\__bin\desktop\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Filter\Pag_Net.Models.Filter.Login.cs" />
+    <Compile Include="Filter\Pag_Net.Models.Filter.Produto.cs" />
+    <Compile Include="Oldx\ModeloBase\TbNotasFiscais.cs" />
+    <Compile Include="Oldx\ModeloBase\TbNotasFiscaisItem.cs" />
+    <Compile Include="Oldx\ModeloBase\TbOperacaoCartaoCredito.cs" />
+    <Compile Include="Oldx\ModeloBase\TbStatusProdutoPreco.cs" />
+    <Compile Include="Oldx\Pag_Net_Mod_Tables.cs" />
+    <Compile Include="Pag_Net.CO03.Models.FaturamentoBlueItens.cs" />
+    <Compile Include="Pag_Net.CO03.Models.FaturamentoBlueHeader.cs" />
+    <Compile Include="Pag_Net.F0001.Models.ImportTbPessoaBlueSoft.cs" />
+    <Compile Include="Pag_Net.F0002.Models.Participante.cs" />
+    <Compile Include="Pag_Net.F0020.Models.ProdutoDepartamento.cs" />
+    <Compile Include="Pag_Net.F0019.Models.ProdutoSecao.cs" />
+    <Compile Include="Pag_Net.F0018.Models.ProdutoGrupo.cs" />
+    <Compile Include="Pag_Net.F0017.Models.ProdutoSubGrupo.cs" />
+    <Compile Include="Pag_Net.F0026.Models.ProdutoBlueSoft_Fornecedor.cs" />
+    <Compile Include="Pag_Net.F0025.Models.ProdutoBlueSoft_Composicao.cs" />
+    <Compile Include="Pag_Net.F0022.Models.ProdutoBlueSoft_Gtins.cs" />
+    <Compile Include="Pag_Net.F0021.Models.ProdutoBlueSoft.cs" />
+    <Compile Include="Pag_Net.F0005.Models.GrupoEconomico.cs" />
+    <Compile Include="Pag_Net._Models.cs" />
+    <Compile Include="Pag_Net.F0011.Models.PessoaBlueSoft.cs" />
+    <Compile Include="Pag_Net.SPC0111.Models.ProdutoBlueSoftTributacao_Observacao.cs" />
+    <Compile Include="Pag_Net.SPC0110.Models.ProdutoBlueSoftTributacao.cs" />
+    <Compile Include="Pag_Net_Mod.cs" />
+    <Compile Include="Pag_Net_Mod_Old.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="System\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Pag_Net.SPP0015.Models.ZanthusTabRegraICMS.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Pag_Net.SPC0010.Models.Pessoa.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

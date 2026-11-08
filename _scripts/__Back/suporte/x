@@ -1,0 +1,10 @@
+select 		r.fc_figurafiscal_cd 
+		,	r.fc_regrafiscal_cd
+		,	o.df_nf_tipo
+		,	r.fc_regrafiscal_status
+from 		tbfc_regrafiscal r
+left join 	tbfc_regrafiscal_operacao o on o.fc_regrafiscal_cd = r.fc_regrafiscal_cd
+where 	1 = 1 
+--and r.fc_figurafiscal_cd  = 1183
+and o.df_nf_tipo in (86,168)
+order by o.fc_regrafiscal_cd asc 

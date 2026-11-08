@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniversário Premiado OXAN - 23 Anos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Neue Helvetica', 'Helvetica Neue', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            min-height: 100%;
+        }
+        html {
+            height: 100%;
+        }
+        .header {
+            background: #dc2626;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .logo-image {
+            width: 60px;
+            height: 60px;
+            background: #1e3a8a;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+        }
+        .anniversary-badge {
+            background: linear-gradient(45deg, #f97316, #fb923c);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+        }
+        .main-nav {
+            border-top: 2px solid #f0f0f0;
+            padding-top: 1rem;
+        }
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-link:hover {
+            background: linear-gradient(145deg, rgba(255,255,255,0.25), rgba(255,255,255,0.15));
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .nav-link.active {
+            background: linear-gradient(145deg, rgba(255,255,255,0.3), rgba(255,255,255,0.2));
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .contact-modal {
+            background: white;
+            border-radius: 25px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes modalSlideIn {
+            from { 
+                transform: translateY(-50px) scale(0.9);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1e3a8a;
+        }
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .modal-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .contact-item:hover {
+            background: #eff6ff;
+            border-color: #1e3a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.2);
+        }
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .email-icon {
+            background: linear-gradient(45deg, #dc2626, #ef4444);
+        }
+        .phone-icon {
+            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+        }
+        .whatsapp-icon {
+            background: linear-gradient(45deg, #16a34a, #22c55e);
+        }
+        .contact-details h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        .contact-details p {
+            margin: 0;
+            color: #666;
+            font-weight: 500;
+        }
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #f3f4f6;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        .close-modal:hover {
+            background: #dc2626;
+            color: white;
+            transform: scale(1.1);
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+            color: #1e3a8a;
+            position: relative;
+            overflow: hidden;
+            background: white;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,235,59,0.3)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,107,53,0.4)"/><circle cx="60" cy="70" r="2.5" fill="rgba(255,235,59,0.2)"/><circle cx="30" cy="80" r="1" fill="rgba(255,107,53,0.3)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-20px) translateX(10px); }
+            100% { transform: translateY(0px) translateX(0px); }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fbbf24, #f97316, #dc2626, #fbbf24);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        .celebration-container {
+            background: #f8f9fa;
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            border: 2px solid #1e3a8a;
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.2);
+        }
+        .celebration-title {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: #1e3a8a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-weight: 600;
+        }
+        .prize-highlight {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            color: #1e3a8a;
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .content-section {
+            background: white;
+            padding: 4rem 0;
+            min-height: 60vh;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #1e3a8a;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        .editable-area {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .editable-area:hover {
+            border-color: #f97316;
+            background: #fef3f2;
+        }
+        .editable-area h3 {
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+        .editable-area p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .banner-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .banner-slot {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .banner-slot:hover {
+            border-color: #f97316;
+            background: #fef3f2;
+        }
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .partner-slot {
+            background: white;
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .partner-slot:hover {
+            border-color: #1e3a8a;
+            background: #eff6ff;
+        }
+        .brands-section {
+            background: white;
+            padding: 4rem 0;
+            color: #1e3a8a;
+        }
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .brand-slot {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .brand-slot:hover {
+            border-color: #dc2626;
+            background: #fef2f2;
+        }
+        .how-to-participate {
+            background: white;
+            padding: 4rem 0;
+        }
+        .steps-container {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            min-height: 400px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .steps-container:hover {
+            border-color: #f97316;
+            background: #fef3f2;
+        }
+        .edit-button {
+            background: linear-gradient(45deg, #f97316, #fb923c);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        .edit-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+        }
+        .footer {
+            background: #dc2626;
+            color: white;
+            padding: 3rem 0 1rem 0;
+        }
+        .footer-content {
+            text-align: center;
+            line-height: 1.8;
+        }
+        .footer-main {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .footer-cookies {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 1rem;
+        }
+        .main-banner-section {
+            background: white;
+            padding: 4rem 0;
+            width: 100%;
+        }
+        .main-banner-container {
+            width: 100%;
+            background: #f8f9fa;
+            border: 3px dashed #dee2e6;
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0;
+        }
+        .main-banner-container:hover {
+            border-color: #dc2626;
+            background: #fef2f2;
+        }
+        .banner-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.5rem 0;
+            }
+            
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .logo-section {
+                flex-direction: column;
+                gap: 0.8rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .logo-container {
+                gap: 0.8rem;
+            }
+            
+            .logo-image {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .anniversary-badge {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+            }
+            
+            .nav-list {
+                gap: 0.5rem;
+                justify-content: center;
+            }
+            
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .celebration-container {
+                padding: 1.5rem 1rem;
+                margin: 1rem auto;
+            }
+            
+            .celebration-title {
+                font-size: 1.5rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .prize-highlight {
+                padding: 1.5rem;
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .content-section {
+                padding: 2rem 0;
+            }
+            
+            .brands-section {
+                padding: 2rem 0;
+            }
+            
+            .how-to-participate {
+                padding: 2rem 0;
+            }
+            
+            .editable-area, .steps-container {
+                padding: 2rem 1rem;
+                margin: 1rem 0;
+            }
+            
+            .banner-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .banner-slot {
+                padding: 1.5rem;
+                min-height: 180px;
+            }
+            
+            .partners-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+            }
+            
+            .partner-slot {
+                padding: 1.5rem;
+                min-height: 130px;
+            }
+            
+            .brands-grid {
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+                gap: 0.8rem;
+            }
+            
+            .brand-slot {
+                padding: 1rem;
+                min-height: 100px;
+            }
+            
+            .edit-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .footer {
+                padding: 2rem 0 1rem 0;
+            }
+            
+            .footer-main {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+            
+            .footer-copyright {
+                font-size: 0.8rem;
+            }
+            
+            .footer-cookies {
+                font-size: 0.75rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                gap: 0.3rem;
+                width: 100%;
+            }
+            
+            .nav-link {
+                padding: 0.8rem;
+                text-align: center;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .celebration-container {
+                padding: 1rem;
+            }
+            
+            .celebration-title {
+                font-size: 1.3rem;
+            }
+            
+            .prize-highlight {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .partners-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .brands-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .main-banner-section {
+                padding: 2rem 0;
+            }
+            .main-banner-container {
+                padding: 2rem 1rem;
+                min-height: 200px;
+            }
+            .banner-placeholder h3 {
+                font-size: 1.5rem;
+            }
+            .banner-placeholder p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo-section">
+                <div class="logo-container">
+                    <div class="logo-image">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="currentColor"/>
+                            <path d="M8 12h24l-2 16H10l-2-16z" fill="white"/>
+                            <circle cx="14" cy="32" r="2" fill="white"/>
+                            <circle cx="26" cy="32" r="2" fill="white"/>
+                            <path d="M6 8h4l1 4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="logo">OXAN ATACADISTA</div>
+                </div>
+                <div class="anniversary-badge">🎉 23 ANOS DE HISTÓRIA</div>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active" onclick="showSection('home')"><span>🏠</span>HOME</a></li>
+                    <li><a href="#sorteados" class="nav-link" onclick="showSection('sorteados')"><span>🏆</span>SORTEADOS</a></li>
+                    <li><a href="#regulamento" class="nav-link" onclick="showSection('regulamento')"><span>📋</span>REGULAMENTO</a></li>
+                    <li><a href="#como-participar" class="nav-link" onclick="showSection('como-participar')"><span>🎯</span>COMO PARTICIPAR</a></li>
+                    <li><a href="#acesso" class="nav-link" onclick="showSection('acesso')"><span>🔐</span>ACESSO</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- HOME SECTION -->
+    <section id="home" class="section active">
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="container">
+                    <h1 class="hero-title">ANIVERSÁRIO PREMIADO</h1>
+                    <p class="hero-subtitle">Celebrando 23 anos com você!</p>
+                    
+                    <div class="celebration-container">
+                        <div class="celebration-title">
+                            🎂 OXAN - 23 ANOS 🎂
+                        </div>
+                        <p style="font-size: 1.2rem; line-height: 1.6;">
+                            Uma celebração especial para nossos clientes queridos!<br>
+                            Venha fazer parte desta festa e concorrer a prêmios incríveis.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BANNER PRINCIPAL -->
+        <div class="main-banner-section">
+            <div class="main-banner-container" onclick="editMainBanner()">
+                <div class="banner-placeholder">
+                    <span style="font-size: 4rem; color: #1e3a8a;">🎯</span>
+                    <h3 style="color: #1e3a8a; margin: 1rem 0; font-size: 2rem;">BANNER PRINCIPAL</h3>
+                    <p style="color: #666; font-size: 1.2rem;">Clique para adicionar seu banner promocional</p>
+                    <button class="edit-button">EDITAR BANNER</button>
+                </div>
+            </div>
+        </div>
+        <!-- MARCAS PARTICIPANTES -->
+        <div class="brands-section">
+            <div class="container">
+                <h2 class="section-title">🏷️ MARCAS PARTICIPANTES</h2>
+                <div class="brands-grid">
+                    <div class="brand-slot" onclick="editBrand(1)">
+                        <div style="width: 50px; height: 50px; background: #1e3a8a; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; margin: 0 auto 0.5rem;">📦</div>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Clique para adicionar marca</p>
+                    </div>
+                    <div class="brand-slot" onclick="editBrand(2)">
+                        <div style="width: 50px; height: 50px; background: #1e3a8a; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; margin: 0 auto 0.5rem;">📦</div>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Clique para adicionar marca</p>
+                    </div>
+                    <div class="brand-slot" onclick="editBrand(3)">
+                        <div style="width: 50px; height: 50px; background: #1e3a8a; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; margin: 0 auto 0.5rem;">📦</div>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Clique para adicionar marca</p>
+                    </div>
+                    <div class="brand-slot" onclick="editBrand(4)">
+                        <div style="width: 50px; height: 50px; background: #1e3a8a; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; margin: 0 auto 0.5rem;">📦</div>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Clique para adicionar marca</p>
+                    </div>
+                    <div class="brand-slot" onclick="editBrand(5)">
+                        <div style="width: 50px; height: 50px; background: #1e3a8a; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; margin: 0 auto 0.5rem;">📦</div>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Clique para adicionar marca</p>
+                    </div>
+                    <div class="brand-slot" onclick="editBrand(6)">
+                        <div style="width: 50px; height: 50px; background: #1e3a8a; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; margin: 0 auto 0.5rem;">📦</div>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Clique para adicionar marca</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- PATROCINADORES -->
+        <div class="content-section">
+            <div class="container">
+                <h2 class="section-title">🤝 PATROCINADORES & PARCEIROS</h2>
+                <div class="partners-grid">
+                    <div class="partner-slot" onclick="editPartner(1)">
+                        <div style="width: 60px; height: 60px; background: #1e3a8a; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin: 0 auto 1rem;">🏢</div>
+                        <p style="margin-top: 1rem; color: #666;">Clique para adicionar patrocinador</p>
+                    </div>
+                    <div class="partner-slot" onclick="editPartner(2)">
+                        <div style="width: 60px; height: 60px; background: #1e3a8a; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin: 0 auto 1rem;">🏢</div>
+                        <p style="margin-top: 1rem; color: #666;">Clique para adicionar patrocinador</p>
+                    </div>
+                    <div class="partner-slot" onclick="editPartner(3)">
+                        <div style="width: 60px; height: 60px; background: #1e3a8a; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin: 0 auto 1rem;">🏢</div>
+                        <p style="margin-top: 1rem; color: #666;">Clique para adicionar patrocinador</p>
+                    </div>
+                    <div class="partner-slot" onclick="editPartner(4)">
+                        <div style="width: 60px; height: 60px; background: #1e3a8a; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin: 0 auto 1rem;">🏢</div>
+                        <p style="margin-top: 1rem; color: #666;">Clique para adicionar patrocinador</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SORTEADOS SECTION -->
+    <section id="sorteados" class="section">
+        <div class="content-section">
+            <div class="container">
+                <h2 class="section-title">🏆 SORTEADOS</h2>
+                <div class="banner-grid">
+                    <div class="banner-slot" onclick="editWinnerBanner(1)">
+                        <div style="width: 80px; height: 80px; background: #1e3a8a; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 1rem;">🎉</div>
+                        <h3 style="color: #1e3a8a; margin: 1rem 0;">Banner do Ganhador #1</h3>
+                        <p style="color: #666;">Clique para adicionar banner do ganhador</p>
+                        <button class="edit-button">EDITAR BANNER</button>
+                    </div>
+                    <div class="banner-slot" onclick="editWinnerBanner(2)">
+                        <div style="width: 80px; height: 80px; background: #1e3a8a; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 1rem;">🎉</div>
+                        <h3 style="color: #1e3a8a; margin: 1rem 0;">Banner do Ganhador #2</h3>
+                        <p style="color: #666;">Clique para adicionar banner do ganhador</p>
+                        <button class="edit-button">EDITAR BANNER</button>
+                    </div>
+                    <div class="banner-slot" onclick="editWinnerBanner(3)">
+                        <div style="width: 80px; height: 80px; background: #1e3a8a; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 1rem;">🎉</div>
+                        <h3 style="color: #1e3a8a; margin: 1rem 0;">Banner do Ganhador #3</h3>
+                        <p style="color: #666;">Clique para adicionar banner do ganhador</p>
+                        <button class="edit-button">EDITAR BANNER</button>
+                    </div>
+                    <div class="banner-slot" onclick="editWinnerBanner(4)">
+                        <div style="width: 80px; height: 80px; background: #1e3a8a; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; margin: 0 auto 1rem;">🎉</div>
+                        <h3 style="color: #1e3a8a; margin: 1rem 0;">Banner do Ganhador #4</h3>
+                        <p style="color: #666;">Clique para adicionar banner do ganhador</p>
+                        <button class="edit-button">EDITAR BANNER</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- REGULAMENTO SECTION -->
+    <section id="regulamento" class="section">
+        <div class="content-section">
+            <div class="container">
+                <h2 class="section-title">📋 REGULAMENTO</h2>
+                <div class="editable-area" onclick="editRegulamento()">
+                    <h3>📝 Área Editável - Regulamento</h3>
+                    <p>Clique aqui para adicionar o regulamento completo da promoção</p>
+                    <button class="edit-button">EDITAR REGULAMENTO</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- COMO PARTICIPAR SECTION -->
+    <section id="como-participar" class="section">
+        <div class="how-to-participate">
+            <div class="container">
+                <h2 class="section-title">🎯 COMO PARTICIPAR</h2>
+                <div class="steps-container" onclick="editSteps()">
+                    <h3 style="color: #1e3a8a; text-align: center; margin-bottom: 2rem;">📍 Mapa de Informações - Área Editável</h3>
+                    <div style="text-align: center; color: #666;">
+                        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Clique aqui para criar o passo a passo de como participar</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0;">
+                            <div style="background: white; padding: 1.5rem; border-radius: 15px; border: 2px dashed #dee2e6;">
+                                <span style="font-size: 2rem;">1️⃣</span>
+                                <p>Passo 1</p>
+                            </div>
+                            <div style="background: white; padding: 1.5rem; border-radius: 15px; border: 2px dashed #dee2e6;">
+                                <span style="font-size: 2rem;">2️⃣</span>
+                                <p>Passo 2</p>
+                            </div>
+                            <div style="background: white; padding: 1.5rem; border-radius: 15px; border: 2px dashed #dee2e6;">
+                                <span style="font-size: 2rem;">3️⃣</span>
+                                <p>Passo 3</p>
+                            </div>
+                        </div>
+                        <button class="edit-button">EDITAR PASSOS</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ACESSO SECTION -->
+    <section id="acesso" class="section">
+        <div class="content-section">
+            <div class="container">
+                <h2 class="section-title">🔐 ÁREA DE ACESSO</h2>
+                <div class="editable-area" onclick="editAccess()">
+                    <h3>🔑 Área de Login - Editável</h3>
+                    <p>Clique aqui para configurar a área de acesso dos participantes</p>
+                    <button class="edit-button">CONFIGURAR ACESSO</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <strong>OXAN ATACADISTA LTDA</strong> | CNPJ MATRIZ: 57.895.328/0001-30 | Inscrição Estadual: 111.878.420.117<br>
+                    Endereço: Avenida Rio das Pedras, 729 – Jardim Vila Formosa – São Paulo/SP – CEP 03453-000
+                </div>
+                
+                <div style="margin: 2rem 0;">
+                    <button onclick="showContactModal()" style="background: linear-gradient(45deg, #f97316, #fb923c); color: white; border: none; padding: 1rem 2rem; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem; margin: 0 auto; transition: all 0.3s ease;">
+                        <span>📞</span> ENTRE EM CONTATO
+                    </button>
+                </div>
+                
+                <div class="footer-copyright">
+                    © 2025 OXAN Atacadista | Desenvolvimento oxansupermercados.com.br
+                </div>
+                
+                <div class="footer-cookies">
+                    Esse website utiliza Cookies para garantir um melhor serviço. Utilizando o nosso website aceita essa utilização.
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- MODAL DE CONTATO -->
+    <div id="contactModal" class="modal-overlay" onclick="closeContactModal(event)">
+        <div class="contact-modal" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="closeContactModal()">✕</button>
+            
+            <div class="modal-header">
+                <h2 class="modal-title">📞 Entre em Contato</h2>
+                <p class="modal-subtitle">Estamos aqui para ajudar você!</p>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item" onclick="copyToClipboard('sac.aniversariooxan@oxan.com.br', 'E-mail')">
+                    <div class="contact-icon email-icon">📧</div>
+                    <div class="contact-details">
+                        <h4>E-mail</h4>
+                        <p>sac.aniversariooxan@oxan.com.br</p>
+                    </div>
+                </div>
+                <div class="contact-item" onclick="callPhone('1127825200')">
+                    <div class="contact-icon phone-icon">📞</div>
+                    <div class="contact-details">
+                        <h4>Telefone</h4>
+                        <p>(11) 2782-5200</p>
+                    </div>
+                </div>
+                <div class="contact-item" onclick="openWhatsApp('551127825211')">
+                    <div class="contact-icon whatsapp-icon">💬</div>
+                    <div class="contact-details">
+                        <h4>WhatsApp</h4>
+                        <p>(11) 2782-5211</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        function editWinnerBanner(bannerId) {
+            alert(`🎉 Editor de Banner do Ganhador #${bannerId}\n\nAqui você pode:\n• Adicionar foto do ganhador\n• Inserir nome e prêmio\n• Personalizar o design\n• Definir data do sorteio`);
+        }
+        function editPartner(partnerId) {
+            alert(`🤝 Editor de Patrocinador #${partnerId}\n\nAqui você pode:\n• Adicionar logo do patrocinador\n• Inserir nome da empresa\n• Adicionar link do site\n• Definir descrição`);
+        }
+        function editBrand(brandId) {
+            alert(`🏷️ Editor de Marca #${brandId}\n\nAqui você pode:\n• Adicionar logo da marca\n• Inserir nome da marca\n• Definir produtos participantes\n• Configurar informações`);
+        }
+        function editRegulamento() {
+            alert(`📋 Editor de Regulamento\n\nAqui você pode:\n• Adicionar texto completo do regulamento\n• Formatar em seções\n• Incluir termos e condições\n• Definir regras de participação`);
+        }
+        function editSteps() {
+            alert(`🎯 Editor de Como Participar\n\nAqui você pode:\n• Criar passo a passo visual\n• Adicionar ícones e imagens\n• Definir instruções claras\n• Organizar informações em mapa`);
+        }
+        function editAccess() {
+            alert(`🔐 Configurador de Acesso\n\nAqui você pode:\n• Criar formulário de login\n• Configurar área do participante\n• Definir sistema de consulta\n• Integrar com banco de dados`);
+        }
+        function editMainBanner() {
+            alert(`🎯 Editor de Banner Principal\n\nAqui você pode:\n• Adicionar imagem promocional\n• Inserir texto de destaque\n• Configurar call-to-action\n• Definir links e botões`);
+        }
+        // Funções do Modal de Contato
+        function showContactModal() {
+            document.getElementById('contactModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeContactModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('contactModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        function copyToClipboard(text, type) {
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification(`${type} copiado para a área de transferência!`, 'success');
+            }).catch(() => {
+                showNotification(`Erro ao copiar ${type.toLowerCase()}`, 'error');
+            });
+        }
+        function callPhone(number) {
+            window.open(`tel:+55${number}`, '_self');
+        }
+        function openWhatsApp(number) {
+            const message = encodeURIComponent('Olá! Gostaria de saber mais sobre o Aniversário Premiado OXAN.');
+            window.open(`https://wa.me/${number}?text=${message}`, '_blank', 'noopener,noreferrer');
+        }
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#16a34a' : '#dc2626'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10001;
+                font-weight: bold;
+                animation: slideInRight 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        // Adicionar estilos de animação para notificações
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        // Fechar modal com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeContactModal();
+            }
+        });
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (!this.classList.contains('contact-btn')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98e8253d42f1ddeb',t:'MTc2MDQ1NjExNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

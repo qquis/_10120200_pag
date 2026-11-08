@@ -1,0 +1,20 @@
+﻿<UserControl Name="LabelText" x:Class="Pag_Wpf.UserControls.UclLabelText"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid
+        
+
+        
+        >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MaxWidth="{Binding ElementName=LabelText, Path=UclLabelWidth}" MinWidth="{Binding ElementName=LabelText, Path=UclLabelWidth}" Width="{Binding ElementName=LabelText, Path=UclLabeltWidth}"></ColumnDefinition>
+            <ColumnDefinition MaxWidth="{Binding ElementName=LabelText, Path=UclTextWidth}" MinWidth="{Binding ElementName=LabelText, Path=UclTextWidth}" Width="{Binding ElementName=LabelText, Path=UclTextWidth}"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" BorderThickness="1,1,1,1" BorderBrush="White"  >
+        <Label  Height="25" VerticalAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding ElementName=LabelText, Path=Caption}" Style="{StaticResource UclLabelFormInfo}"></Label>
+        </Border>
+        <Border Grid.Column="1" BorderThickness="1,1,1,1" BorderBrush="White"  >
+            <Label Grid.Column="1" Height="25" VerticalAlignment="Center" HorizontalAlignment="Stretch" Content="{Binding ElementName=LabelText, Path=Text}" Foreground="White" Style="{StaticResource UclLabelFormInfo}"></Label>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,272 @@
+﻿<UserControl x:Class="Pag_Wpf.Operacionais.Analise.UclRegistroProdutoData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+             xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
+             xmlns:My="clr-namespace:Pag_Wpf.UserControls"
+             mc:Ignorable="d" 
+             Height="520" Width="1000">
+    <Grid Name="GRIDBasic" Background="{StaticResource _BackGroundLinerGradientMain}" MaxHeight="510" MaxWidth="1000">
+        <Grid.RowDefinitions>
+            <RowDefinition Name="RowCabec" Height="Auto"></RowDefinition>
+            <RowDefinition Name="RowDados" Height="Auto"></RowDefinition>
+            <RowDefinition Name="RowFolter" Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Name="GRIDCabecalho"  Style="{StaticResource UclCabecalho}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition Width="630"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label  Style="{StaticResource UclCabecalhoLabelPrincipal}" HorizontalAlignment="Left" >Registros Excepcionais - Data</Label>
+            <Grid  Grid.Column="1" Style="{StaticResource UclGridFormMenu}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <My:UclButton Grid.Column="0" x:Name="CMDBuscarFaturamentoMensal" Text="Análise Mensal" Height="30"  UclButtonMaxWidth="150"    ImageNoClick="{StaticResource _ButtonImageBrush_Buscar}" ImageClick="{StaticResource _ButtonImageBrush_Buscar_Click}" Click="CMDBuscarFaturamentoMensal_Click"  ></My:UclButton>
+                <My:UclButton Grid.Column="1" x:Name="CMDBuscarFaturamentoDiario" Text="Análise Diária" Height="30"  UclButtonMaxWidth="150"    ImageNoClick="{StaticResource _ButtonImageBrush_Buscar}" ImageClick="{StaticResource _ButtonImageBrush_Buscar_Click}" Click="CMDBuscarFaturamentoDiario_Click" ></My:UclButton>
+                
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" Name="GRIDInfo" Style="{StaticResource UclGridInfo}"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="1"></ColumnDefinition>
+                <ColumnDefinition Width="30*"></ColumnDefinition>
+                <ColumnDefinition Width="70*" />
+
+            </Grid.ColumnDefinitions>
+            <Expander Grid.Column="0" ExpandDirection="Right" >
+                <StackPanel Style="{StaticResource UclStackPainel}">
+                    <Grid VerticalAlignment="Top" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="365"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Content="Filtros" HorizontalAlignment="Left" Style="{StaticResource UclLabelFiltros}" ></Label>
+                            <Rectangle Grid.Row="0" Grid.ColumnSpan="4" Style="{StaticResource UclLinhaSubtitulo}"></Rectangle>
+                        </Grid>
+                        <TabControl Grid.Row="1">
+                            <TabItem Header="Básicos" >
+                                <Grid >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="35" ></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition Width="210"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" >
+                                        <Label Grid.Row="1" Content="Data" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" >
+                                        <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0"  >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <DatePicker Grid.Row="0" Grid.Column="0" Height="25"  Width="100" Name="dtPickerCadIni" VerticalAlignment="Center"  Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="0" SelectedDateChanged="dtPickerCadIni_SelectedDateChanged" />
+                                            <Label Grid.Row="0" Grid.Column="1" FontSize="11" HorizontalAlignment="Center"  Style="{StaticResource _LabelDefault}">a</Label>
+                                            <DatePicker Grid.Row="0" Grid.Column="2" Height="25" Width="100" VerticalAlignment="Center" Name="dtPickerCadFim" Style="{StaticResource _DatePickerDefault}" KeyboardNavigation.TabIndex="1" SelectedDateChanged="dtPickerCadFim_SelectedDateChanged" />
+                                        </Grid>
+                                    </Border>
+
+                                    <Border Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" >
+                                        <Label Grid.Row="1"  Content="Tipo" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="1"  Margin="0,0,0,0" >
+                                        <Grid >
+                                            <ComboBox Grid.Column="1"  ItemsSource="{Binding}" Name="cmbTipo" Style="{StaticResource _ComboBoxDefault}" SelectionChanged="cmbTipo_SelectionChanged" >
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding DescricaoTipo}"  ></TextBlock>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+
+                                        </Grid>
+                                    </Border>
+
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Produto">
+                                <Grid >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"></ColumnDefinition>
+                                        <ColumnDefinition Width="210"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" >
+                                        <Label Grid.Row="1"  Content="Descrição" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="0" Grid.Column="1" >
+                                        <TextBox    Name="txtdescricaoProduto" Style="{StaticResource _TextBoxDefault}" KeyboardNavigation.TabIndex="21" TextChanged="txtdescricaoProduto_TextChanged"></TextBox>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" >
+                                        <Label Grid.Row="1"  Content="Departamento" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="1"  >
+                                        <ComboBox   VerticalAlignment="Stretch" ItemsSource="{Binding}"  HorizontalAlignment="Stretch" Margin="0,0,0,0"  Name="cmbDepartamento" Height="20" Style="{StaticResource _ComboBoxDefault}" SelectionChanged="cmbDepartamento_SelectionChanged" LostFocus="cmbDepartamento_LostFocus">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Name="DescricaoDepartamento" Text="{Binding DescricaoDepartamento}"  ></TextBlock>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="0" Margin="0,0,0,0" >
+                                        <Label Grid.Row="1"  Content="Seção" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="2" Grid.Column="1"  Margin="0,0,0,0" >
+                                        <ComboBox      Name="cmbSecao"  Style="{StaticResource _ComboBoxDefault}" ItemsSource="{Binding}" SelectionChanged="cmbSecao_SelectionChanged" LostFocus="cmbSecao_LostFocus">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding DescricaoSecao}"  ></TextBlock>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="0" Margin="0,0,0,0" >
+                                        <Label Grid.Row="1"  Content="Linha" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="3" Grid.Column="1"  Margin="0,0,0,0" >
+                                        <ComboBox  Name="cmbLinha" Height="20" Style="{StaticResource _ComboBoxDefault}" ItemsSource="{Binding}" SelectionChanged="cmbLinha_SelectionChanged">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding DescricaoLinha}"  ></TextBlock>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </Border>
+                                    <Border Grid.Row="4" Grid.Column="0" Margin="0,0,0,0" >
+                                        <Label Grid.Row="1"  Content="Produtos" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="4" Grid.Column="1" >
+                                        <TextBox Name="txtcodigoproduto"  Style="{StaticResource _TextBoxDefault}" TextChanged="txtcodigoproduto_TextChanged"></TextBox>
+                                    </Border>
+                                    <Border Grid.Row="5" Grid.Column="0" Margin="0,0,0,0" >
+                                        <Label Grid.Row="1"  Content="Fabricante" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+                                    <Border Grid.Row="5" Grid.Column="1"  Margin="0,0,0,0" >
+                                        <ComboBox Name="cmbFabricante" Style="{StaticResource _ComboBoxDefault}" ItemsSource="{Binding}" SelectionChanged="cmbFabricante_SelectionChanged">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Name="DescricaFabricante"  Text="{Binding Descricao}" Width="150" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </Border>
+                                    <Border Grid.Row="6" Grid.Column="0" Margin="0,0,0,0" >
+                                        <Label Grid.Row="1"  Content="Gestor" Style="{StaticResource _LabelFormInfo}" HorizontalContentAlignment="Left" ></Label>
+                                    </Border>
+
+                                    <Border Grid.Row="6" Grid.Column="1"  Margin="0,0,0,0" >
+                                        <ComboBox Name="CMBProdutoGestor" Style="{StaticResource _ComboBoxDefault}" ItemsSource="{Binding}" SelectionChanged="CMBProdutoGestor_SelectionChanged">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Name="Descricao"  Text="{Binding Descricao}" Width="150" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </Border>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </StackPanel>
+            </Expander>
+            <StackPanel Grid.Column="2"  Style="{StaticResource UclStackPainel}"  Margin="2">
+                <DataGrid   Name="DataGridFaturamentoOperacional" Width="Auto"  HorizontalAlignment="Left" MaxHeight="350" Height="250">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True"  Width="12*" Header="Descricão" Binding="{Binding Descricao}"></DataGridTextColumn>
+                        <DataGridTextColumn  IsReadOnly="True" Width="8*" Header="Vol" Binding="{Binding EmbalagemEstoqueQtde, StringFormat={}{0:N1}}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn  IsReadOnly="True" Width="10*" Header="Custo" Binding="{Binding ValorCustoPadrao, StringFormat={}{0:N2}}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn  IsReadOnly="True" Width="6*" Header="P%" Binding="{Binding Participacao, StringFormat={}{0:N2}}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <StackPanel Grid.Column="4"  Style="{StaticResource UclStackPainel}" >
+                <DVC:Chart  Name="mcChart" FontSize="8" Foreground="Black"  HorizontalAlignment="Stretch"  Background="LightBlue" Height="350"  MaxHeight="350">
+                    <DVC:Chart.Series>
+                        <DVC:ColumnSeries Title="Valor" FontSize="8" Foreground="Blue" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" ItemsSource="{Binding [0]}" IsSelectionEnabled="True">
+
+                        </DVC:ColumnSeries>
+     
+                    </DVC:Chart.Series>
+                </DVC:Chart>
+            </StackPanel>
+
+
+
+
+
+        </Grid>
+        <Grid Grid.Row="2" Name="GRIDR" Style="{StaticResource UclGridR}"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  Width="Auto" ></ColumnDefinition>
+                <ColumnDefinition  Width="Auto"></ColumnDefinition>
+                <ColumnDefinition  Width="Auto"></ColumnDefinition>
+                <ColumnDefinition  Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
+    </Grid>
+
+</UserControl>

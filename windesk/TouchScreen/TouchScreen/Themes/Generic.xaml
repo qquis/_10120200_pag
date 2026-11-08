@@ -1,0 +1,417 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Pag_Net.Keyboard">
+
+    <Style x:Key="MyFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Control}">
+                    <Grid Margin="4 2">
+                        <Rectangle Name="r1" StrokeThickness="1" Stroke="#333333" StrokeDashArray="2 2"/>
+                        <Border Name="border" Width="{TemplateBinding ActualWidth}" Height="{TemplateBinding ActualHeight}"  CornerRadius="2" BorderThickness="1" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="ShadowStyle">
+        <Setter Property="Control.Foreground" Value="White" />
+    </Style>
+
+    <ImageBrush x:Key="_ButtonBackSpace_apaga_normal"           ImageSource="D:\Projects\p0050_MenuPagNetWPF\BIN\Data\kbtouch_apaga_normal.png"   Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonBackSpace_apaga_sobmouse"         ImageSource="D:\Projects\p0050_MenuPagNetWPF\BIN\Data\kbtouch_apaga_sobmouse.png"   Stretch="Fill" ></ImageBrush>
+    <ImageBrush x:Key="_ButtonBackSpace_apaga_selecionado"      ImageSource="D:\Projects\p0050_MenuPagNetWPF\BIN\Data\kbtouch_apaga_selecionado.png"   Stretch="Fill" ></ImageBrush>
+
+    <Style x:Key="xBackSpace" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{StaticResource _ButtonBackSpace_apaga_normal}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" 
+                        CornerRadius="8" 
+                        BorderThickness="0" 
+                        Background="{StaticResource _ButtonBackSpace_apaga_normal}"  
+                        BorderBrush="{x:Null}" 
+                        RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource _ButtonBackSpace_apaga_sobmouse}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource _ButtonBackSpace_apaga_selecionado}"  />
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="InformButton" TargetType="Button">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Margin" Value="4"/>
+        <Setter Property="FontFamily" Value="Calibri"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource MyFocusVisual}" />
+        <Setter Property="Background" >
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                    <GradientStop Color="White" Offset="0.2"/>
+                    <GradientStop Color="#666666" Offset="1.7"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="border" 
+				Padding="4,2" 
+				BorderBrush="white" 
+				CornerRadius="8" 
+				Background="{TemplateBinding Background}">
+                        <Grid >
+                            <ContentPresenter HorizontalAlignment="Center"  
+	                           VerticalAlignment="Center"  Name="contentShadow" 
+					Style="{StaticResource ShadowStyle}">
+
+                            </ContentPresenter>
+                            <ContentPresenter HorizontalAlignment="Center"  
+                            VerticalAlignment="Center" Name="content"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#1E90FF" />
+                            <Setter Property="Foreground" Value="#1E90FF" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" >
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+                                        <GradientStop Color="#1E90FF" Offset="0.35"/>
+                                        <GradientStop Color="#1E90FF" Offset="0.95"/>
+                                        <GradientStop Color="#1E90FF" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="border" Property="BorderBrush" Value="white" />
+                            <Setter Property="Foreground" Value="White" />
+
+                            <Setter TargetName="content" Property="RenderTransform" >
+                                <Setter.Value>
+                                    <TranslateTransform Y="1.0" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF282828" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.7" />
+                            <Setter Property="Foreground" Value="Gray" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type local:TouchScreenKeyboard}">
+        <Setter Property="Background" Value="#666666"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Width" Value="1000"/>
+        <Setter Property="Height" Value="350"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:TouchScreenKeyboard}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="10"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Focusable="False">
+                        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10">
+                            <Border BorderBrush="Gray" BorderThickness="5" CornerRadius="10">
+                                <Border BorderBrush="White" BorderThickness="2" CornerRadius="10">
+                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.Cmd1" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">1</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.Cmd2"  VerticalContentAlignment="center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"   >2</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.Cmd3" VerticalContentAlignment="center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom"   >3</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.Cmd4" VerticalContentAlignment="center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom"   >4</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.Cmd5"  VerticalContentAlignment="center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom"   >5</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.Cmd6"  VerticalContentAlignment="center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom"   >6</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.Cmd7"  VerticalContentAlignment="center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom"   >7</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.Cmd8"  VerticalContentAlignment="center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom"   >8</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.Cmd9"  VerticalContentAlignment="center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom"   >9</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}"  Command="local:TouchScreenKeyboard.Cmd0" VerticalContentAlignment="center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom"   >0</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdDot" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">.</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                                           
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdQ" VerticalContentAlignment="center" HorizontalContentAlignment="center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="center" VerticalAlignment="center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >Q</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.Cmdw"  VerticalContentAlignment="center" HorizontalContentAlignment="center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="center" VerticalAlignment="center" >
+                                                    <TextBlock    HorizontalAlignment="center" VerticalAlignment="center"   >W</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdE"  VerticalContentAlignment="center" HorizontalContentAlignment="center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="center" VerticalAlignment="center" >
+                                                    <TextBlock    HorizontalAlignment="center" VerticalAlignment="center"   >E</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdR"  VerticalContentAlignment="center" HorizontalContentAlignment="center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="center" VerticalAlignment="center" >
+                                                    <TextBlock    HorizontalAlignment="center" VerticalAlignment="center"   >R</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdT"  VerticalContentAlignment="center" HorizontalContentAlignment="center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="center" VerticalAlignment="center" >
+                                                    <TextBlock    HorizontalAlignment="center" VerticalAlignment="center"   >T</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}"  Command="local:TouchScreenKeyboard.CmdY"  VerticalContentAlignment="center" HorizontalContentAlignment="center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="center" VerticalAlignment="center" >
+                                                    <TextBlock    HorizontalAlignment="center" VerticalAlignment="center"   >Y</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdU"   VerticalContentAlignment="center" HorizontalContentAlignment="center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="center" VerticalAlignment="center" >
+                                                    <TextBlock    HorizontalAlignment="center" VerticalAlignment="center"   >U</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdI"  VerticalContentAlignment="center" HorizontalContentAlignment="center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="center" VerticalAlignment="center" >
+                                                    <TextBlock    HorizontalAlignment="center" VerticalAlignment="center"   >I</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdO"   VerticalContentAlignment="center" HorizontalContentAlignment="center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="center" VerticalAlignment="center" >
+                                                    <TextBlock    HorizontalAlignment="center" VerticalAlignment="center"   >O</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdP"   VerticalContentAlignment="center" HorizontalContentAlignment="center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="center" VerticalAlignment="center" >
+                                                    <TextBlock    HorizontalAlignment="center" VerticalAlignment="center"   >P</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdExclamation" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">!</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                                                                      
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+                                            
+                                            <Button Style="{StaticResource InformButton}" VerticalContentAlignment="Center" Command="local:TouchScreenKeyboard.CmdA"  HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >A</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" VerticalContentAlignment="Center" Command="local:TouchScreenKeyboard.CmdS"  HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >S</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" VerticalContentAlignment="Center" Command="local:TouchScreenKeyboard.CmdD"  HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >D</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" VerticalContentAlignment="Center" Command="local:TouchScreenKeyboard.CmdF"  HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >F</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" VerticalContentAlignment="Center" Command="local:TouchScreenKeyboard.CmdG"  HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >G</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" VerticalContentAlignment="Center" Command="local:TouchScreenKeyboard.CmdH"  HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >H</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" VerticalContentAlignment="Center" Command="local:TouchScreenKeyboard.CmdJ"  HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >J</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" VerticalContentAlignment="Center" Command="local:TouchScreenKeyboard.CmdK"  HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >K</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" VerticalContentAlignment="Center" Command="local:TouchScreenKeyboard.CmdL"  HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >L</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdSubline" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">_</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdMinus" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">-</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            
+
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdZ"   VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center">Z</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdX"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center">X</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdC"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >C</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdV"   VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >V</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdB"   VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >B</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdN"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >N</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdM"   VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   >M</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdArroba" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="65" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">@</TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Style="{StaticResource xBackSpace}" Command="local:TouchScreenKeyboard.CmdBackspace"   VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  Width="140" Height="65">
+                                            </Button>
+                                            
+                                            
+                                         
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                            <Button Style="{StaticResource InformButton}" Command="local:TouchScreenKeyboard.CmdSpaceBar" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"   Width="550" Height="65">
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                                    <TextBlock    HorizontalAlignment="Center" VerticalAlignment="Center"   ></TextBlock>
+                                                </StackPanel>
+                                            </Button>
+                                            
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                </Border>
+                            </Border>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
+
+

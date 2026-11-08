@@ -1,0 +1,61 @@
+--select flg_tipo_imposto, * from tab_regras_icms where cod_mercadoria = '00007894650002674' limit 10
+--select * from tab_mercadoria limit 10
+
+select 	cod_mercadoria 
+	,	descricao 
+	,	cod_tributacao_mercadoria 
+	,	percentual_reduz_b_calculo 
+	,	aliquota_icms 
+	,	cod_situacao_tributaria 
+	,	isento_pis_cofins 
+	,	cod_ncm 
+	,	cod_observacao_fiscal 
+	,	cod_tipo_interestadual 
+	,	unidade_trib 
+	,	cest 
+	,	aliquota_interna_icms 
+	,	aliquota_interna_icms_online 
+	,	perc_reduz_b_calculo_pis 
+	,	perc_reduz_b_calculo_cofins 
+	,	aliquota_pis
+	,	aliquota_cofins
+	,	perc_subst_pis
+	,	perc_subst_cofins
+	,	aliquota_valor_pis
+	,	aliquota_valor_cofins 
+	,	cfop 
+	,	cod_sit_trib_pis 
+	,	cod_sit_trib_pis_pvvm 
+	,	cod_sit_trib_cofins 
+	,	cod_sit_trib_cofins_pvvm  
+	,	pvvm 
+	,	percentual_fundo_pobreza 
+	,	valor_base_icms_ret 
+	,	aliquota_icms_st
+	,	valor_icms_st_substituto
+	,	valor_icms_st_retido 
+	,	cst_origem_integ  
+	,	per_substituicao 
+	,	vlr_substituicao 
+	,	perc_dif_icms_fundo_pobreza 
+	,	cod_class_fiscal 
+	,	aliquota_legal_icms
+	,	cod_class_tributaria_is
+	,	cod_class_tributaria_ibs_cbs
+	,	per_aliquota_is
+	,	per_aliquota_is_especifica 
+	,	per_aliquota_ibs_uf
+	,	per_reducao_aliquota_ibs_uf 
+	,	per_diferimento_ibs_uf
+	,	per_diferimento_ibs_mun
+	,	per_reducao_aliquota_ibs_mun
+	,	per_diferimento_ibs_mun
+	,	per_aliquota_cbs
+	,	per_diferimento_cbs
+	,	per_reducao_aliquota_cbs 
+	,	per_cred_presumido_ibs_mono 
+	,	per_cred_presumido_cbs_mono 
+	,	indice_estabelecimento_tef 
+	,	cod_class_credito_presumido 
+	,	cod_nbs
+from 	tab_mercadoria where cod_mercadoria like '%7891910000197%'

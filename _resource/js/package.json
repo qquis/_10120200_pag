@@ -1,0 +1,13 @@
+{
+  "name": "pag_resource",
+  "version": "20.15.11.0",
+  "description": "Pag Recursos",
+  "main": "index.js",
+  "author": "Elias da Silva",
+  "license": "MIT",
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
+    "dotenv": "^16.3.0"
+  }
+}

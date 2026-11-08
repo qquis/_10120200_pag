@@ -1,0 +1,21 @@
+
+
+insert into tbnotificacao_send 
+(proc_log_seq, notificacao_cd, notificacao_send_seq, notificacao_send_data, notificacao_send_tipo_cd, notificacao_send_status_cd, notificacao_whatsapp, notificacao_celular_dd_numero, notificacao_whatsapp_gp, notificacao_mk_cd )
+select 		0	
+		,	1100135005  	as notificacao_cd
+		, 	9996			as notificacao_send_seq
+		,	'2025-12-04' 	as notificacao_send_data 
+		,	200				as notificacao_send_tipo_cd 
+		,	1				as notificacao_send_status_cd
+		, 	1				as notificacao_whatsapp 
+		,	11994299919		as notificacao_celular_dd_numero 
+		,	0 				as notificacao_whatsapp_gp
+		,	2				as notificacao_mk_cd 
+
+;
+insert into tbnotificacao_send_message
+	(notificacao_send_seq, notificacao_send_message_seq, notificacao_send_message)
+	select 9996, 9996, 'TESTE MSG MOTORISTA JOCELIO 2'
+
+select * from 	tbnotificacao_send

@@ -1,0 +1,23 @@
+
+Testes de produtos por situacao tributaria 
+
+1) Ver as tributações testes 
+
+        1.1) Lista de Tributações TESTES 
+                CST 000 - 32905 E 37398
+                CST 020 18 38,88 - 2961
+                CST 000 18 - 3608 
+                CST 020 12 41,67 - 1378
+                CST 060 - 759
+                CST 060 - 200801
+                CST 040 - 4107
+
+        1.2) Conferencia na API da BLUESOFT 
+
+
+2) Relembrar a postgre/funcaio que faz o DE/PARA para a tributação PDV
+2.1 __ f0021_90_1012007_produtobluesoft_processamento
+        A funcao alimenta a tabela tbzanthustabtributacao_cod_tributacao que tem o DE PARA com a tribuacao zanthus 
+
+2.2 __ class script com o select tab_mercadoria que vai alimentar a tab_mercadoria_zanthus
+/wk/projects/pag/__VERSAO/backend/src/modules/m0085_zanthus/report/report.ZanthusTabMercadoria_Select.ts

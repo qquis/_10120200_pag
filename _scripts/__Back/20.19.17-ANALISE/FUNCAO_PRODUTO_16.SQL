@@ -1,0 +1,865 @@
+CREATE OR REPLACE FUNCTION public.f0021_90_1012016_produtobluesoft_processamento()
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+   declare vuuid_start varchar(30);
+begin
+
+	vuuid_start:= 'f0021_90_1012007____' || replace(cast(random() * 100 as varchar(10)),'.','')
+	;
+	insert into tbsistema_log(proc_log_seq, sis_nucleo_prc_cd, sis_log_tag, sis_log_info, uuid, uuid_start)
+	values (0, 21, 'PROC', 'ProdutoBluesoft Processamento Versão: 1012007 _ START', vuuid_start, vuuid_start)
+	;
+
+/*********************************************************************************************************
+----------------------------------------------------------------------------------------------------------
+--------------------------------------PRODUTO-------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+
+Tabela Objetivo.........: 	Tbproduto, TbprodutoEmbalagem, TbprodutoEmbalagem_Gtins
+Tabelas envolvidas......:   TbprodutoBlueSoft, TbprodutoBlueSoft_gtins
+
+Objetivos
+	Script 1) 	Captação dos produtos novos da tbprodutobluesoft e inclusão na tabela tbproduto
+	
+	Script 2) 	Cada produto 'relacionado' da tabela de tbprodutobluesoft se torna uma embalagem na tabela
+				de tbprodutoembalagem
+	
+	Script 3) 	Gtins novo da tabela tbprodutobluesoft_gtins serão inseridos na tabela 
+				tbprodutoembalagens_gtinsd
+				
+
+**********************************************************************************************************/
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+-- PRODUTO
+------------------------------------------------------------------------
+
+	DROP TABLE IF EXISTS 	TMP_Produtocomposicao;
+	create TEMP table  		TMP_Produtocomposicao 
+		(
+				prbc_bluesoft_seq							int
+			,	prb_cdprodutobluesoft_unitario 				int
+			,	prb_cdprodutobluesoft						int
+			,	prc_qtde									numeric(17,4)	
+			,	prc_percentual_composicao					numeric(17,4)	
+			,	dtlog_insert								timestamp
+			,	dtlog_update								timestamp
+			,	dtlog_update_api							timestamp
+		)
+	;
+	
+	INSERT INTO TMP_Produtocomposicao
+		(		
+				prbc_bluesoft_seq					
+			,	prb_cdprodutobluesoft_unitario 		
+			,	prb_cdprodutobluesoft				
+			,	prc_qtde							
+			,	prc_percentual_composicao			
+			,	dtlog_insert						
+			,	dtlog_update
+			,	dtlog_update_api 
+		)
+	SELECT 		CP.prbc_bluesoft_seq	
+			,	CP.PRB_CDPRODUTOBLUESOFT_UNITARIO 
+			,	CP.PRB_CDPRODUTOBLUESOFT 
+			,	CP.PRBC_QTDE
+			,	PRBC_PERCENTUAL_COMPOSICAO
+			,	CP.dtlog_insert						
+			,	CP.dtlog_update
+			,	CP.dtlog_update_api 
+	FROM 		TbProdutoBlueSoft_Composicao		CP
+	LEFT JOIN   TBPRODUTOBLUESOFT 					PX ON PX.PRB_CDPRODUTOBLUESOFT_PK = CP.PRB_CDPRODUTOBLUESOFT_UNITARIO
+	LEFT JOIN   TBPRODUTOBLUESOFT 					UN ON UN.PRB_CDPRODUTOBLUESOFT_PK = CP.PRB_CDPRODUTOBLUESOFT
+	INNER JOIN  ( 	
+					select 		prb_cdprodutobluesoft_unitario AS prb_cdprodutobluesoft_unitario
+							, 	max(prbc_data) 				   AS prbc_data
+					from 		TbProdutoBlueSoft_Composicao
+					group by 	prb_cdprodutobluesoft_unitario
+				)	XX ON XX.prb_cdprodutobluesoft_unitario = CP.prb_cdprodutobluesoft_unitario AND XX.PRBC_DATA = CP.PRBC_DATA
+	ORDER BY CP.PRB_CDPRODUTOBLUESOFT_UNITARIO ASC
+	;
+	
+	DELETE 
+	FROM 	tbproduto_composicao A
+	WHERE 	NOT EXISTS	( 
+							SELECT 1 FROM 	TMP_Produtocomposicao X 
+							WHERE X.PRB_CDPRODUTOBLUESOFT_UNITARIO 	= A.PRB_CDPRODUTOBLUESOFT_UNITARIO
+		                      AND X.PRB_CDPRODUTOBLUESOFT 			= A.PRB_CDPRODUTOBLUESOFT
+						)
+	;
+	INSERT INTO tbproduto_composicao
+		(		
+				prbc_bluesoft_seq					
+			,	prb_cdprodutobluesoft_unitario 		
+			,	prb_cdprodutobluesoft				
+			,	prc_qtde							
+			,	prc_percentual_composicao			
+			,	dtlog_insert						
+			,	dtlog_update
+			,	dtlog_update_api 
+		)
+	SELECT 		prbc_bluesoft_seq					
+			,	prb_cdprodutobluesoft_unitario 		
+			,	prb_cdprodutobluesoft				
+			,	prc_qtde							
+			,	prc_percentual_composicao			
+			,	dtlog_insert						
+			,	dtlog_update
+			,	dtlog_update_api  
+	FROM 		TMP_Produtocomposicao	A 
+	WHERE 	NOT EXISTS	( 	SELECT 	1 
+						 	FROM 	tbproduto_composicao X 
+							WHERE 	X.PRB_CDPRODUTOBLUESOFT_UNITARIO 	= A.PRB_CDPRODUTOBLUESOFT_UNITARIO
+		                      AND 	X.PRB_CDPRODUTOBLUESOFT 			= A.PRB_CDPRODUTOBLUESOFT
+						)
+	;					
+	
+	update 	tbproduto_composicao	 	A
+	set    		prc_qtde = x.prc_qtde
+		,		prc_percentual_composicao = x.prc_percentual_composicao
+		,		dtlog_update = x.dtlog_update 
+	from 	TMP_Produtocomposicao		x 
+	WHERE 	X.PRB_CDPRODUTOBLUESOFT_UNITARIO 	= A.PRB_CDPRODUTOBLUESOFT_UNITARIO
+	  AND 	X.PRB_CDPRODUTOBLUESOFT 			= A.PRB_CDPRODUTOBLUESOFT
+	  and 	( 			a.prc_qtde <> x.prc_qtde
+			 	or		a.prc_percentual_composicao <> x.prc_percentual_composicao
+			 )
+	;
+	
+	
+	update 		tbproduto_composicao x
+	set  		prc_percentual_composicao_qtde =  cast(x.prc_qtde / a.qtde_total * 100 as numeric(17,4))
+		,		prc_composicao_qtde_total = a.qtde_total
+	from	  ( 	select 	 	prb_cdprodutobluesoft_unitario as prb_cdprodutobluesoft_unitario
+							, 	sum(prc_qtde) as qtde_total
+					from 	 tbproduto_composicao 
+					group by prb_cdprodutobluesoft_unitario
+				 ) a 
+	where x.prb_cdprodutobluesoft_unitario = a.prb_cdprodutobluesoft_unitario
+	;
+
+	update 	tbproduto_composicao a
+	set 	dtlog_update_api = current_timestamp;
+
+	----------------------------------------------------------------------------------
+
+	INSERT INTO TbProduto
+		(	    pr_cdproduto
+			,	prb_cdprodutobluesoft
+			,	pr_descricao 
+			,	pr_status
+			,	pr_cdbarra_principal		
+			, 	pr_embalagemestoque
+			,	pr_embalagemcompra
+			, 	pr_embalagemcompra_fator
+			,	dtlog_insert 
+		 	,	dtlog_update 
+		 	,	dtlog_update_api 
+		)
+
+	SELECT 		BL.prb_cdprodutobluesoft_pk 
+			,	BL.prb_cdprodutobluesoft_pk
+			,	left(BL.prb_descricao,60) 	/*Alteração em 15/12/2022*/
+			,	BL.prb_status
+			,   BL.prb_cdbarra_principal
+			,	BL.prb_embalagemestoque 
+			,	BL.prb_embalagemestoque ---- Embalagem de Compra será definida inicialmente como embalagemestoque
+			,	1
+			,	current_timestamp
+			,	current_timestamp
+			,	current_timestamp
+
+	FROM 		TbProdutoBlueSoft  			BL
+	INNER JOIN  tbproduto_subgrupo 			SG ON SG.prsg_cdsubgrupo = BL.prb_cdsubgrupo 
+	INNER JOIN  tbproduto_grupo 			GR ON GR.prg_cdgrupo = SG.prg_cdgrupo
+	INNER JOIN  tbproduto_secao             SR ON SR.prs_cdsecao = GR.prs_cdsecao
+	INNER JOIN  tbproduto_Departamento      DP ON DP.prd_cddepartamento = SR.prd_cddepartamento 
+	where 		1 = 1 
+	and	  		BL.prb_cdprodutobluesoftunitario = BL.prb_cdprodutobluesoft_pk
+	and   		BL.prb_cdprodutobluesoftunitario not in ( select prb_cdprodutobluesoft from tbproduto )
+	and   		BL.prb_status = '1'
+	and			DP.prd_habilita_integracao_zanthus = 'true'
+	and			BL.prb_embalagemestoque in ('UN','KG')
+	--and			bl.prb_cdprodutobluesoft_pk not in ( select prb_cdprodutobluesoft from tbproduto_composicao  GROUP BY prb_cdprodutobluesoft )
+	--and			BL.prb_cdprodutobluesoft_pk  in (select pr_cdproduto from tbproduto)
+	order by 	BL.prb_descricao ASC; 
+	
+	
+	--- Atualização | Produto Tipo CESTA.
+	UPDATE tbproduto p
+	SET pr_cesta = 'true'
+	WHERE EXISTS (
+	    SELECT 1 
+	    FROM tbproduto_composicao c
+	    WHERE c.prb_cdprodutobluesoft_unitario = p.prb_cdprodutobluesoft
+	);	   
+
+	
+	
+	--- Atualização | Código da SEÇÃO
+	update 		tbproduto a
+	set			prsg_cdsubgrupo = x.prb_cdsubgrupo
+			,	dtlog_update = current_timestamp
+	from        tbprodutobluesoft x 
+	where		1 = 1
+	and			x.prb_cdprodutobluesoft_pk = a.prb_cdprodutobluesoft
+	and			coalesce(a.prsg_cdsubgrupo,0) <> coalesce(x.prb_cdsubgrupo,0);
+	
+	
+	
+	
+	--- Atualização | STATUS / Embalagem de Compra / fator de Compra 
+		
+	update		tbproduto a 
+		set 	pr_embalagemcompra = case when length(c.prb_embalagemestoque) > 2 then 'CX' else c.prb_embalagemestoque end
+			,	pr_embalagemcompra_fator = c.prb_fatorestoque
+			,	prb_cdproduto_compra_padrao = b.prb_cdproduto_compra_padrao
+			,   prbf_seq = b.prbf_seq 
+			,	cdpessoabluesoft_fabricante = b.prb_cdpessoabluesoft_fabricante
+			,	dtlog_update 		= current_timestamp
+			,	dtlog_update_api 	= b.prb_dtupdate_from_api 
+	from 		tbprodutobluesoft b 
+	left  join  tbprodutobluesoft c 	on c.prb_cdprodutobluesoft_pk = b.prb_cdproduto_compra_padrao 
+	where		1 = 1
+	and 		b.prb_cdprodutobluesoft_pk = a.prb_cdprodutobluesoft
+	and			coalesce(b.prb_cdproduto_compra_padrao ,0) <> 0
+	and			(			c.prb_fatorestoque <> a.pr_embalagemcompra_fator
+					or		coalesce(a.prb_cdproduto_compra_padrao,0) <> coalesce(b.prb_cdproduto_compra_padrao,0)
+				    or      coalesce(a.prbf_seq,0) <> coalesce(b.prbf_seq,0)
+				    or      coalesce(a.cdpessoabluesoft_fabricante,0) <> coalesce(b.prb_cdpessoabluesoft_fabricante,0)
+				);
+				 	
+	
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+-- EMBALAGEM
+------------------------------------------------------------------------
+
+	insert into tbsistema_log(proc_log_seq, sis_nucleo_prc_cd, sis_log_tag, sis_log_info, uuid_start)
+	values (0, 21, 'PROC', 'ProdutoBluesoft Processamento Versão: 1012007 _ Embalagem', vuuid_start)
+	;
+	drop table if exists temp_list_embalagem;
+
+	CREATE TEMPORARY TABLE temp_list_embalagem (
+	   prb_cdprodutobluesoft_pk int
+	);
+
+	insert into  temp_list_embalagem (prb_cdprodutobluesoft_pk)
+	select 		e.prb_cdprodutobluesoft_pk
+	from 		tbproduto 			p
+	inner join	tbprodutobluesoft	e on e.prb_cdprodutobluesoftunitario = p.prb_cdprodutobluesoft
+	left join   tbprodutoembalagem  x on x.prb_cdprodutobluesoft = e.prb_cdprodutobluesoft_pk
+	where		1 = 1
+	and			x.prb_cdprodutobluesoft is null ;
+
+	
+	
+	insert into tbprodutoembalagem
+		(
+				pr_cdproduto
+			,	prb_cdprodutobluesoft
+			,	pre_embalagem
+			,	pre_fatorestoque
+			,	pre_fatorpreco
+			,	pre_status
+			,	dtlog_insert
+			,	dtlog_update
+			,	dtlog_update_api 
+			,	cdbarra_principal 
+		)
+	select 		p.pr_cdproduto
+			,	e.prb_cdprodutobluesoft_pk
+			,	case when length(prb_embalagemestoque) > 2 then 'CX' else e.prb_embalagemestoque end
+			,	e.prb_fatorestoque
+			,	cast(0 as numeric(17,4))
+			,	e.prb_status
+			,	current_timestamp ---- e.dtlog_insert
+			,	current_timestamp ---- e.dtlog_update 
+			,	e.prb_dtupdate_from_api 		
+			,	e.prb_cdbarra_principal 
+	from 		tbproduto 			p
+	inner join	tbprodutobluesoft	e on e.prb_cdprodutobluesoftunitario = p.prb_cdprodutobluesoft
+	where		1 = 1
+	and			e.prb_cdprodutobluesoft_pk in ( select prb_cdprodutobluesoft_pk from temp_list_embalagem )
+	and			e.prb_status = '1'											  
+	order by 	p.pr_cdproduto, e.prb_cdprodutobluesoft_pk;
+	
+	drop table if exists temp_list_embalagem;
+	
+	
+	/* CONTROLE PARA INTEGRAÇÕES */
+	
+	--- 20004501 - ATUALIZAÇÃO GERAO DE PREÇOS TABELA PADRAO - UNITARIOS 
+	Insert into tbintegracao_produto 
+		(
+				pr_cdproduto
+			,	prb_cdprodutobluesoftunitario 
+			,	prb_cdprodutobluesoft 
+			,	integracao_tipo_cd 
+			,	integracao_status_cd 
+		)
+	
+	Select 		A.pr_cdproduto	
+			,	A.prb_cdprodutobluesoftunitario
+			,	A.prb_cdprodutobluesoftunitario
+			,	20004501
+			,	2
+	FROM	(	select 		pr.pr_cdproduto 			as pr_cdproduto
+					,	pr.prb_cdprodutobluesoft		as prb_cdprodutobluesoftunitario 
+					,	em.prb_cdprodutobluesoft 		as prb_cdprodutobluesoft
+				from 		tbprodutoembalagem 	em 
+				inner join  tbproduto 			pr on pr.pr_cdproduto = em.pr_cdproduto
+				WHERE		pr.prb_cdprodutobluesoft = em.prb_cdprodutobluesoft 	
+			) A
+				
+				
+	/*		, 
+			(	SELECT integracao_tipo_cd as integracao_tipo_cd 
+			 	from   tbintegracao_tipo
+				WHERE  1 = 1
+			      AND   (
+				  				coalesce(integracao_produto_cadastro,0) 	= 1
+					  		or 	coalesce(integracao_produto_tributacao,0) 	= 1
+					  		or  coalesce(integracao_produto_preco,0) 		= 1
+				  		)
+			) B */
+	WHERE 1 = 1
+	  AND NOT EXISTS ( 	SELECT 	1 
+					 	FROM 	tbintegracao_produto X
+					  	WHERE	1 = 1
+					    AND 	X.pr_cdproduto = A.pr_cdproduto 
+					    AND 	X.prb_cdprodutobluesoftunitario = A.prb_cdprodutobluesoftunitario 
+					  	AND 	X.integracao_tipo_cd = 20004501
+					 
+					 )
+	;	
+	
+	
+	--- 20004502 - ATUALIZAÇÃO GERAO DE PREÇOS PROMOCIONAIS PAIS E FILHOS
+	--- 20004502 - 15/10/2024 NOVAS Integrações do tipo promocionais devem ser inseridas com status de atualização = 1
+	Insert into tbintegracao_produto 
+	(
+				pr_cdproduto
+			,	prb_cdprodutobluesoftunitario 
+			,	prb_cdprodutobluesoft 
+			,	integracao_tipo_cd 
+			,	integracao_status_cd 
+	)
+	
+	Select 		A.pr_cdproduto	
+			,	A.prb_cdprodutobluesoftunitario
+			,	prb_cdprodutobluesoft
+			,	20004502
+			,	1
+	FROM	(	select 		pr.pr_cdproduto 			as pr_cdproduto
+					,	pr.prb_cdprodutobluesoft		as prb_cdprodutobluesoftunitario 
+					,	em.prb_cdprodutobluesoft 		as prb_cdprodutobluesoft
+				from 		tbprodutoembalagem 	em 
+				inner join  tbproduto 			pr on pr.pr_cdproduto = em.pr_cdproduto
+				WHERE		1 = 1	
+			) A
+	WHERE 1 = 1
+	  AND NOT EXISTS ( 	SELECT 	1 
+					 	FROM 	tbintegracao_produto X
+					  	WHERE	1 = 1
+					    AND 	X.pr_cdproduto = A.pr_cdproduto 
+					    AND     x.prb_cdprodutobluesoft = A.prb_cdprodutobluesoft 
+					    AND     x.prb_cdprodutobluesoftunitario = A.prb_cdprodutobluesoftunitario
+					  	AND 	X.integracao_tipo_cd = 20004502
+					 
+					 )
+	;	
+	
+	
+	
+
+	/*Alterações permitidas para produtos gerais*/
+	update 		tbprodutoembalagem	a
+		set		--pre_embalagem = case when length(x.prb_embalagemestoque) > 2 then 'CX' else x.prb_embalagemestoque end
+				pre_fatorestoque 	= x.prb_fatorestoque
+			,	pre_status 			= x.prb_status
+			,	cdbarra_principal	= x.prb_cdbarra_principal 
+			,	dtlog_update		= current_timestamp 
+	from 	tbprodutobluesoft x 
+	where	1 = 1 
+	  and   x.prb_cdprodutobluesoft_pk = a.prb_cdprodutobluesoft 
+	  and	(		pre_embalagem != case when length(x.prb_embalagemestoque) > 2 then 'CX' else x.prb_embalagemestoque end
+	  			or	pre_fatorestoque 	<> x.prb_fatorestoque
+				or	pre_status 	!= x.prb_status 
+				or  coalesce(cdbarra_principal,'') != coalesce(x.prb_cdbarra_principal,'')
+			);
+
+	/*Alterações permitidas para produtos apenas produto de origem bluesoft*/
+	update 		tbprodutoembalagem	a
+		set		pre_embalagem 		= case when length(x.prb_embalagemestoque) > 2 then 'CX' else x.prb_embalagemestoque end
+			,	dtlog_update		= current_timestamp 
+	from 		tbprodutobluesoft x 
+	inner join	tbprodutoembalagem 	b 	on 	b.prb_cdprodutobluesoft = x.prb_cdprodutobluesoft_pk
+	inner join  tbproduto c 			on 	c.pr_cdproduto = b.pr_cdproduto 
+										and c.prb_cdprodutobluesoft = b.prb_cdprodutobluesoft
+	where	1 = 1 
+	  and   x.prb_cdprodutobluesoft_pk = a.prb_cdprodutobluesoft 
+	  and	(		a.pre_embalagem != case when length(x.prb_embalagemestoque) > 2 then 'CX' else x.prb_embalagemestoque end
+	  			or	a.pre_fatorestoque 	<> x.prb_fatorestoque
+				or	a.pre_status 	!= x.prb_status )
+	  and    c.pr_cdproduto = c.prb_cdprodutobluesoft --> Apenas produto originados da api
+	  and 	 c.pr_cdproduto > 100000;
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+-- GTINS 
+------------------------------------------------------------------------
+
+	insert into tbsistema_log(proc_log_seq, sis_nucleo_prc_cd, sis_log_tag, sis_log_info, uuid_start)
+	values (0, 21, 'PROC', 'ProdutoBluesoft Processamento Versão: 1012007 _ gtins', vuuid_start)
+	;
+
+	drop table if exists temp_list_cd_barra;
+
+	CREATE TEMPORARY TABLE temp_list_cd_barra (
+	   preg_cdbarra char(14)
+	);
+
+	insert into temp_list_cd_barra (preg_cdbarra)
+	SELECT 		a.prbg_cdbarra_pk
+	FROM 		tbprodutobluesoft_gtins		a
+	inner join  tbprodutobluesoft			b on b.prb_cdprodutobluesoft_pk = a.prb_cdprodutobluesoft
+	inner join  tbprodutoembalagem			c on c.prb_cdprodutobluesoft = b.prb_cdprodutobluesoft_pk
+	left join   tbprodutoembalagem_gtins    x on x.preg_cdbarra = a.prbg_cdbarra_pk
+	where		1 = 1
+	and			b.prb_cdprodutobluesoft_pk > 0 
+	and			preg_cdbarra is null ;
+
+/*
+
+	select * from tbprodutobluesoft_gtins where preg_cdbarra = '637'
+	select * from tbprodutoembalagem_gtins where pr_cdproduto = 43 and prb_cdprodutobluesoft = 80086
+	delete from  tbprodutoembalagem_gtins where pr_cdproduto = 43 and prb_cdprodutobluesoft = 80086
+	select * from temp_list_cd_barra
+*/	
+	
+	
+	insert into tbprodutoembalagem_gtins
+		(	
+				pr_cdproduto
+			,	prb_cdprodutobluesoft
+			,	pre_embalagem
+			,	preg_cdbarra
+			,	dtlog_insert
+			,	dtlog_update
+			,	dtlog_update_api 			
+		)
+
+	SELECT 		c.pr_cdproduto
+			,	c.prb_cdprodutobluesoft
+			,	c.pre_embalagem
+			,	a.prbg_cdbarra_pk
+			,	current_timestamp ---b.dtlog_insert
+			,	current_timestamp ---b.dtlog_update 
+			,	b.prb_dtupdate_from_api 			
+	FROM 		tbprodutobluesoft_gtins		a
+	inner join  tbprodutobluesoft			b on b.prb_cdprodutobluesoft_pk = a.prb_cdprodutobluesoft
+	inner join  tbprodutoembalagem			c on c.prb_cdprodutobluesoft = b.prb_cdprodutobluesoft_pk
+	where		1 = 1
+	and			b.prb_cdprodutobluesoft_pk > 0 
+	and			a.prbg_cdbarra_pk  in ( select preg_cdbarra from temp_list_cd_barra );
+
+	drop table if exists temp_list_cd_barra;
+
+	
+	/* Atualizações */
+	
+	update 		tbprodutoembalagem_gtins	a
+	set			pr_cdproduto 				= d.pr_cdproduto
+			,	prb_cdprodutobluesoft 		= b.prb_cdprodutobluesoft 
+			,	dtlog_update				= current_timestamp ---b.dtlog_update
+			,	dtlog_update_api			= b.prbg_dtupdate_from_api  
+	FROM 		tbprodutobluesoft_gtins		B
+	inner join  tbprodutobluesoft			c on c.prb_cdprodutobluesoft_pk = b.prb_cdprodutobluesoft
+	inner join  tbprodutoembalagem			d on d.prb_cdprodutobluesoft = c.prb_cdprodutobluesoft_pk 		
+	where		b.prbg_cdbarra_pk = a.preg_cdbarra
+	  and       ( 			a.pr_cdproduto 			<> d.pr_cdproduto
+				 	or		a.prb_cdprodutobluesoft <> b.prb_cdprodutobluesoft );
+
+	---- status temporario ---
+	update		tbproduto a 
+		set 	pr_status = b.prb_status 
+			,	dtlog_update 		= current_timestamp
+			,	dtlog_update_api 	= b.prb_dtupdate_from_api 
+	from 		tbprodutobluesoft b 
+	where		1 = 1
+	and 		b.prb_cdprodutobluesoft_pk = a.prb_cdprodutobluesoft
+	and			pr_status != b.prb_status 
+	;
+	
+	/*Produtos bluesoft - Ajuste DESCRICAO */
+	update		tbproduto a 
+		set 	pr_descricao = left(b.prb_descricao,60) 
+			,	dtlog_update 		= current_timestamp
+	from 		tbprodutobluesoft b 
+	where		1 = 1
+	and 		b.prb_cdprodutobluesoft_pk = a.prb_cdprodutobluesoft
+	and			a.pr_cdproduto = a.prb_cdprodutobluesoft
+	and			pr_descricao != b.prb_descricao
+	;	
+
+	/*Produtos NAO bluesoft - Com base em ultimas alteracoes */
+	update		tbproduto a 
+		set 	pr_descricao = left(b.prb_descricao,60) 
+			,	dtlog_update 		= current_timestamp
+	from 		tbprodutobluesoft b 
+	where		1 = 1
+	and 		b.prb_cdprodutobluesoft_pk = a.prb_cdprodutobluesoft
+	and			pr_descricao != b.prb_descricao
+	and         b.prb_dt_ultimaalteracao >= current_date - 5
+	;	
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+-- HISTORICO 
+------------------------------------------------------------------------
+
+	insert into tbsistema_log(proc_log_seq, sis_nucleo_prc_cd, sis_log_tag, sis_log_info, uuid_start)
+	values (0, 21, 'PROC', 'ProdutoBluesoft Processamento Versão: 1012007 _ Historico', vuuid_start)
+	;
+	insert into tbproduto_historico 
+	(
+			prb_cdprodutobluesoft				
+		,	pr_cdproduto						
+		,	pr_descricao 						
+		,	pr_status							
+		,	pr_embalagemestoque					
+		,	pr_embalagemcompra 					
+		,	pr_embalagemcompra_fator 			
+		,	prb_cdprodutobluesoftunitario 		
+		,	prb_descricao 						
+		,	prb_embalagemestoque 				
+		,	prb_embalagemcompra_qtdeunitaria 	
+		,	prb_status							
+	)
+
+	select 		prb_cdprodutobluesoft_pk				as  prb_cdprodutobluesoft				
+			,	coalesce(pr.pr_cdproduto,0) 			as	pr_cdproduto						
+			,	pr.pr_descricao							as	pr_descricao		
+			,	pr.pr_status		 					as 	pr_status							
+			,	pr.pr_embalagemestoque					as	pr_embalagemestoque					
+			,	pr.pr_embalagemcompra					as	pr_embalagemcompra 					
+			,	pr.pr_embalagemcompra_fator 			as	pr_embalagemcompra_fator	
+			,	pb.prb_cdprodutobluesoftunitario 		as  prb_cdprodutobluesoftunitario
+			,	pb.prb_descricao 						as  prb_descricao 
+			,	pb.prb_embalagemestoque 				as  prb_embalagemestoque
+			,	pb.prb_embalagemcompra_qtdeunitaria 	as  prb_embalagemcompra_qtdeunitaria
+			,	pb.prb_status							as  prb_status	
+	from 		tbprodutobluesoft 	pb
+	left join   tbproduto			pr on pr.prb_cdprodutobluesoft = pb.prb_cdprodutobluesoft_pk 
+	where		1 = 1
+	and			coalesce(pr.pr_cdproduto,0) = 0
+	and			prb_cdprodutobluesoftunitario  = prb_cdprodutobluesoft_pk
+	and			not exists (
+								select 	1
+								from 		tbproduto_historico prx 
+								where		prx.prb_cdprodutobluesoft = pb.prb_cdprodutobluesoft_pk 
+								and			coalesce(prx.pr_cdproduto,0) = coalesce(pr.pr_cdproduto,0) 
+							)
+	;
+	insert into tbproduto_historico 
+		(
+				prb_cdprodutobluesoft				
+			,	pr_cdproduto						
+			,	pr_descricao 						
+			,	pr_status							
+			,	pr_embalagemestoque					
+			,	pr_embalagemcompra 					
+			,	pr_embalagemcompra_fator 			
+			,	prb_cdprodutobluesoftunitario 		
+			,	prb_descricao 						
+			,	prb_embalagemestoque 				
+			,	prb_embalagemcompra_qtdeunitaria 	
+			,	prb_status							
+		)
+
+	select 		pb.prb_cdprodutobluesoft_pk				as  prb_cdprodutobluesoft				
+			,	coalesce(pr.pr_cdproduto,0) 			as	pr_cdproduto						
+			,	pr.pr_descricao							as	pr_descricao		
+			,	pr.pr_status		 					as 	pr_status							
+			,	pr.pr_embalagemestoque					as	pr_embalagemestoque					
+			,	pr.pr_embalagemcompra					as	pr_embalagemcompra 					
+			,	pr.pr_embalagemcompra_fator 			as	pr_embalagemcompra_fator	
+			,	pb.prb_cdprodutobluesoftunitario 		as  prb_cdprodutobluesoftunitario
+			,	pb.prb_descricao 						as  prb_descricao 
+			,	pb.prb_embalagemestoque 				as  prb_embalagemestoque
+			,	pb.prb_embalagemcompra_qtdeunitaria 	as  prb_embalagemcompra_qtdeunitaria
+			,	pb.prb_status							as  prb_status	
+	from 		tbprodutobluesoft 	pb
+	left join   tbproduto			pr on pr.prb_cdprodutobluesoft = pb.prb_cdprodutobluesoft_pk 
+	where		1 = 1
+	and			coalesce(pr.pr_cdproduto,0) <> 0
+	and			prb_cdprodutobluesoftunitario  = prb_cdprodutobluesoft_pk
+	and			not exists (
+								select 	1
+								from 		tbproduto_historico prx 
+								where		prx.prb_cdprodutobluesoft = pb.prb_cdprodutobluesoft_pk 
+								and			coalesce(prx.pr_cdproduto,0) = coalesce(pr.pr_cdproduto,0) 
+							)
+	
+	;
+	/* Registrando  tbprodutoembalagem_historico ----------------------------------------------- */
+	
+	/*
+		#25992 Alteração em 28/09/2022 : registrar o historico considerando o codigo de barra
+		
+	*/
+	
+	
+	insert into tbprodutoembalagem_gtins_historico
+
+			(	pr_cdproduto 					
+			,	prb_cdprodutobluesoft_unitario	
+			,	pr_embalagemestoque				
+			,	pr_embalagemcompra				
+			,	pr_embalagemcompra_fator		
+			,	prb_cdpessoabluesoft_fabricante 
+			,	pre_embalagem 					
+			,	pre_fatorestoque 				
+			,	prb_cdprodutobluesoft 			
+			,	preg_cdbarra					
+			,	prb_status						
+	 )
+
+	select 		pr.pr_cdproduto 						
+			,	pr.prb_cdprodutobluesoft 				
+			,	pr.pr_embalagemestoque					
+			,	pr.pr_embalagemcompra 						
+			,	pr.pr_embalagemcompra_fator					
+			,	prb.prb_cdpessoabluesoft_fabricante 		
+			,	pm.pre_embalagem 										
+			,	pm.pre_fatorestoque 								
+			,	gt.prb_cdprodutobluesoft 										
+			,	gt.preg_cdbarra										
+			,	prb.prb_status									
+	from 		tbproduto 					pr
+	inner join  tbprodutoembalagem 			pm  on pm.pr_cdproduto = pr.pr_cdproduto 
+	inner join  tbprodutobluesoft 			prb on prb.prb_cdprodutobluesoft_pk = pm.prb_cdprodutobluesoft 
+	inner join  tbprodutoembalagem_gtins 	gt  on gt.pr_cdproduto = pm.pr_cdproduto and gt.prb_cdprodutobluesoft = pm.prb_cdprodutobluesoft and gt.pre_embalagem = pm.pre_embalagem
+	where		1 = 1
+	and	not exists 	( 		
+						select 		1 
+						from 		tbprodutoembalagem_gtins_historico aa
+						where	1 = 1
+							and pr_cdproduto 					= 		pr.pr_cdproduto 												
+							AND	prb_cdprodutobluesoft_unitario	= 		pr.prb_cdprodutobluesoft 			
+							AND	pr_embalagemestoque				=		pr.pr_embalagemestoque		
+							AND	pr_embalagemcompra				=		pr.pr_embalagemcompra		
+							AND	pr_embalagemcompra_fator		=		pr.pr_embalagemcompra_fator						
+							AND	pre_embalagem 					=		pm.pre_embalagem											
+							AND	pre_fatorestoque 				=		pm.pre_fatorestoque 	
+							AND	prb_cdprodutobluesoft 			=		gt.prb_cdprodutobluesoft 											
+							AND	preg_cdbarra					=		gt.preg_cdbarra									
+					)
+	;
+	insert into tbprodutoembalagem_gtins_historico
+
+			(	pr_cdproduto 					
+			,	prb_cdprodutobluesoft_unitario	
+			,	pr_embalagemestoque				
+			,	pr_embalagemcompra				
+			,	pr_embalagemcompra_fator		
+			,	prb_cdpessoabluesoft_fabricante 
+			,	pre_embalagem 					
+			,	pre_fatorestoque 				
+			,	prb_cdprodutobluesoft 			
+			,	preg_cdbarra					
+			,	prb_status						
+	 )
+
+	select 		0					
+			,	prb_cdprodutobluesoft 				
+			,	''
+			,	''
+			,	0
+			,	0
+			,	''
+			,	0
+			,	prb_cdprodutobluesoft 										
+			,	prbg_cdbarra_pk
+			,	null 
+	from 	tbprodutobluesoft_gtins pr 
+	where 	1 = 1
+	and		not exists 	( 		
+						select 		1 
+						from 		tbprodutoembalagem_gtins_historico aa
+						where	1 = 1
+							AND	prb_cdprodutobluesoft 			=		pr.prb_cdprodutobluesoft 											
+							AND	preg_cdbarra					=		pr.prbg_cdbarra_pk									
+					)
+	;
+	
+	
+	
+	
+	
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+-- AJUSTE TRIBUTACAO 
+------------------------------------------------------------------------
+	update TBPRODUTOBLUESOFT_TRIBUTACAO set prbt_cest = '0000000' where prbt_cest = '';
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+-- LOG INTEGRACAO DE PRODUTO 
+------------------------------------------------------------------------
+
+	insert into tbsistema_log(proc_log_seq, sis_nucleo_prc_cd, sis_log_tag, sis_log_info, uuid_start)
+	values (0, 21, 'PROC', 'ProdutoBluesoft Processamento Versão: 1012007 _ LogIntegracaoPRODUTO (24h pend)', vuuid_start)
+	;
+	
+	
+	
+		-->> Criamos uma tabela temporária para inserir os produtos que tiveram alteracao 
+		---------------------------------------------------------------------------------
+	drop table if exists tmpintegracao_produto_21
+	;
+	create TEMPORARY table tmpintegracao_produto_21
+		(
+				integracao_produto_seq int
+			,	pr_cdproduto int
+			,	prb_cdprodutobluesoftunitario int
+			,	prb_cdprodutobluesoft int 
+			,	integracao_tipo_cd int
+			,	integracao_status_cd int
+		)
+	;
+	
+	INSERT INTO tmpintegracao_produto_21 	
+		(
+				pr_cdproduto 
+			,	prb_cdprodutobluesoftunitario 
+			,	prb_cdprodutobluesoft
+			,	integracao_tipo_cd 
+			,	integracao_status_cd 
+		)
+	SELECT 		pr.pr_cdproduto 
+			,	pr.prb_cdprodutobluesoft 
+			,	pr.prb_cdprodutobluesoft 
+			,	20008501
+			,	2
+	from 		tbproduto pr 
+	inner join 	tbprodutobluesoft pb on pb.prb_cdprodutobluesoftunitario = pr.prb_cdprodutobluesoft
+	where		pb.dtlog_insert >= current_timestamp - interval '24 hour'
+	  and       pr.pr_status = 'true'
+	group by    pr.pr_cdproduto 
+			,	pr.prb_cdprodutobluesoft 
+
+	;
+	
+		-->> Inserimos os produtos da tabela temporária na tabela de integracao_produto	
+		---------------------------------------------------------------------------------
+	INSERT INTO tbintegracao_produto 	
+		(
+				pr_cdproduto 
+			,	prb_cdprodutobluesoftunitario 
+			,	prb_cdprodutobluesoft
+			,	integracao_tipo_cd 
+			,	integracao_status_cd 
+		)
+	SELECT 		pr.pr_cdproduto 
+			,	pr.prb_cdprodutobluesoft 
+			,	pr.prb_cdprodutobluesoft 
+			,	20008501
+			,	2
+	from 		tmpintegracao_produto_21 pr
+	where		1 = 1
+	  and       not exists ( 	select 1 
+								from   tbintegracao_produto x
+								where  x.pr_cdproduto = pr.pr_cdproduto 
+								  and  x.prb_cdprodutobluesoftunitario  = pr.prb_cdprodutobluesoft 
+								  and  x.prb_cdprodutobluesoft = pr.prb_cdprodutobluesoft 		
+								  and  x.integracao_tipo_cd = 20008501
+						   )
+	group by    pr.pr_cdproduto 
+			,	pr.prb_cdprodutobluesoft 
+
+	;
+
+		-->> Atualizamos a tabela temporaria com os sequenciais gerados
+		---------------------------------------------------------------------------------
+	update tmpintegracao_produto_21 tmp 
+	   set integracao_produto_seq = x.integracao_produto_seq
+	from   tbintegracao_produto  x
+	where  x.pr_cdproduto = tmp.pr_cdproduto
+	  and  x.prb_cdprodutobluesoftunitario = tmp.prb_cdprodutobluesoftunitario		
+	  and  x.prb_cdprodutobluesoft = tmp.prb_cdprodutobluesoft
+	  and  x.integracao_tipo_cd = 20008501
+		
+	;
+	
+	
+		-->> Vamos inserir na tabela de lancamento de integracao o log destes registros
+		---------------------------------------------------------------------------------
+
+	insert into tbintegracao_lancamento
+	(
+		--	dtlog_insert 					
+		--,	integracao_lancamento_seq 		
+			integracao_tipo_cd 				
+		,	integracao_produto_seq 			
+		,	integracao_descricao 			
+		,	sis_log_seq
+	)
+	select  2000
+		,	x.integracao_produto_seq
+		,	'F0021_90_PROD_PROC'
+		,	(select sis_log_seq from tbsistema_log where uuid = vuuid_start)
+	from 	tmpintegracao_produto_21 x
+	where   1 = 1
+	and		( 
+		
+				not exists (	select 	1 
+								from 	tbintegracao_produto a
+								where 	a.integracao_produto_seq = x.integracao_produto_seq 
+								  and   a.integracao_status_cd = 2
+					  		 
+						   )
+				and 
+					not exists ( select 1 from tbintegracao_lancamento b where b.integracao_produto_seq = x.integracao_produto_seq)
+			)
+	;
+	
+	
+	
+		-->> Atualizamos o status dos produtos que ja existiam na tabela 
+		---------------------------------------------------------------------------------
+	UPDATE 	tbintegracao_produto XX
+	  SET   integracao_status_cd = 2
+	  	,	dtlog_update = current_timestamp 
+	FROM tmpintegracao_produto_21	  AA 
+	WHERE XX.integracao_produto_seq = AA.integracao_produto_seq
+	
+	;	
+
+	insert into tbsistema_log(proc_log_seq, sis_nucleo_prc_cd, sis_log_tag, sis_log_info, uuid_start)
+	values (0, 21, 'PROC', 'ProdutoBluesoft Processamento Versão: 1012016 _ Fim', vuuid_start)
+	;
+	
+	drop table if exists tmpintegracao_produto_21
+	;
+
+end;
+$function$

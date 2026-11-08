@@ -1,0 +1,922 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{32FB14AE-37A1-46FD-B480-ECDD5CED9E47}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Pag_Net</RootNamespace>
+    <AssemblyName>Pag_Net_BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\__bin\desktop\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.Common\11.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\ReportViewer\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio 12.0\ReportViewer\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\__bin\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel.DomainServices.Hosting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel.DomainServices.Server, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dal\Old\DaArea.cs" />
+    <Compile Include="Dal\Old\DaAutorizadorFinanceiro.cs" />
+    <Compile Include="Dal\Old\DaCartaoConsultaOperacao.cs" />
+    <Compile Include="Dal\Old\DaClientes.cs" />
+    <Compile Include="Dal\Old\DaCrmTerminal.cs" />
+    <Compile Include="Dal\Old\DaCupons.cs" />
+    <Compile Include="Dal\Old\DaCuponsItens.cs" />
+    <Compile Include="Dal\Old\DaCuponsPagamentos.cs" />
+    <Compile Include="Dal\Old\DaDepartamento.cs" />
+    <Compile Include="Dal\Old\DaDepartamentoSecaoLinha.cs" />
+    <Compile Include="Dal\Old\DaDisponibilidade.cs" />
+    <Compile Include="Dal\Old\DaECF.cs" />
+    <Compile Include="Dal\Old\DaEmpresas.cs" />
+    <Compile Include="Dal\Old\DaEquipe.cs" />
+    <Compile Include="Dal\Old\DaEquipeRepositor.cs" />
+    <Compile Include="Dal\Old\DaErpZanthusLogProdutoPreco.cs" />
+    <Compile Include="Dal\Old\DaFabricante.cs" />
+    <Compile Include="Dal\Old\DaLinha.cs" />
+    <Compile Include="Dal\Old\DaLogTransacoes.cs" />
+    <Compile Include="Dal\Old\DalUserAccess.cs" />
+    <Compile Include="Dal\Old\DaNotasFiscais.cs" />
+    <Compile Include="Dal\Old\DaNotasFiscaisItem.cs" />
+    <Compile Include="Dal\Old\DaOperacaoInformacoesGerais.cs" />
+    <Compile Include="Dal\Old\DaOperacaoSac.cs" />
+    <Compile Include="Dal\Old\DaOperacaoSacFinanceiro.cs" />
+    <Compile Include="Dal\Old\DaOperacaoSacOperadoresAtivos.cs" />
+    <Compile Include="Dal\Old\DaOperacoes.cs" />
+    <Compile Include="Dal\Old\DaOperadores.cs" />
+    <Compile Include="Dal\Old\DaPedido.cs" />
+    <Compile Include="Dal\Old\DaPedidosEletronicosEmAberto.cs" />
+    <Compile Include="Dal\Old\DaPessoa.cs" />
+    <Compile Include="Dal\Old\DaProdutosFinanceiros.cs" />
+    <Compile Include="Dal\Old\DaSecao.cs" />
+    <Compile Include="Dal\Old\DaServicesTime.cs" />
+    <Compile Include="Dal\Old\DaSisFuncao.cs" />
+    <Compile Include="Dal\Old\DaSisUsuarios.cs" />
+    <Compile Include="Dal\Old\DaSitefLog.cs" />
+    <Compile Include="Dal\Old\DaSitefLogInterface.cs" />
+    <Compile Include="Dal\Old\DaTipos.cs" />
+    <Compile Include="Dal\Old\DaVendedor.cs" />
+    <Compile Include="Dal\Old\Pag_Net_Dal_Services.cs" />
+    <Compile Include="Dal\Old\TbErpZanthusStatusProdutoPreco.cs" />
+    <Compile Include="Dal\Old\TbSystemLoginAccess.cs" />
+    <Compile Include="Dal\Old\TbSystemUserAccessList.cs" />
+    <Compile Include="Dal\RedShift\Pag_Net.Dal.RedShift.SPC0015TbProdutoBlueSoft.cs" />
+    <Compile Include="Dal\RedShift\Pag_Net.Dal.RedShift.SPC5000TbDocumentosFiscais.cs" />
+    <Compile Include="Dal\SqlServer\Pag_Net.Dal.SqlServer.SPC0015TbProdutoBlueSoft.cs" />
+    <Compile Include="Dal\SqlServer\Pag_Net.Dal.SqlServer.SPC5000TbDocumentosFiscais.cs" />
+    <Compile Include="Dal\SqlServer\Pag_Net.Dal.SqlServer.SPR0050ServicesTimes.cs" />
+    <Compile Include="src\F0001_Sistema\model\ModelBackLogin.cs" />
+    <Compile Include="src\F0001_Sistema\model\ModelBackEndStatus.cs" />
+    <Compile Include="src\F0001_Sistema\model\modelSistemaPermissoes.cs" />
+    <Compile Include="src\F0001_Sistema\model\modelSistemaUsuario.cs" />
+    <Compile Include="src\F0001_Sistema\sql\pg.F0001_10_login_acesso_list.cs" />
+    <Compile Include="src\F0001_Sistema\tbs\TbSysDadabase.cs" />
+    <Compile Include="src\F0001_Sistema\tbs\TbSysUserAccess.cs" />
+    <Compile Include="src\F0001_Sistema\index.cs" />
+    <Compile Include="src\F0002_Enterprise\Pag_Net.Bll.EmpresaOperacao.db.TbOperacao_Setor.cs" />
+    <Compile Include="src\F0002_Enterprise\Pag_Net.Bll.EmpresaOperacao.F0002_30_EmpresaOperacaoSetor_List.cs" />
+    <Compile Include="src\F0003_Loja\Pag_Net.bll.Loja.F0003_50_precolistagem_balanca_mgv.cs" />
+    <Compile Include="src\F0003_Loja\index.cs" />
+    <Compile Include="src\F0004_Forca_Venda\tbs\tbforca_venda_prazopgto.cs" />
+    <Compile Include="src\F0005_Forca_Venda_Meta\interfaces.cs" />
+    <Compile Include="src\F0005_Forca_Venda_Meta\model\modelforca_venda_meta.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.Bll.Forca_Venda.Db.TbForca_Venda_Roteiro_Compl.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.Bll.Forca_Venda.Db.TbForca_Venda_Frete.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.Bll.Forca_Venda.Db.TbForca_Venda_Roteiro_Item.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.Bll.Forca_Venda.Db.TbForca_Venda_Roteiro.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.Bll.Forca_Venda.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_21.FV_Comissao_Alterar.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.Bll.Forca_Venda.F0004_32.FV_Roteiro_Compl_CRUD.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.Bll.Forca_Venda.F0004_31.FV_Roteiro_Item_CRUD.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_35.FV_Roteiro_Compl_Consultar.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_42.FV_Frete_CRUD.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_41.FV_Frete_Consultar.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_40.FV_Frete_Consolidar.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_34.FV_Roteiro_item_Consultar.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_33.FV_Roteiro_consultar.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_50.FV_Comissao_List.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_51.FV_Comissao_Detalhe.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_20.FV_Comissao_Alterar_Item.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_60.FV_Comissao_Consolidar.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_56.FV_Comissao_Apuracao_Item.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_55.FV_Comissao_Apuracao.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.bll.Forca_Venda.F0004_70.FV_Premio_List.cs" />
+    <Compile Include="src\F0004_Forca_Venda\Pag_Net.Bll.Forca_Venda.F0004_30.FV_Roteiro_CRUD.cs" />
+    <Compile Include="src\F0005_Forca_Venda_Meta\dataStore.cs" />
+    <Compile Include="src\F0005_Forca_Venda_Meta\scriptspg\f9030_01_sistema_batch_run_crud.cs" />
+    <Compile Include="src\F0005_Forca_Venda_Meta\tbs\tbforca_venda_meta_composicao.cs" />
+    <Compile Include="src\F0005_Forca_Venda_Meta\tbs\tbforca_venda_meta_vendedor.cs" />
+    <Compile Include="src\F0005_Forca_Venda_Meta\tbs\tbforca_venda_meta.cs" />
+    <Compile Include="src\F0005_Forca_Venda_Meta\tbs\tbforca_venda_meta_composicao_tipo.cs" />
+    <Compile Include="src\F0005_Forca_Venda_Meta\tbs\tbforca_venda_meta_tipo.cs" />
+    <Compile Include="src\F0005_Forca_Venda_Meta\wk.cs" />
+    <Compile Include="src\F0011_Participante\DataTables\DataTables.cs" />
+    <Compile Include="src\F0011_Participante\Models\ModelParticipante_Bluesoft_GRP.cs" />
+    <Compile Include="src\F0011_Participante\Service\Service.Participante_BlueSoft_GRP.Integ.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_08_ParticipanteFuncionario.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_91_ParticipanteBluesoft_GRP_integ.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipanteBlueSoftGRP.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipanteBlueSoft.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipanteContatoTipo.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipanteEnderecoTipo.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipanteFuncionario.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipanteVendedor.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipanteTipoReg.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipanteTipo.cs" />
+    <Compile Include="src\F0011_Participante\Models\ModelParticipante.cs" />
+    <Compile Include="src\F0011_Participante\Service\Service.cs" />
+    <Compile Include="src\F0011_Participante\Service\Service.Participante.BlueSoft.Integ.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_07_ParticipanteVendedor.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_05_ParticipantePF.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_04_ParticipanteContato.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_03_ParticipanteEndereco.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_02_Participante_Tipo_Reg.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_60_Participante_List.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipanteContato.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipante.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipante_GrupoEconomico.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipantePF.cs" />
+    <Compile Include="src\F0011_Participante\Models\TbParticipante_Funcionario.cs" />
+    <Compile Include="src\F0011_Participante\Tabs\TbParticipanteEndereco.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_90_ParticipanteBluesoft_integ.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_01_Participante.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_10_Participante_Consultar.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_05_Pessoa_Consultar.cs" />
+    <Compile Include="src\F0011_Participante\Sql\Pg.F0011_61_Participante_Tipo_List.cs" />
+    <Compile Include="src\F0012_GrupoEconomico\DataTables\DataTables.cs" />
+    <Compile Include="src\F0012_GrupoEconomico\Models\ModelGrupoEconomico.cs" />
+    <Compile Include="src\F0012_GrupoEconomico\Pag_Net.Bll.GrupoEconomico.cs" />
+    <Compile Include="src\F0012_GrupoEconomico\Service\Service.cs" />
+    <Compile Include="src\F0012_GrupoEconomico\Service\Service.GrupoEconomico.BlueSoft.Integ.cs" />
+    <Compile Include="src\F0012_GrupoEconomico\Sql\Pg.F0012_50_tbgrupoeconomico_integ_bluesoft.cs" />
+    <Compile Include="src\F0012_GrupoEconomico\Sql\Pg.F0012_60_tbgrupoeconomico_list.cs" />
+    <Compile Include="src\F0012_GrupoEconomico\Sql\Pg.F0012_01_tbgrupoeconomico_crud.cs" />
+    <Compile Include="src\F0012_GrupoEconomico\Tabs\TbGrupoEconomico.cs" />
+    <Compile Include="src\F0020_Produto\interfaces.cs" />
+    <Compile Include="src\F0020_Produto\model\model_produtoembalagem.cs" />
+    <Compile Include="src\F0020_Produto\model\model_produto.cs" />
+    <Compile Include="src\F0020_Produto\report.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.SELECT_Produto_Composicao.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.SELECT_Produto_EmbalagemGtins.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.SELECT_Produto_Embalagem.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.SELECT_Produto.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.SELECT_Produto_Zanthus_MercadoriaTipoVenda.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.SELECT_Produto_Zanthus_RegraIcms.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.SELECT_Produto_Zanthus_Mercadoria.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.F0020_60_report_produtoIntegracao.cs" />
+    <Compile Include="src\F0020_Produto\tbs\TbProdutoBlueSoft.cs" />
+    <Compile Include="src\F0020_Produto\tbs\TbProdutoEmbalagemGtins.cs" />
+    <Compile Include="src\F0020_Produto\tbs\TbProdutoEmbalagem.cs" />
+    <Compile Include="src\F0020_Produto\tbs\TbProduto.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.F0020_10_Produto_Consultar.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.F0020_12_ProdutoEmbalagemGtins_Consultar.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.F0020_11_ProdutoEmbalagem_Consultar.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.F0020_20_ProdutoDepartamento_Consultar.cs" />
+    <Compile Include="src\F0020_Produto\scripts\pg.F0020_21_ProdutoSecaoEncarregado_Consultar.cs" />
+    <Compile Include="src\F0020_Produto\tbs\TbProdutoSubGrupo.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\index.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\interfaces.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\report.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Sevice\Service.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Sevice\Service.ProdutoBlueSoft.BlueSoft.Integ.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Sql\pg.SELECT_ProdutoBluesoftTributacao.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Sql\pg.SELECT_ProdutoBluesoft.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Tabs\TbProdutoBlueSoftComposicao.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Tabs\TbProdutoBlueSoftGtins.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Sql\pg.F0021_03.ProdutoBluesoftComposicao_CRUD.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Sql\pg.F0021_02.ProdutoBluesoftGtins_CRUD.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Sql\pg.F0021_01.ProdutoBluesoft_CRUD.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Tabs\TbProdutoBlueSoft.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Sql\pg.F0021_04.Produto_Tributacao_CRUD.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Tabs\TbProdutoTributacao.cs" />
+    <Compile Include="src\F0021_ProdutoBluesoft\Sql\pg.F0021_90.ProdutoBlueSoft_Processamento.cs" />
+    <Compile Include="src\F0023_Produto_Tributacao\Pag_Net.Bll.Produto_Tributacao.cs" />
+    <Compile Include="src\F0023_Produto_Tributacao\Pag_Net.Bll.Produto_Tributacao.db.Produto_Tributacao.cs" />
+    <Compile Include="src\F0023_Produto_Tributacao\Pag_Net.Bll.Produto_Tributacao.F0023_01.Produto_Tributacao_CRUD.cs" />
+    <Compile Include="src\F0025_EstoqueLocal\Pag_Net.Bll.EstoqueLocal.cs" />
+    <Compile Include="src\F0025_EstoqueLocal\Pag_Net.Bll.EstoqueLocal.F0025_05_EstoqueLocal_Mov_CRUD.cs" />
+    <Compile Include="src\F0030_EstoqueCusto\Pag_Net.Bll.EstoqueCusto.db.EstoqueCusto.cs" />
+    <Compile Include="src\F0030_EstoqueCusto\Pag_Net.Bll.EstoqueCusto.db.EstoqueCusto_Receita.cs" />
+    <Compile Include="src\F0030_EstoqueCusto\Pag_Net.Bll.EstoqueCusto.F0030_09.EstoqueCustoBlueSoft_CRUD.cs" />
+    <Compile Include="src\F0030_EstoqueCusto\Pag_Net.Bll.EstoqueCusto.F0030_30.EstoqueCusto_Receita_Crud.cs" />
+    <Compile Include="src\F0030_EstoqueCusto\Pag_Net.Bll.EstoqueCusto.F0030_50.EstoqueCusto_List.cs" />
+    <Compile Include="src\F0030_EstoqueCusto\Pag_Net.Bll.EstoqueCusto.F0030_90.EstoqueCustoDiario_Processamento.cs" />
+    <Compile Include="src\F0030_EstoqueCusto\Pag_Net.Bll.EstoqueCusto.F0030_10.EstoqueCustoDiarioBlueSoft_CRUD.cs" />
+    <Compile Include="src\F0030_EstoqueCusto\Pag_Net.Bll.EstoqueCusto.db.EstoqueCustoDiarioBluesoft.cs" />
+    <Compile Include="src\F0035_Ativo\DataTables\DataTables.cs" />
+    <Compile Include="src\F0035_Ativo\Ativo.cs" />
+    <Compile Include="src\F0035_Ativo\Models\Model_TbAtivoRegistro.cs" />
+    <Compile Include="src\F0035_Ativo\Models\Model_TbAtivo.cs" />
+    <Compile Include="src\F0035_Ativo\Sql\F0035_31.Ativo_Registro_Veiculo_Crud.cs" />
+    <Compile Include="src\F0035_Ativo\Sql\F0035_30.Ativo_Registro_Crud.cs" />
+    <Compile Include="src\F0035_Ativo\Sql\F0035_06.Ativo_Veiculo_Crud.cs" />
+    <Compile Include="src\F0035_Ativo\Sql\F0035_66_Ativo_Registro_Veiculo_List.cs" />
+    <Compile Include="src\F0035_Ativo\Sql\F0035_61_Ativo_Veiculo_List.cs" />
+    <Compile Include="src\F0035_Ativo\Tabs\Pag_Net.Bll.Ativo.db.TbAtivoRegistro.cs" />
+    <Compile Include="src\F0035_Ativo\Tabs\Pag_Net.Bll.Ativo.db.TbAtivoRegistroVeiculo.cs" />
+    <Compile Include="src\F0035_Ativo\Tabs\Pag_Net.Bll.Ativo.db.TbAtivoVeiculo.cs" />
+    <Compile Include="src\F0035_Ativo\Tabs\Pag_Net.Bll.Ativo.db.TbAtivoTipo.cs" />
+    <Compile Include="src\F0035_Ativo\Tabs\Pag_Net.Bll.Ativo.db.TbAtivo.cs" />
+    <Compile Include="src\F0035_Ativo\Tabs\Pag_Net.Bll.Ativo.db.TbAtivoBlueSoft.cs" />
+    <Compile Include="src\F0035_Ativo\Tabs\old\Pag_Net.Bll.Ativo.db.TbAtivoProduto.cs" />
+    <Compile Include="src\F0035_Ativo\Sql\F0035_05.Ativo_Crud.cs" />
+    <Compile Include="src\F0035_Ativo\Sql\F0035_15.AtivoBlueSoft_Crud.cs" />
+    <Compile Include="src\F0035_Ativo\Service\Service.AtivoBlueSoft.Integ.cs" />
+    <Compile Include="src\F0035_Ativo\Service\Service.cs" />
+    <Compile Include="src\F0035_Ativo\Sql\F0035_60.Ativo_List.cs" />
+    <Compile Include="src\F0045_Preco\index.cs" />
+    <Compile Include="src\F0045_Preco\interfaces.cs" />
+    <Compile Include="src\F0045_Preco\model\model_backend_aplicar.cs" />
+    <Compile Include="src\F0045_Preco\model\model_ProdutoPreco.cs" />
+    <Compile Include="src\F0045_Preco\scripts\pg.F0045_01_Service_AtualizarPreco.cs" />
+    <Compile Include="src\F0045_Preco\scripts\pg.F0045_05_Report_ConsultarPreco.cs" />
+    <Compile Include="src\F0045_Preco\scripts\pg.F0045_60_Preco_Loja_Aplicacao.cs" />
+    <Compile Include="src\F0045_Preco\service.cs" />
+    <Compile Include="src\F0045_Preco\x_Pag_Net.Bll.F0045_10_Preco_Aplicacao_List.cs" />
+    <Compile Include="src\F0045_Preco\x_Pag_Net.Bll.Preco.cs" />
+    <Compile Include="src\F0045_Preco\report.cs" />
+    <Compile Include="src\F0045_Preco\scripts\pg.F0045_10_Report_TabelaPreco.cs" />
+    <Compile Include="src\F0045_Preco\scripts\pg.F0045_52_Report_precolog.cs" />
+    <Compile Include="src\F0045_Preco\scripts\pg.F0045_51_Report_precoagendamentolistagem.cs" />
+    <Compile Include="src\F0045_Preco\scripts\pg.F0045_50_Report_precolistagem.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\index.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\interfaces.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\model\model_faturamento_bluesoft _item.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\model\model_faturamento_bluesoft.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\report.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\scripts\pg.F0050_12.Faturamento_BlueSoft_Item.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\scripts\pg.F0050_11.Faturamento_BlueSoft_Origem_CRUD.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\scripts\pg.F0050_10.Faturamento_BlueSoft_CRUD.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\scripts\rd..Select_Faturamento_BlueSoft_Item.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\scripts\rd..Select_Faturamento_BlueSoft.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\service\service.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\tbs\tbfaturamento_bluesoft_origem.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\tbs\tbfaturamento_bluesoft.cs" />
+    <Compile Include="src\F0050_Faturamento_BlueSoft\tbs\tbfaturamento_bluesoft_item.cs" />
+    <Compile Include="src\F0070_Faturamento\interfaces.cs" />
+    <Compile Include="src\F0070_Faturamento\model\model_faturamento.cs" />
+    <Compile Include="src\F0070_Faturamento\model\model_rpt_faturamento_analise.cs" />
+    <Compile Include="src\F0070_Faturamento\index.cs" />
+    <Compile Include="src\F0070_Faturamento\model\model_rpt_faturamento_analise_TipoVisualizacao.cs" />
+    <Compile Include="src\F0070_Faturamento\report.cs" />
+    <Compile Include="src\F0070_Faturamento\reports\rptGeneratorFaturamentoAnalise.cs" />
+    <Compile Include="src\F0070_Faturamento\reports\rptGeneratorFaturamentoItensList.cs" />
+    <Compile Include="src\F0070_Faturamento\reports\rptGeneratorFaturamentoConsulta.cs" />
+    <Compile Include="src\F0070_Faturamento\reports\rptGeneratorFaturamentoTipoVisualizacao.cs" />
+    <Compile Include="src\F0070_Faturamento\reports\rptGeneratorFaturamentoStatus.cs" />
+    <Compile Include="src\F0070_Faturamento\scripts\pg.F0070_50_Rel_Analise_Basica.cs" />
+    <Compile Include="src\F0070_Faturamento\tbs\tb.Faturamento.cs" />
+    <Compile Include="src\F0070_Faturamento\tbs\tb.FaturamentoItens.cs" />
+    <Compile Include="src\F0070_Faturamento\tbs\tb.FaturamentoOrigem.cs" />
+    <Compile Include="src\F0080_Financeiro\batchs.cs" />
+    <Compile Include="src\F0080_Financeiro\report.cs" />
+    <Compile Include="src\F0080_Financeiro\interfaces.cs" />
+    <Compile Include="src\F0080_Financeiro\model\model_AutorizacaoPagamento.cs" />
+    <Compile Include="src\F0080_Financeiro\model\model_ComposicaoFinanceira_Tipo.cs" />
+    <Compile Include="src\F0080_Financeiro\scripts\pg.F0080_20.fin_forma_pgto_list.cs" />
+    <Compile Include="src\F0080_Financeiro\scripts\pg.F0080_01.AutorizacaoPgto_CRUD.cs" />
+    <Compile Include="src\F0080_Financeiro\scripts\pg.F0050_51.Financeiro_contabil_List.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Tabs\Pag_Net.Bll.Faturamento.db.zanthus_ctrl.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Sql\Pag_Net.Bll.Faturamento.F0055_21_Faturamento_Zanthus_Item_Consultar.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Sql\Pag_Net.Bll.Faturamento.F0055_50_Rel_Analise_Basica.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Sql\Pag_Net.Bll.Faturamento.F0055_03_Faturamento_Excluir.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.F0060_40.DocumentoFiscal_Consultar.cs" />
+    <Compile Include="src\F0065_Forca_Venda\Pag_Net.Bll.Forca_Venda.cs" />
+    <Compile Include="src\F0065_Forca_Venda\Pag_Net.bll.Forca_Venda.F0065_15.Forca_Venda_TabPreco_CRUD.cs" />
+    <Compile Include="src\F0080_Financeiro\scripts\RedShift.cs" />
+    <Compile Include="src\F0085_zanthus\index.cs" />
+    <Compile Include="src\F0085_zanthus\model\modelResultadoCarga.cs" />
+    <Compile Include="src\F0095_Integracao\index.cs" />
+    <Compile Include="src\F0095_Integracao\interfaces.cs" />
+    <Compile Include="src\F0095_Integracao\model\modelintegracao_produto.cs" />
+    <Compile Include="src\F0095_Integracao\report.cs" />
+    <Compile Include="src\F0095_Integracao\scripts\pg.f0095_10_report_integracaoproduto.cs" />
+    <Compile Include="src\F0095_Integracao\scripts\pg.f0095_15_integracaoproduto_crud.cs" />
+    <Compile Include="src\F0095_Integracao\tbs\TbIntegracaoStatus.cs" />
+    <Compile Include="src\F0095_Integracao\tbs\TbIntegracaoProduto.cs" />
+    <Compile Include="src\F0095_Integracao\tbs\TbIntegracaoTipo.cs" />
+    <Compile Include="src\F0095_Integracao\tbs\TbIntegracao.cs" />
+    <Compile Include="src\F0100_Resultado\index.cs" />
+    <Compile Include="src\F0100_Resultado\interfaces.cs" />
+    <Compile Include="src\F0100_Resultado\report.cs" />
+    <Compile Include="src\F0100_Resultado\service\F0100_50.Competencia_List.cs" />
+    <Compile Include="src\F0100_Resultado\tbs\TbCompetencia.cs" />
+    <Compile Include="src\F0100_Resultado\tbs\tbresultado_conta.cs" />
+    <Compile Include="src\F0105_Zanthus\Pag_Net.Bll.Zanthus.db.Voucher_promocional_cli.cs" />
+    <Compile Include="src\F0105_Zanthus\Pag_Net.Bll.Zanthus.db.Voucher_promocional.cs" />
+    <Compile Include="src\F0105_Zanthus\Pag_Net.Bll.Zanthus.F0105_20_zanthus_voucher_cli_consultar.cs" />
+    <Compile Include="src\F0105_Zanthus\Pag_Net.Bll.Zanthus.cs" />
+    <Compile Include="src\F0130_Controle\Controle.cs" />
+    <Compile Include="src\F0130_Controle\DataTables\DataTables.cs" />
+    <Compile Include="src\F0130_Controle\Models\Model_Controle.cs" />
+    <Compile Include="src\F0130_Controle\Models\model_controle_reg.cs" />
+    <Compile Include="src\F0130_Controle\Models\model_controle_reg_documentofiscal_etapa.cs" />
+    <Compile Include="src\F0130_Controle\Models\model_controle_reg_Etapa.cs" />
+    <Compile Include="src\F0130_Controle\Models\model_controle_reg_fila.cs" />
+    <Compile Include="src\F0130_Controle\Models\model_controle_reg_fin.cs" />
+    <Compile Include="src\F0130_Controle\Models\model_controle_reg_obs.cs" />
+    <Compile Include="src\F0130_Controle\Models\model_controle_reg_pessoa.cs" />
+    <Compile Include="src\F0130_Controle\Models\model_controle_reg_transporte.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_reg_obs.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_Etapa.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_pessoa.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_fila.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_reg_documentofiscal_etapa.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_reg_transporte.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_reg.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_reg_etapa.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_reg_fila.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_reg_pessoa.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_reg_fin.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.controle_status.cs" />
+    <Compile Include="src\F0130_Controle\Tabs\Pag_Net.Bll.Controle.db.Controle_Status_Pgto.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_02.Controle_Fila_Consultar.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_04.Controle_Etapa_Consultar.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_03.Controle_Pessoa_Consultar.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_31.Controle_Reg_CRUD.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_32.Controle_Reg_Fila_CRUD.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_33.Controle_Reg_Pessoa_CRUD.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_40.Controle_Reg_Status_Pgto_Update.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_35.Controle_Reg_FIN_CRUD.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_61.Controle_Reg_obs_List.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_61.Controle_Reg_Fin_List.cs" />
+    <Compile Include="src\F0130_Controle\Sql\x__old___Pag_Net.Bll.Controle.F0130_35.Controle_Reg_Transporte_CRUD.cs" />
+    <Compile Include="src\F0130_Controle\Sql\x__old___Pag_Net.Bll.Controle.F0130_35.Controle_Reg_Documentofiscal_Etapa_CRUD.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_34.Controle_Reg_Etapa_CRUD.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_01.Controle_Consultar.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_60.Controle_Reg_List.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_50.Controle_Reg_Consultar.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_51.Controle_Reg_Fila_Consultar.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_09.Controle_Reg_Status_Consultar.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_10.Controle_Reg_Alterar.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_53.Controle_Reg_Pessoa_Consultar.cs" />
+    <Compile Include="src\F0130_Controle\Sql\Pag_Net.Bll.Controle.F0130_52.Controle_Reg_Etapa_List.cs" />
+    <Compile Include="src\F0131_Veiculo\Pag_Net.Bll.Veiculo.F0131_01.Veiculo_CRUD.cs" />
+    <Compile Include="src\F0131_Veiculo\Pag_Net.Bll.Veiculo.F0131_30.Veiculo_Modelo_List.cs" />
+    <Compile Include="src\F0131_Veiculo\Pag_Net.Bll.Veiculo.db.Veiculo.cs" />
+    <Compile Include="src\F0131_Veiculo\Pag_Net.Bll.Veiculo.db.VeiculoModelo.cs" />
+    <Compile Include="src\F0131_Veiculo\Pag_Net.Bll.Veiculo.cs" />
+    <Compile Include="src\F0135_Transporte_Ctrl\Pag_Net.Bll.Transporte_Ctrl.db.Transporte_Ctrl_DocumentosFiscais_Etapa.cs" />
+    <Compile Include="src\F0135_Transporte_Ctrl\Pag_Net.Bll.Transporte_Ctrl.db.Transporte_Ctrl.cs" />
+    <Compile Include="src\F0135_Transporte_Ctrl\Pag_Net.Bll.Transporte_Ctrl.F0135_10.Transporte_Ctrl_Consultar.cs" />
+    <Compile Include="src\F0135_Transporte_Ctrl\Pag_Net.Bll.Transporte_Ctrl.F0135_02.Transporte_Ctrl_Documentofiscal_Etapa_CRUD.cs" />
+    <Compile Include="src\F0135_Transporte_Ctrl\Pag_Net.Bll.Transporte_Ctrl.F0135_20.Transporte_Ctrl_Documentofiscal_list.cs" />
+    <Compile Include="src\F0135_Transporte_Ctrl\Pag_Net.Bll.Transporte_Ctrl.F0135_01.Transporte_Ctrl_CRUD.cs" />
+    <Compile Include="src\F0135_Transporte_Ctrl\Pag_Net.Bll.Transporte_Ctrl.cs" />
+    <Compile Include="src\F0136_Contrato_Servico_Ctrl\Pag_Net.Bll.Contrato_Servico.db.Contrato_Servico_Ctrl.cs" />
+    <Compile Include="src\F0137_Cartao_Acesso\Pag_Net.Bll.Cartao_Acesso.db.Cartao_Acesso_Registro.cs" />
+    <Compile Include="src\F0137_Cartao_Acesso\Pag_Net.bll.Cartao_Acesso.F0137_02.Cartao_Acesso_CRUD.cs" />
+    <Compile Include="src\F0136_Contrato_Servico_Ctrl\Pag_Net.Bll.Contrato_Servico.F0136_02.Contrato_Servico_Ctrl_CRUD.cs" />
+    <Compile Include="src\F0136_Contrato_Servico_Ctrl\Pag_Net.Bll.Contrato_Servico.F0136_30.Contrato_Servico_LIST.cs" />
+    <Compile Include="src\F0136_Contrato_Servico_Ctrl\Pag_Net.Bll.Contrato_Servico.F0136_10.Contrato_Servico_Ctrl_Consultar.cs" />
+    <Compile Include="src\F0136_Contrato_Servico_Ctrl\Pag_Net.Bll.Contrato_Servico.F0136_01.Contrato_Servico_Crud.cs" />
+    <Compile Include="src\F0136_Contrato_Servico_Ctrl\Pag_Net.Bll.Contrato_Servico.cs" />
+    <Compile Include="src\F0136_Contrato_Servico_Ctrl\Pag_Net.Bll.Contrato_Servico.db.Contrato_Servico.cs" />
+    <Compile Include="src\F0137_Cartao_Acesso\Pag_Net.Bll.Cartao_Acesso.cs" />
+    <Compile Include="src\F0137_Cartao_Acesso\Pag_Net.Bll.Cartao_Acesso.db.Cartao_Acesso.cs" />
+    <Compile Include="src\F0137_Cartao_Acesso\Pag_Net.Bll.Cartao_Acesso.F0137_03.Cartao_Acesso_Registro_CRUD.cs" />
+    <Compile Include="src\F0137_Cartao_Acesso\Pag_Net.bll.Cartao_Acesso.F0137_20.Cartao_Acesso_tipo_List.cs" />
+    <Compile Include="src\F0137_Cartao_Acesso\Pag_Net.Bll.Cartao_Acesso.F0137_31.CartaoAcessoRegistroList.cs" />
+    <Compile Include="src\F0137_Cartao_Acesso\Pag_Net.bll.Cartao_Acesso.F0137_70.Cartao_Acesso_Visitante_Numero.cs" />
+    <Compile Include="src\F0137_Cartao_Acesso\Pag_Net.bll.Cartao_Acesso.F0137_30.Cartao_Acesso_List.cs" />
+    <Compile Include="src\F0138_Recursos_Ctrl\Models\Model_RecursoCtrl.cs" />
+    <Compile Include="src\F0138_Recursos_Ctrl\Sql\Pag_Net.Bll.Contrato_Servico.F0138_10.Recurso_Ctrl_CRUD.cs" />
+    <Compile Include="src\F0138_Recursos_Ctrl\Tabs\Pag_Net.Bll.Recurso_Ctrl.db.Recurso_Ctrl.cs" />
+    <Compile Include="src\F0138_Recursos_Ctrl\Recurso_Ctrl.cs" />
+    <Compile Include="src\F0141_Rh\DataTables\DataTables.cs" />
+    <Compile Include="src\F0141_Rh\Models\ModelParticipanteFuncionario.cs" />
+    <Compile Include="src\F0141_Rh\Sql\Pg.F0011_50_Participante_Funcionario_Setor_Operacional.cs" />
+    <Compile Include="src\F0141_Rh\Sql\Pg.F0141_65_Salario_Contratado_List.cs" />
+    <Compile Include="src\F0141_Rh\Sql\Pg.F0141_60_Funcionario_List.cs" />
+    <Compile Include="src\F0141_Rh\Tabs\Pag_Net.Bll.Rh.db.TbRh_Setor_Operacional.cs" />
+    <Compile Include="src\F0141_Rh\Tabs\Pag_Net.Bll.Rh.db.TbRh_Tipo_Contrato.cs" />
+    <Compile Include="src\F0141_Rh\Tabs\Pag_Net.Bll.Rh.db.Funcionario_Status.cs" />
+    <Compile Include="src\F0141_Rh\Sql\Pg.F0141_10_Rh_Funcionario_Status_List.cs" />
+    <Compile Include="src\F0150_Estatistica\Pag_Net.Bll.Estatistica.cs" />
+    <Compile Include="src\F0150_Estatistica\Pag_Net.Bll.Estatistica.db.Est_Info.cs" />
+    <Compile Include="src\F0150_Estatistica\Pag_Net.Bll.Estatistica.F0150_10_Consultar_Info.cs" />
+    <Compile Include="src\F0210_Notificacao\interfaces.cs" />
+    <Compile Include="src\F0210_Notificacao\model\model_notificacao.cs" />
+    <Compile Include="src\F0210_Notificacao\model\model_notificacao_Send.cs" />
+    <Compile Include="src\F0210_Notificacao\report.cs" />
+    <Compile Include="src\F0210_Notificacao\scripts\Pag_Net.bll.Notificacao.F0210_50.Notificacao_Procedimento.cs" />
+    <Compile Include="src\F0210_Notificacao\scripts\Pag_Net.bll.Notificacao.F0210_02.Notificacao_send_Message_CRUD.cs" />
+    <Compile Include="src\F0210_Notificacao\scripts\Pag_Net.bll.Notificacao.F0210_01.Notificacao_Send_CRUD.cs" />
+    <Compile Include="src\F0210_Notificacao\tbs\TbNotificacao.cs" />
+    <Compile Include="src\F0210_Notificacao\tbs\TbNotificacao_Send_Message.cs" />
+    <Compile Include="src\F0210_Notificacao\index.cs" />
+    <Compile Include="src\F0210_Notificacao\tbs\TbNotificacao_Send.cs" />
+    <Compile Include="src\F9020_sistema_log\batch.cs" />
+    <Compile Include="src\F9020_sistema_log\pools.cs" />
+    <Compile Include="src\F9020_sistema_log\interfaces.cs" />
+    <Compile Include="src\F9020_sistema_log\model\modelsistema_batch.cs" />
+    <Compile Include="src\F9020_sistema_log\scriptsPg\myScritp.cs" />
+    <Compile Include="src\F9020_sistema_log\tbs\tbsistema_log.cs" />
+    <Compile Include="src\F9020_sistema_log\_index.cs" />
+    <Compile Include="src\F9030_sistemabatch\interfaces.cs" />
+    <Compile Include="src\F9030_sistemabatch\report.cs" />
+    <Compile Include="src\F9030_sistemabatch\model\modelsistema_batch.cs" />
+    <Compile Include="src\F9030_sistemabatch\scripts\pg.f9030_60_sistema_batch_runs_list.cs" />
+    <Compile Include="src\F9030_sistemabatch\scripts\pg.f9030_01_sistema_batch_run_crud.cs" />
+    <Compile Include="src\F9030_sistemabatch\tbs\tbsistema_batch _Service.cs" />
+    <Compile Include="src\F9030_sistemabatch\tbs\tbsistema_batch.cs" />
+    <Compile Include="src\F9030_sistemabatch\tbs\tbsistema_batch_run.cs" />
+    <Compile Include="src\F9030_sistemabatch\tbs\tbsistema_batch_time.cs" />
+    <Compile Include="src\F9030_sistemabatch\wk.cs" />
+    <Compile Include="src\Pag_Net.Bll.Cadastros_Gerais.cs" />
+    <Compile Include="src\Pag_Net.Bll.CentroDR_Fechamento.cs" />
+    <Compile Include="src\Pag_Net.Bll.CentroDR_Mapa.cs" />
+    <Compile Include="src\Pag_Net.Bll.CentroDR_Processamento.cs" />
+    <Compile Include="src\Pag_Net.Bll.Controle.cs" />
+    <Compile Include="src\Pag_Net.Bll.DemonstrativoResultado.cs" />
+    <Compile Include="src\Pag_Net.Bll.DemonstrativoResultado_fpgto_Setor.cs" />
+    <Compile Include="src\Pag_Net.Bll.DocumentoFiscalRegistro.cs" />
+    <Compile Include="src\Pag_Net.Bll.EstoqueCusto.cs" />
+    <Compile Include="src\Pag_Net.Bll.Faturamento.cs" />
+    <Compile Include="src\Pag_Net.Bll.Interface.Comercial.cs" />
+    <Compile Include="src\Pag_Net.Bll.Log.cs" />
+    <Compile Include="src\Pag_Net.Bll.Loja.cs" />
+    <Compile Include="src\Pag_Net.Bll.Pessoa.cs" />
+    <Compile Include="src\Pag_Net.Bll.Processo.cs" />
+    <Compile Include="src\Pag_Net.Bll.ProdutoPreco.cs" />
+    <Compile Include="src\Pag_Net.Bll.Sistema.cs" />
+    <Compile Include="src\Pag_Net.Bll.Tools.cs" />
+    <Compile Include="src\Pag_Net.Bll.Veiculo.cs" />
+    <Compile Include="src\Pag_Net.Bll.Voucher.cs" />
+    <Compile Include="src\F0001_Sistema\Pag_Net.Bll.Sistema.cs" />
+    <Compile Include="src\F0001_Sistema\Pag_Net.Bll.Sistema.db.Operacao.cs" />
+    <Compile Include="src\F0002_Enterprise\Pag_Net.Bll.EmpresaOperacao.F0002_20_User_Consultar.cs" />
+    <Compile Include="src\F0002_Enterprise\Pag_Net.Bll.EmpresaOperacao.db.Empresa.cs" />
+    <Compile Include="src\F0002_Enterprise\Pag_Net.Bll.EmpresaOperacao.cs" />
+    <Compile Include="src\F0002_Enterprise\Pag_Net.Bll.EmpresaOperacao.db.Operacao.cs" />
+    <Compile Include="src\F0011_Participante\Pag_Net.Bll.Participante.cs" />
+    <Compile Include="src\F0020_Produto\tbs\TbProdutoSecaoEncarregado.cs" />
+    <Compile Include="src\F0020_Produto\index.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Pag_Net.Bll.Faturamento.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Tabs\Pag_Net.Bll.Faturamento.db.FaturamentoItens.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Tabs\Pag_Net.Bll.Faturamento.db.FaturamentoOrigem.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Tabs\Pag_Net.Bll.Faturamento.db.Faturamento.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Tabs\Pag_Net.Bll.Faturamento.db.zanthusitem.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Tabs\Pag_Net.Bll.Faturamento.db.zanthus.cs" />
+    <Compile Include="src\F0055_Faturamento_Zanthus\Sql\Pag_Net.Bll.Faturamento.F0055_20_Faturamento_Zanthus_Consultar.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.db.DocumentoFiscalItem.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.db.DocumentoFiscal.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.db.DocumentoFiscalRegistro.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.db.DocumentoFiscalSeq.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.db.DocumentoFiscalOrigem.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.F0060.Service.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.F0060_07.DocumentoFiscalOrigem.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.F0060_01.DocumentoFiscal.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.F0060_02.DocumentoFiscalItem.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.F0060_03.DocumentoFiscalRegistro.cs" />
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.F0060_04.DocumentoFiscalSeq.cs" />
+    <Compile Include="src\F0133_Comercial_PedidoBlueSoft\Pag_Net.Bll.Comercial_PedidoBlueSoft.cs" />
+    <Compile Include="src\F0133_Comercial_PedidoBlueSoft\Pag_Net.Bll.Comercial_PedidoBlueSoft.db.Comercial_PedidoBlueSoft.cs" />
+    <Compile Include="src\F0133_Comercial_PedidoBlueSoft\Pag_Net.Bll.Comercial_PedidoBlueSoft.F0133_10_Comercial_PedidoBlusoft_List.cs" />
+    <Compile Include="src\F0142_Rh_Ctrl\Pag_Net.Bll.Rh.db.Funcionario_Ctrl.cs" />
+    <Compile Include="src\F0142_Rh_Ctrl\Pag_Net.Bll.Rh.F0141_02_rh_funcionario_ctrl_list.cs" />
+    <Compile Include="src\F0142_Rh_Ctrl\Pag_Net.Bll.Rh.F0141_02_rh_funcionario_CRUD.cs" />
+    <Compile Include="src\F0141_Rh\Sql\Pg.F0141_01_rh_funcionario_crud.cs" />
+    <Compile Include="src\F0141_Rh\Pag_Net.Bll.Rh.cs" />
+    <Compile Include="src\F0141_Rh\Tabs\Pag_Net.Bll.Rh.db.Funcionario.cs" />
+    <Compile Include="src\F0030_EstoqueCusto\Pag_Net.Bll.EstoqueCusto.cs" />
+    <Compile Include="src\F0062_Guardian\Pag_Net.Bll.Guardian.cs" />
+    <Compile Include="src\F0062_Guardian\Pag_Net.Bll.Guardian.db.GuardianTicket.cs" />
+    <Compile Include="src\F0062_Guardian\Pag_Net.Bll.Guardian.F0062_02_GuardianTicket_list.cs" />
+    <Compile Include="Dal\Pag_Net.Dal.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0016.ProdutoEmbalagem.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0132_01.tbfat_res_comercial_consulta_relacional.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0011_10_PessoaBluesoft_Consultar.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0055_06_1011863.FaturamentoBlueSoft.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0132_02.Comercial_Pre_Pedido_CRUD.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0132_06.Comercial_Pre_Pedido_Pgtos.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0140_02.Preco_inativar_item_list.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0140_01.Preco_List_Select.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0055_08_1011877.FaturamentoBlueSoft_Origem.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0110_01_1011870.Voucher.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0011_02_1011870.Participante.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0011_01_1011870.Pessoa.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0011_03_1011870.PessoaBlueSoft.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0011_04_1011870.EnderecoParticipante.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0049_01_1011870.BancoContaCorrente.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0050_01_1011870.AutorizacaoPgto.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0060_01_1011870.DocumentosFiscais.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0055_07_1011863.FaturamentoBlueSoft_Item.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F9010_01_1011879.Sistema_Nucleo_Procedimento_log_update.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0060_02_1011870.DocumentosFiscaisItem.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0060_03_1011870.DocumentoFiscalRegistro.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0060_04_1011870.DocumentoFiscalSeq.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0120.EstoqueCustoEntrada_Importacao.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0121.EstoquecustoEntrada_Aplicacao.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F001002.Processo_arquivo_import_linha.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F001001.Processo_arquivo_import.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0010.ProcessoLogProduto.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0006.Usuario.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0045.Preco_Agendamento.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0041.Preco_Agendamento.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0115.DocumentosFiscais_seq.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0110.TbVendaBlueSoft.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0075.Planocontacontabil_lancamento.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0070.InventarioItem.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0061.DocumentosFiscaisItem.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0090.PlanoContaContabilMovimento.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0100.TbTributacao.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0130_01_1011870.Controle.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0130_01_1011870_Controle.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0110_02_1011870_voucher_valid_insert.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0110_01_1011870_voucher.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0011_02_1011870_pessoa_dados.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0011_01_1011870_pessoa_list.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.NP.0011.04.ParticipanteEndereco.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.NP.0011.03.PessoaBlueSoft.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.NP.0049.01.BancoContaBancaria.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.NP.0050.01.AutorizaacoPgto.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.NP.0060.04.DocumentoFiscalSeq.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.NP.0060.02.DocumentoFiscalItem.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.NP.0060.01.DocumentoFiscal.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.NP.0055.00.FaturamentoBlueSoft.cs" />
+    <Compile Include="_Processos\Pag_Net.P0100.Bll.ZanthusProcessamento.cs" />
+    <Compile Include="_Processos\Pag_Net.P0041.Bll.DocumentoFiscalRegistro_Excluir.cs" />
+    <Compile Include="_Processos\Pag_Net.P0040.Bll.DocumentoFiscalRegistro_Status_Recebimento.cs" />
+    <Compile Include="_Processos\Pag_Net.P0001.Bll.Pessoas.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0053.FaturamentoIntegracaoZanthus.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0052.PlanoContaContabil.cs" />
+    <Compile Include="_Processos\Pag_Net.P0020.Bll.FaturamentoIntegracaoZanthusControle.cs" />
+    <Compile Include="_Processos\Pag_Net.P0070.Bll.ProdutoPrecoAplicacao.cs" />
+    <Compile Include="_z_olds\Pag_Net.Bll.__Process.cs" />
+    <Compile Include="Pag_Net.Bll.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0001_0002.Bll.Tarefas.cs" />
+    <Compile Include="_Retornos\Pag_Net.R001300.Bll.Processo_log.cs" />
+    <Compile Include="_Retornos\Pag_Net.R001301.Bll.Processo_log_arquivo.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0028.Bll.PrecoListagemBalanca_Etiqueta.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0026_02_1011855.PrecoListagem_Balanca_MGV.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0031.01.Bll.EstoqueCusto.cs" />
+    <Compile Include="_Retornos\Pag_Net.R00310001.Bll.EstoqueCusto_ImportacaoEntrada.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0030.Bll.EstoqueCusto.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0025.Bll.PrecoListagemAgendamento.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0024.Bll.PrecoListagem.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0059.Bll.CentrodrFechamento.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0054.Bll.CentrodrLancamentoMapa.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0053.Bll.CentrodrLancamentoResumo.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0052.Bll.Centrodr_mapa.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0070.Bll.FolhaPgtoSetorOperacional.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0075.Bll.CentroDR_Resumo.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0010.Bll.Processo_Registro.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0081.Bll.CentroDR_Fechamento_BY_Tipo.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0080.Bll.CentroDR_Fechamento_item.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0079.Bll.CentroDR_Lancamento_BY_Tipo.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0078.Bll.CentroDR_Resumo_Tipo.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0077.Bll.CentroDR_Resumo_Item.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0076.Bll.CentroDR_Tipo.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0071.Bll.FolhaPgtoSetorOperacionalLista.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0060.Bll.DocumentoFiscalRegistro.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0003.Bll.Operacoes.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0005.Bll.Competencia.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0051.Bll.Centrodr_SubGrupos.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0050.Bll.Centrodr_Lancamento.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0006.Bll.Sistema_Parametro.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0090.Bll.Processo_Log.cs" />
+    <Compile Include="_Retornos\Pag_Net._0010.Bll.ServicoProcedimento.cs" />
+    <Compile Include="_Retornos\Pag_Net._0009.Bll.ServicoTimes.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0001.Bll.Login_Acesso.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0023.Bll.TabelaPreco.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0026_01_1011855.Precolistagem_Balanca.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.Procedimentos.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.SPP0999_ZanthusCargaPostGre.cs" />
+    <Compile Include="_z_olds\Administrativo\UspContratos.cs" />
+    <Compile Include="_z_olds\BlueSoft\Kit.cs" />
+    <Compile Include="_z_olds\Cadastros\Filtros.cs" />
+    <Compile Include="_z_olds\Cadastros\Gerais.cs" />
+    <Compile Include="_z_olds\Cadastros\Cadastro.cs" />
+    <Compile Include="_z_olds\Cadastros\Imobilizado.cs" />
+    <Compile Include="_z_olds\Cadastros\Participante.cs" />
+    <Compile Include="_z_olds\Cadastros\UspAtivoImobilizado.cs" />
+    <Compile Include="_z_olds\Cadastros\UspAtivoImobilizadoInformacao.cs" />
+    <Compile Include="_z_olds\Cadastros\UspAtivoImobilizadoItem.cs" />
+    <Compile Include="_z_olds\Cadastros\UspAtivoImobilizadoItemDetalhe.cs" />
+    <Compile Include="_z_olds\Cadastros\USPEmpresa.cs" />
+    <Compile Include="_z_olds\Cadastros\UspEndereco.cs" />
+    <Compile Include="_z_olds\Cadastros\UspParticipante.cs" />
+    <Compile Include="_z_olds\Cadastros\ProdutoCategoria.cs" />
+    <Compile Include="_z_olds\Cadastros\UspParticipanteEmpresa.cs" />
+    <Compile Include="_z_olds\Cadastros\UspParticipanteERP.cs" />
+    <Compile Include="_z_olds\Cadastros\UspParticipanteEndereco.cs" />
+    <Compile Include="_z_olds\Cadastros\UspProdutoConteudo.cs" />
+    <Compile Include="_z_olds\Cadastros\UspProdutoEmbalagem.cs" />
+    <Compile Include="_z_olds\Cadastros\UspProdutoEmbalagemCodigoBarra.cs" />
+    <Compile Include="_z_olds\Cadastros\UspProdutoGestor.cs" />
+    <Compile Include="_z_olds\Cadastros\UspParticipantes.cs" />
+    <Compile Include="_z_olds\Cadastros\UspFabricante.cs" />
+    <Compile Include="_z_olds\Cadastros\ProdutosComplementos.cs" />
+    <Compile Include="_z_olds\Cadastros\UspProdutoComplementoDeptoSecaoLinha.cs" />
+    <Compile Include="_z_olds\Cadastros\UspOperacoes.cs" />
+    <Compile Include="_z_olds\Base\NotasFiscais.cs" />
+    <Compile Include="_z_olds\Base\NotasFiscaisItem.cs" />
+    <Compile Include="_z_olds\Base\Pessoas.cs" />
+    <Compile Include="_z_olds\Base\StatusProdutoPreco.cs" />
+    <Compile Include="_z_olds\Cadastros\UspProdutoRelacaoCategoria.cs" />
+    <Compile Include="_z_olds\Cadastros\UspProdutoRelacaoGestor.cs" />
+    <Compile Include="_z_olds\Cadastros\UspProdutoRelacaoLinha.cs" />
+    <Compile Include="_z_olds\Cadastros\UspTipos.cs" />
+    <Compile Include="_z_olds\Comercial\Analise\USPComercialAnaliseMercFabricProd6Meses.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\CollectionClass.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\InterfaceFaturamentoSimulacao.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceFaturamentoAgendamentoSimuladoInfoItem.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceFaturamentoClientesNaoFaturados.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceFaturamentoInfo.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceFaturamentoInfoDadosConsolidados.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceFaturamentoInfoItemAnaliseProduto.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceEstoqueInfoItem.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceEstoqueInfoItemPosicao.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceFaturamentoInfoArquivos.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceFaturamentoInfoItemDetalhe.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceInfo.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceInfoArquivo.cs" />
+    <Compile Include="_z_olds\Comercial\Interface\UspInterfaceInfoArquivoGerar.cs" />
+    <Compile Include="_z_olds\Comercial\PedidoCompra\UspComercialPedidoCompra.cs" />
+    <Compile Include="_z_olds\Comercial\PedidoCompra\UspComercialPedidoCompraEmail.cs" />
+    <Compile Include="_z_olds\Comercial\PrRepresentante.cs" />
+    <Compile Include="_z_olds\Comercial\PrRepresentanteFabricante.cs" />
+    <Compile Include="_z_olds\Comercial\PrRepresentanteParticipante.cs" />
+    <Compile Include="_z_olds\Comercial\Representante.cs" />
+    <Compile Include="_z_olds\Comercial\RepresentanteFabricante.cs" />
+    <Compile Include="_z_olds\Comercial\RepresentanteParticipante.cs" />
+    <Compile Include="_z_olds\Comercial\UspContratosInvestimentoItem.cs" />
+    <Compile Include="_z_olds\Comercial\UspRepresentanteFabricanteList.cs" />
+    <Compile Include="_z_olds\Comercial\UspRepresentanteList.cs" />
+    <Compile Include="_z_olds\Comercial\CollectionClass.cs" />
+    <Compile Include="_z_olds\Comercial\Contrato.cs" />
+    <Compile Include="_z_olds\Comercial\UspContratoList.cs" />
+    <Compile Include="_z_olds\Comercial\UspRepresentanteParticipanteList.cs" />
+    <Compile Include="_z_olds\Container\Importacao_Arquivo_Entrada.cs" />
+    <Compile Include="_z_olds\Container\Importacao_Arquivo_Estoque.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\ConsultaOperacoes.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\Filtros.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\InterfaceImportacaoArquivo.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\Interfaces.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\LogSitefImportacaoArquivo.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\UspFCCFinalizadorasRegistradas.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\UspFCCInterfaceProdutoFinanceiro.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\UspFCCInterfacesConsolidarPgto.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\UspFCCInterfacesImportadasArquivos.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\UspFCCInterfacesImportadasRO.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\UspFCCInterfacesImportadasLancamentos.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\UspFCCInterfacesPgtosProcessados.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\UspFCCOperacoesRegistradas.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\UspFCCSitefLogArquivos.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\UspFCCSitefLogArquivosRegistros.cs" />
+    <Compile Include="_z_olds\Financeiro\CartaoCredito\LogSitef.cs" />
+    <Compile Include="_z_olds\Financeiro\Titulos\Collection.cs" />
+    <Compile Include="_z_olds\Financeiro\Titulos\UspPagamentoLancamento.cs" />
+    <Compile Include="_z_olds\Financeiro\Titulos\USPTituloEspecie.cs" />
+    <Compile Include="_z_olds\Financeiro\Titulos\UspTitulos.cs" />
+    <Compile Include="_z_olds\Oldx\OperacaoSac.cs" />
+    <Compile Include="_z_olds\Oldx\Pag_Net_BLL_Tables.cs" />
+    <Compile Include="_z_olds\Oldx\SitefLog.cs" />
+    <Compile Include="_z_olds\Operacionais\Analise\Consulta.cs" />
+    <Compile Include="_z_olds\Operacionais\Analise\Filtros.cs" />
+    <Compile Include="_z_olds\Operacionais\Analise\UspOperacionalAnaliaseRegistroProduto.cs" />
+    <Compile Include="_z_olds\Operacionais\Analise\UspOperacionalAnaliseFaturamento.cs" />
+    <Compile Include="_z_olds\Operacionais\Distribuicao\UspStatusOperacaoVenda.cs" />
+    <Compile Include="_z_olds\Operacionais\Expedicao\Entrada\Entrada.cs" />
+    <Compile Include="_z_olds\Operacionais\Expedicao\Entrada\Filtros.cs" />
+    <Compile Include="_z_olds\Operacionais\Expedicao\Entrada\NotasFiscais.cs" />
+    <Compile Include="_z_olds\Operacionais\Expedicao\Entrada\NotasFiscaisItem.cs" />
+    <Compile Include="_z_olds\Operacionais\Expedicao\Entrada\Pessoas.cs" />
+    <Compile Include="_z_olds\Operacionais\Expedicao\Saida\NotasFiscais.cs" />
+    <Compile Include="_z_olds\Operacionais\Faturamento\Faturamento.cs" />
+    <Compile Include="_z_olds\Operacionais\Faturamento\UspFaturamentoDocumentoItens.cs" />
+    <Compile Include="_z_olds\Operacionais\Locacao\Locacao.cs" />
+    <Compile Include="_z_olds\Administrativo\UspContratoParticipante.cs" />
+    <Compile Include="_z_olds\Operacionais\Locacao\UpsContratoLocacao.cs" />
+    <Compile Include="_z_olds\Operacionais\Locacao\UspContratoLocacaoAtivo.cs" />
+    <Compile Include="_z_olds\Operacionais\Locacao\UspContratoLocacaoFaturamento.cs" />
+    <Compile Include="_z_olds\Operacionais\Locacao\UspContratoLocacaoFaturamentoParcela.cs" />
+    <Compile Include="_z_olds\Operacionais\Locacao\UspContratoLocacaoFinanceiro.cs" />
+    <Compile Include="_z_olds\Operacionais\Locacao\UspContratoLocacaoParcela.cs" />
+    <Compile Include="_z_olds\Operacionais\Locacao\UspContratoLocacaoRubricas.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\Kit.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\Precos.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\Registros.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspInterfaceImportaCusto.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspInterfaceImportaProdutoPreco.cs" />
+    <Compile Include="_z_olds\Cadastros\UspProdutoList.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspProdutoOperacaoCusto.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspProdutoOperacaoPreco.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspProdutoPrecoAdministracao.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspProdutoPrecoAlteracao.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspProdutoPrecoAplicacao.cs" />
+    <Compile Include="_z_olds\Operacionais\Faturamento\UspFaturamentoDocumentos.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspProdutoPrecoList.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspRegistroProdutoConsolidar.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspRegistroProdutoPendentes.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspRegistroProdutosConsolidados.cs" />
+    <Compile Include="_z_olds\Operacionais\Produto\UspRegistroProdutosConsolidadosItem.cs" />
+    <Compile Include="_z_olds\Operacionais\Varejo\Execucao\EtiquetaGondola.cs" />
+    <Compile Include="_z_olds\Operacionais\Varejo\Execucao\UspEtiquetaGondola.cs" />
+    <Compile Include="_z_olds\Operacionais\Varejo\Sac\UspOperacaoSac.cs" />
+    <Compile Include="_z_olds\Operacionais\Varejo\Sac\UspOperacaoSacSuprimentos.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0040.Preco.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0022.Bll.ProdutoDepX.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0021.Bll.Preco.cs" />
+    <Compile Include="_z_olds\Pag_Net.X.Old.Faturamento.BlueSoft.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.PSQ05.Update_ProdutoBlueSoft.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.PSQ03.Update_ProdutoEmbalagem_Gtins.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.PSQ02.Update_ProdutoEmbalagem.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.PSQ06.Update_EstoqueCusto.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.PSQ07.Update_EstoqueCustoBlueSoft.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.PSQ08.Update_ProdutoBlueSoft_Embalagem.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.PSQ04.Update_ProdutoTributacao.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0020.ProdutoDepartamento.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0019.ProdutoSecao.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0018.ProdutoGrupo.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0017.ProdutoSubGrupo.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0026.ProdutoBlueSoft_Fornecedor.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0032.EstoqueCusto_DiarioBlueSoft.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0005.GrupoEconomico.cs" />
+    <Compile Include="_Funcoes\Pag_Net.F0002.Participante.cs" />
+    <Compile Include="_Processos\Pag_Net.P0005.Bll.ProdutoProcessamento.cs" />
+    <Compile Include="_Processos\Pag_Net.P0010.Bll.EstoqueCustos.cs" />
+    <Compile Include="_Retornos\Pag_Net.R0020.Bll.Produto_MODELO.cs" />
+    <Compile Include="_z_olds\Pag_Net.SPC0010.Bll.Pessoa.cs" />
+    <Compile Include="_z_olds\Pag_Net.SPC0111.Bll.ProdutoBlueSoftTributacao_Observacoes.cs" />
+    <Compile Include="_z_olds\Pag_Net.SPP0015.Bll.ZanthusTabRegraICMS.cs" />
+    <Compile Include="_z_olds\Pag_Net.SPC0110.Bll.ProdutoBlueSoftTributacao.cs" />
+    <Compile Include="_z_olds\Pag_Net.X.Old.cs" />
+    <Compile Include="_Services\Pag_Net.Bll.Services.PSQ01.Update_Produto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_z_olds\Sistemas\CollectionAcessos.cs" />
+    <Compile Include="_z_olds\Sistemas\Operacoes\Interface\Zanthus\StatusProdutoPrecoComercial.cs" />
+    <Compile Include="_z_olds\Sistemas\Operacoes\Interface\Zanthus\StatusProdutoPrecoServidores.cs" />
+    <Compile Include="_z_olds\Sistemas\Operacoes\Interface\Zanthus\Zanthus.cs" />
+    <Compile Include="_z_olds\Sistemas\ProcessosExecucao.cs" />
+    <Compile Include="_z_olds\Sistemas\UspSistemaAcessos.cs" />
+    <Compile Include="_z_olds\Sistemas\UspSistemaFormulario.cs" />
+    <Compile Include="_z_olds\Sistemas\UspSistemaFuncao.cs" />
+    <Compile Include="_z_olds\Sistemas\UspSistemaParametros.cs" />
+    <Compile Include="_z_olds\Sistemas\UspSistemaTarefas.cs" />
+    <Compile Include="_z_olds\Sistemas\UspSp_Who.cs" />
+    <Compile Include="_z_olds\Sistemas\UspProcessos.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PagTools\PagTools.csproj">
+      <Project>{55D7D5A0-3D00-41D7-B5DC-F19EE1EE383D}</Project>
+      <Name>PagTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Pag_Net_Mod\Pag_Net_Mod.csproj">
+      <Project>{E08F284F-283D-4563-94B1-429D75BCBD0A}</Project>
+      <Name>Pag_Net_Mod</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\F0011_Participante\Lists\" />
+    <Folder Include="src\F0021_ProdutoBluesoft\DataTables\" />
+    <Folder Include="src\F0021_ProdutoBluesoft\Models\" />
+    <Folder Include="src\F0045_Preco\tbs\" />
+    <Folder Include="src\F0055_Faturamento_Zanthus\DataTables\" />
+    <Folder Include="src\F0055_Faturamento_Zanthus\Models\" />
+    <Folder Include="src\F0055_Faturamento_Zanthus\Service\" />
+    <Folder Include="src\F0070_Faturamento\dataTables\" />
+    <Folder Include="src\F0070_Faturamento\service\" />
+    <Folder Include="src\F0100_Resultado\model\" />
+    <Folder Include="src\F0100_Resultado\scripts\" />
+    <Folder Include="src\F0130_Controle\Service\" />
+    <Folder Include="src\F0138_Recursos_Ctrl\DataTables\" />
+    <Folder Include="src\F0138_Recursos_Ctrl\Service\" />
+    <Folder Include="src\F0210_Notificacao\service\" />
+    <Folder Include="_z_olds\Operacionais\Receita\" />
+    <Folder Include="_z_olds\Operacionais\Varejo\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="_Funcoes\Pag_Net.F0030.EstoqueCustocs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.F0060_09.DocumentoFiscalRegistroStatusRecebimento.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0060_DocumentoFiscal\Pag_Net.Bll.DocumentoFiscal.F0060_30.DocumentoFiscalRegistro_Consultar.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0011_Participante\X-OLD-Pag_Net.Bll.Participante.db.ParticipantePessoa.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0080_Financeiro\index.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0080_Financeiro\tbs\Tbfin_forma_pgto.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0025_EstoqueLocal\Pag_Net.Bll.EstoqueLocal.db.EstoqueLocal_Mov.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0020_Produto\scripts\pg.F0020_55_ProdutoEmbalagem_list.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0001_Sistema\Pag_Net.Bll.Sistemas.F0001_10_Login_Acesso_List.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0080_Financeiro\tbs\TbAutorizacaoPagamento.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0080_Financeiro\scripts\pg.F0080_50.Financeiro_List.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0137_Cartao_Acesso\Pag_Net.Bll.Cartao_Acesso.db.Cartao_Acesso_Tipo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\F0030_EstoqueCusto\Pag_Net.Bll.EstoqueCusto.F0030_51.EstoqueCusto_Receita_list.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
