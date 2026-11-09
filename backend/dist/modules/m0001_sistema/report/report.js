@@ -12,6 +12,7 @@ const reportSistemaFuncao_1 = __importDefault(require("./reportSistemaFuncao"));
 const reportSistemaAcesso_1 = __importDefault(require("./reportSistemaAcesso"));
 const reportSistemaParametro_1 = __importDefault(require("./reportSistemaParametro"));
 const reportSistemaUsuario_1 = __importDefault(require("./reportSistemaUsuario"));
+const reportSistemaOperacional_1 = __importDefault(require("./reportSistemaOperacional"));
 class reportSistema {
 }
 reportSistema.List = reportSistemaList_1.default;
@@ -23,4 +24,5 @@ reportSistema.Funcao = reportSistemaFuncao_1.default;
 reportSistema.Acesso = reportSistemaAcesso_1.default;
 reportSistema.Parametro = reportSistemaParametro_1.default;
 reportSistema.Usuario = reportSistemaUsuario_1.default;
+reportSistema.Operacional = reportSistemaOperacional_1.default;
 exports.default = reportSistema;

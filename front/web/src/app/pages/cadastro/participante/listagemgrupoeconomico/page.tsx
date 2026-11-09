@@ -86,6 +86,14 @@ export default function ParticipanteGrupoEconomico() {
         });
     };
 
+    const selecionarTodos = () => {
+        setSelecionados(new Set(list.map((item) => String(item.cdparticipante))));
+    };
+
+    const limparSelecao = () => {
+        setSelecionados(new Set());
+    };
+
     const atualizaStatsCredito = async (status_credito_cd: string) => {
         if (atualizandoCredito) return;
 
@@ -203,6 +211,24 @@ export default function ParticipanteGrupoEconomico() {
                 </div>
 
                 <div className="bg-white rounded-lg shadow-md overflow-hidden border border-purple-100">
+                    <div className="flex justify-end gap-2 p-3">
+                        <ButtonPag
+                            TypeButton="_BUTTON_HEADER"
+                            label="Selecionar tudo"
+                            TypeIcon="_NO_ICON"
+                            title="Selecionar todos os participantes da tabela"
+                            onClick={selecionarTodos}
+                            ActionStatus={list.length === 0 || atualizandoCredito ? 1 : 0}
+                        />
+                        <ButtonPag
+                            TypeButton="_BUTTON_HEADER"
+                            label="Limpar seleção"
+                            TypeIcon="_NO_ICON"
+                            title="Limpar seleção dos participantes"
+                            onClick={limparSelecao}
+                            ActionStatus={selecionados.size === 0 || atualizandoCredito ? 1 : 0}
+                        />
+                    </div>
                     <div className="max-h-[500px] overflow-auto">
                         <table className="min-w-full divide-y divide-gray-200">
                             <thead className="bg-gray-100 sticky top-0 z-10">

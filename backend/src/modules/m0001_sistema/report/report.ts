@@ -9,6 +9,7 @@ import reportFuncaolist from "./reportSistemaFuncao";
 import reportAcessolist from "./reportSistemaAcesso";
 import reportSistemaParametro from "./reportSistemaParametro";
 import reportSistemaUsuario from "./reportSistemaUsuario";
+import reportSistemaOperacional from "./reportSistemaOperacional";
 export default class reportSistema {
     static List = reportSistemalist;
     static Nucleo = reportSistemaNucleo;
@@ -19,4 +20,5 @@ export default class reportSistema {
     static Acesso = reportAcessolist;
     static Parametro = reportSistemaParametro;
     static Usuario = reportSistemaUsuario;
+    static Operacional = reportSistemaOperacional;
 }

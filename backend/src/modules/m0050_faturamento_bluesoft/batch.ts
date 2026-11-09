@@ -9,7 +9,7 @@ import modelsistema_nucleo_procedimento from '../m9030_sistema_batch/model/model
 
 /* Serviços */
 import serviceFaturamentoBluesoft    from './service/service';
-
+import reportSistema from '../m0001_sistema/report/report';
 
 export default class batch_module_m0050 {
     static async start (sis_batch_run_seq: number) : Promise<boolean> {
@@ -31,13 +31,15 @@ export default class batch_module_m0050 {
       static async AtualizacaoDiaria() : Promise<boolean> {
           try {
               
-            const hoje = new Date();
-            const addDias = (d: Date, n: number) => { const r = new Date(d); r.setDate(r.getDate() + n); return r; };
-            const fmt = (d: Date) => d.toISOString().slice(0, 10);
-            let parametro: any = {};
-            parametro.dataInicial = fmt(addDias(hoje, -45)); // 2026-09-06
-            parametro.dataFinal   = fmt(addDias(hoje, -1));  // 2026-10-20
 
+            let dadosSistemaOperacional : any = await reportSistema.Operacional.getDefault()
+            console.log(dadosSistemaOperacional)
+
+            let parametro: any = {};
+            parametro.dataInicial = dadosSistemaOperacional.data_processamento_venda_ini
+            parametro.dataFinal   = dadosSistemaOperacional.data_processamento_venda_fim;  // 2026-10-20
+
+            
             await serviceFaturamentoBluesoft.ImportFromRedShift.start(parametro);
   
               return true;

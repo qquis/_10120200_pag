@@ -16,6 +16,7 @@ const modelbase_1 = require("../../model/modelbase");
 /*-----------------------------------------------------*/
 /* Serviços */
 const service_1 = __importDefault(require("./service/service"));
+const report_1 = __importDefault(require("../m0001_sistema/report/report"));
 class batch_module_m0050 {
     static start(sis_batch_run_seq) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -32,12 +33,11 @@ class batch_module_m0050 {
     static AtualizacaoDiaria() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const hoje = new Date();
-                const addDias = (d, n) => { const r = new Date(d); r.setDate(r.getDate() + n); return r; };
-                const fmt = (d) => d.toISOString().slice(0, 10);
+                let dadosSistemaOperacional = yield report_1.default.Operacional.getDefault();
+                console.log(dadosSistemaOperacional);
                 let parametro = {};
-                parametro.dataInicial = fmt(addDias(hoje, -45)); // 2026-09-06
-                parametro.dataFinal = fmt(addDias(hoje, -1)); // 2026-10-20
+                parametro.dataInicial = dadosSistemaOperacional.data_processamento_venda_ini;
+                parametro.dataFinal = dadosSistemaOperacional.data_processamento_venda_fim; // 2026-10-20
                 yield service_1.default.ImportFromRedShift.start(parametro);
                 return true;
             }
