@@ -108,7 +108,7 @@ class reportParticipanteBlueComGrupoEconomico {
 							b.cdpessoabluesoft_vendedor,
 							pv.nome_razao AS nome_vendedor,
 							coalesce(fp.forma_pgto_descricao, 'NAO DEFINIDA') as forma_pgto_descricao,
-
+							sc.bluesoftcliente_creditostatus_descricao,
 							COALESCE(m.mes01, 0) AS mes01,
 							COALESCE(m.mes02, 0) AS mes02,
 							COALESCE(m.mes03, 0) AS mes03
@@ -118,6 +118,7 @@ class reportParticipanteBlueComGrupoEconomico {
 						INNER JOIN tbparticipante   pv ON pv.cdpessoabluesoft = b.cdpessoabluesoft_vendedor AND b.cdpessoabluesoft_vendedor > 0
 						LEFT JOIN faturamento_3_meses m ON m.cdparticipantecliente = b.cdparticipante
 						LEFT JOIN tbforma_pgto_bluesoft fp ON fp.forma_pgto_cd = ge.forma_pgto_cd_padrao
+						LEFT JOIN tbpessoabluesoft_status_credito sc on sc.bluesoftcliente_creditostatus_cd = b.bluesoftcliente_creditostatus_cd
 						WHERE 1 = 1
 			${par.cdparticipante ? `and b.cdparticipante = ${par.cdparticipante}` : ''}
 			${par.cpf_cnpj ? `and LPAD(b.cpf_cnpj,14,'0') = LPAD(${par.cpf_cnpj},14,'0')` : ''}

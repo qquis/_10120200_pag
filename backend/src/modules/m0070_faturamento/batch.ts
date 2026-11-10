@@ -1,6 +1,6 @@
 import { clsTools } from '../../model/modelbase';
 
-
+import reportSistema from '../m0001_sistema/report/report';
 
 import serviceFaturamentoBluesoftProcessar from "./service/serviceFaturamentoBluesoftProcessar";
 import serviceFaturamentoContratoProcessarApurar from "./service/serviceFaturamentoContratoProcessarApurar";
@@ -27,6 +27,9 @@ export default class batch_module_m0070 {
 
                 const hoje = new Date();
 
+
+
+
                 for (let i = -4; i <= -1; i++) {
 
                     let parametro: any = {};
@@ -40,6 +43,8 @@ export default class batch_module_m0070 {
 
 
                     parametro.data_processamento = dataprocessamento;
+
+
 
 
                     await serviceFaturamentoBluesoftProcessar.start(parametro);

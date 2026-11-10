@@ -1,6 +1,6 @@
 {
   "name": "xweb",
-  "version": "2020.0",
+  "version": "2020.2",
   "private": true,
   "scripts": {
     "d": "next dev",

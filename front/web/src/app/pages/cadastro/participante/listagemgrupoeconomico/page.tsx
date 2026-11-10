@@ -109,25 +109,44 @@ export default function ParticipanteGrupoEconomico() {
 
         setErroCredito('');
         setAtualizandoCredito(true);
-        let participanteAtual = '';
+        const erros: Array<{ cdparticipante: string; nome: string; erro: string }> = [];
+        let processados = 0;
+
         try {
             const participanteModule = new moduleParticipante(user, __SIS_AC_CD);
             for (const item of itensSelecionados) {
-                participanteAtual = String(item.cdparticipante);
-                const parametro = {
-                    cdpessoabluesoft: item.cdpessoabluesoft,
-                    status_credito_cd: status_credito_cd
-                };
-                await participanteModule.postOperacaoBluesoftApiAtualizarStatusCredito(parametro);
-                setSelecionados((anteriores) => {
-                    const novos = new Set(anteriores);
-                    novos.delete(String(item.cdparticipante));
-                    return novos;
-                });
+                try {
+                    const parametro = {
+                        cdpessoabluesoft: item.cdpessoabluesoft,
+                        status_credito_cd: status_credito_cd
+                    };
+                    await participanteModule.postOperacaoBluesoftApiAtualizarStatusCredito(parametro);
+                    processados++;
+                    setSelecionados((anteriores) => {
+                        const novos = new Set(anteriores);
+                        novos.delete(String(item.cdparticipante));
+                        return novos;
+                    });
+                } catch (itemError) {
+                    erros.push({
+                        cdparticipante: String(item.cdparticipante),
+                        nome: item.nome_razao,
+                        erro: itemError instanceof Error ? itemError.message : 'Erro desconhecido'
+                    });
+                    console.error(`Erro ao processar participante ${item.cdparticipante}:`, itemError);
+                }
+            }
+
+            const totalNaoProcessados = erros.length;
+            if (totalNaoProcessados > 0) {
+                const listErros = erros.map(e => `${e.nome} (Cód: ${e.cdparticipante})`).join(', ');
+                setErroCredito(`✓ ${processados} participante(s) atualizado(s) com sucesso. ✗ ${totalNaoProcessados} participante(s) não processado(s): ${listErros}. Os clientes com erro continuam selecionados.`);
+            } else {
+                setErroCredito(`✓ Todos os ${processados} participante(s) foram atualizados com sucesso!`);
             }
         } catch (error) {
-            console.error('Erro ao atualizar status de crédito:', error);
-            setErroCredito(`Erro ao processar o participante ${participanteAtual}. Os itens não processados continuam selecionados.`);
+            console.error('Erro geral ao atualizar status de crédito:', error);
+            setErroCredito(`Erro ao processar os participantes. ${processados} atualizado(s), ${erros.length} não processado(s).`);
         } finally {
             setAtualizandoCredito(false);
         }
@@ -211,6 +230,9 @@ export default function ParticipanteGrupoEconomico() {
                 </div>
 
                 <div className="bg-white rounded-lg shadow-md overflow-hidden border border-purple-100">
+                    <div className="bg-gray-100 px-6 py-2 text-sm font-medium text-gray-700">
+                        Total de clientes: {list.length}
+                    </div>
                     <div className="flex justify-end gap-2 p-3">
                         <ButtonPag
                             TypeButton="_BUTTON_HEADER"
@@ -242,6 +264,7 @@ export default function ParticipanteGrupoEconomico() {
                                         'PJ',
                                         'Info',
                                         'Nome/Razão Social',
+                                        'Status Crédito',
                                         'Grupo Econômico',
                                         'Vendedor',
                                         'M01', 
@@ -296,6 +319,9 @@ export default function ParticipanteGrupoEconomico() {
                                                     Nome Abreviado: {item.nome_abreviado}
                                                 </div>
                                             </td>
+                                            <td className="w-[15%] px-4 py-1 text-sm text-gray-700 break-words">
+                                                {item.bluesoftcliente_creditostatus_descricao}
+                                            </td>
 
 
                                             <td className="w-[20%] px-4 py-1 text-sm text-gray-700 break-words">
@@ -335,19 +361,14 @@ export default function ParticipanteGrupoEconomico() {
                                     </tr>
                                 )}
                             </tbody>
-                            <tfoot className="bg-gray-100">
-                                <tr>
-                                    <td colSpan={11} className="px-6 py-2 text-sm font-medium text-gray-700">
-                                        Total de registros: {list.length}
-                                    </td>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
 
                 {erroCredito && (
-                    <p role="alert" className="mt-4 text-sm text-red-600">{erroCredito}</p>
+                    <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-md">
+                        <p role="alert" className="text-sm text-blue-800">{erroCredito}</p>
+                    </div>
                 )}
                 <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
                     <select
