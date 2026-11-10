@@ -49,10 +49,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-if (typeof window !== "undefined") {
-  sessionStorage.removeItem("user");
-}
-
   return (
     
     <html lang="en">

@@ -79,6 +79,17 @@ export default class moduleUserConnect {
             this.sis_us_seq = item?.sis_us_seq
             this.user_name = item?.user_name
             this.email_main = item?.email_main
+            if (typeof item.usuario_login_uuid === "string") {
+                this.usuario_login_uuid = item.usuario_login_uuid;
+            }
+
+                if (typeof item.user_credential === "string") {
+                this.user_credential = item.user_credential;
+            }
+
+                if (typeof item.statusLogin === "boolean") {
+                this.statusLogin = item.statusLogin;
+            }
             this.nome_razao = item?.nome_razao
             this.cdparticipante = item?.cdparticipante
             this.cdpessoabluesoft = item?.cdpessoabluesoft

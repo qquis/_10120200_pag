@@ -1,55 +1,25 @@
 'use client';
 import { useAuth } from "./context/context";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import moduleUserConnect from "@/api/m0001_sistema/moduleUserConnect";
+import { useRouter, usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Protect({ children }: { children: React.ReactNode }) {
-  const { user, login, openSession} = useAuth();
+  const { user, sessionReady } = useAuth();
   const router = useRouter();
-  const pathname = usePathname()
-  const [autenticado, setAutenticado] = useState(true);
+  const pathname = usePathname();
 
   useEffect(() => {
-      // Se não houver usuário no contexto, busca da sessão
-      // Se não houver usuário e não estiver na página de login, redireciona
-    /*if (!user) { 
-      const userData = sessionStorage.getItem("user")
-      if (userData)
-      {
-        console.log("localizou o user data")
-        let Myuser : moduleUserConnect = new moduleUserConnect() 
-        Myuser = JSON.parse(userData) 
-        
-      }
+    if (!sessionReady) return;
+
+    if (!user.user_name && !["/public", "/login", "/404"].includes(pathname)) {
+      router.replace("/login");
+    } else if (user.user_name && ["/", "/login"].includes(pathname)) {
+      router.replace("/pages");
     }
-    
-    if (!user?.user_name && pathname !== "/public") {
-      router.push("/login");
-    }
+  }, [sessionReady, user, pathname, router]);
 
-    if (user && pathname === "/") {
-      router.push("/pages");
-    }*/
-
-    const autenticar = async() => { 
-        if (!user)
-          await openSession()
-        setAutenticado(false);
-        if(!user?.user_name && pathname !== "/public" && pathname !== "/login") {
-            router.push("/login") 
-        }
-
-        if (user?.user_name && (pathname === "/" || pathname === "/login")) { 
-          router.push("/pages")
-        }
-      }
-
-      autenticar();
-    }, [user]);
-
-  const shouldRender = user?.user_name || ['/login', '/public', '/404'].includes(pathname);
+  const isPublicPage = ["/login", "/public", "/404"].includes(pathname);
+  const shouldRender = isPublicPage || (sessionReady && Boolean(user.user_name));
   
   return <>{shouldRender ? children : null}</>;
 }

@@ -4,6 +4,7 @@ import moduleUserConnect from "@/api/m0001_sistema/moduleUserConnect";
 
 interface AuthContextType {
   user: moduleUserConnect;
+  sessionReady: boolean;
   login: (email_main: string, password: string) => void;
   logout: () => void;
   openSession: () => void;
@@ -14,20 +15,17 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // ==================== CONFIGURAÇÕES DE TEMPO ====================
 const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 horas (controle da aplicação)
-const COOKIE_DURATION_MINUTES = 24 * 60; // 24 horas (expiração do cookie no navegador)
 const CHECK_INTERVAL = 3 * 60 * 60 * 1000; // Verifica a cada 3 horas
 const RENEWAL_THRESHOLD = 1 * 60 * 60 * 1000; // Renova quando restam 1 hora
 const TIME_TOLERANCE = 5 * 60 * 1000; // 5 minutos de tolerância
+const SESSION_STORAGE_KEY = "pag.auth.session";
+
+interface StoredSession {
+  user: Record<string, unknown>;
+  loginTime: number;
+}
 
 // ==================== UTILITÁRIOS DE COOKIE ====================
-const setCookie = (name: string, value: string, minutes: number = COOKIE_DURATION_MINUTES) => {
-  if (typeof window === 'undefined') return;
-  
-  const expires = new Date();
-  expires.setTime(expires.getTime() + (minutes * 60 * 1000));
-  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;secure;samesite=strict`;
-};
-
 const getCookie = (name: string): string | null => {
   if (typeof window === 'undefined') return null;
   
@@ -45,7 +43,34 @@ const getCookie = (name: string): string | null => {
 const deleteCookie = (name: string) => {
   if (typeof window === 'undefined') return;
   
-  document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;secure;samesite=strict`;
+  document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;samesite=strict`;
+};
+
+const readStoredSession = (): StoredSession | null => {
+  if (typeof window === "undefined") return null;
+
+  const storedSession = window.localStorage.getItem(SESSION_STORAGE_KEY);
+  if (!storedSession) return null;
+
+  const parsedSession = JSON.parse(storedSession) as Partial<StoredSession>;
+  if (
+    !parsedSession.user ||
+    typeof parsedSession.user !== "object" ||
+    typeof parsedSession.loginTime !== "number"
+  ) {
+    throw new Error("Dados da sessão local inválidos.");
+  }
+
+  return parsedSession as StoredSession;
+};
+
+const saveSession = (user: moduleUserConnect, loginTime: number): void => {
+  if (typeof window === "undefined") return;
+
+  window.localStorage.setItem(
+    SESSION_STORAGE_KEY,
+    JSON.stringify({ user, loginTime })
+  );
 };
 
 // ==================== UTILITÁRIOS DE TEMPO ====================
@@ -77,10 +102,11 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const [user, setUser] = useState<moduleUserConnect>(createEmptyUser());
+  const [sessionReady, setSessionReady] = useState<boolean>(false);
 
   // ==================== EFFECTS ====================
   useEffect(() => {
-    openSession();
+    void openSession();
     
     // Verifica a sessão a cada 3 horas
     const intervalId = setInterval(() => {
@@ -93,18 +119,15 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   // ==================== GERENCIAMENTO DE SESSÃO ====================
   const checkAndManageSession = async (): Promise<void> => {
     try {
-      const userCookie = getCookie("user");
-      const loginTime = getCookie("loginTime");
-      
-      // Se não há cookies, desconecta apenas se estava logado
-      if (!userCookie || !loginTime) {
+      const session = readStoredSession();
+      if (!session) {
         if (user.statusLogin) {
-          handleSessionExpired("Cookies não encontrados");
+          handleSessionExpired("Sessão local não encontrada");
         }
         return;
       }
       
-      const loginTimestamp = parseInt(loginTime);
+      const loginTimestamp = session.loginTime;
       
       // Verifica se a sessão expirou
       if (!isSessionValid(loginTimestamp)) {
@@ -127,17 +150,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const renewSession = async (): Promise<void> => {
     try {
-      const userCookie = getCookie("user");
+      const session = readStoredSession();
       
-      if (!userCookie || !user.statusLogin) {
+      if (!session || !user.statusLogin) {
         return;
       }
       
-      const newLoginTime = getCurrentTime().toString();
-      
-      // Renova os cookies
-      setCookie("user", userCookie);
-      setCookie("loginTime", newLoginTime);
+      saveSession(user, getCurrentTime());
       
       //console.log("Sessão renovada automaticamente");
       
@@ -158,29 +177,49 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // ==================== FUNÇÕES PRINCIPAIS ====================
   const openSession = async (): Promise<boolean> => {
+    setSessionReady(false);
+
     try {
-      const userCookie = getCookie("user");
-      const loginTime = getCookie("loginTime");
-      
-      if (!userCookie || !loginTime) {
+      let session = readStoredSession();
+
+      // Migra sessões antigas que eram guardadas integralmente em cookies.
+      if (!session) {
+        const userCookie = getCookie("user");
+        const loginTimeCookie = getCookie("loginTime");
+        if (userCookie && loginTimeCookie) {
+          session = {
+            user: JSON.parse(decodeURIComponent(userCookie)) as Record<string, unknown>,
+            loginTime: Number(loginTimeCookie),
+          };
+        }
+      }
+
+      if (!session) {
         setUser(createEmptyUser());
         return false;
       }
       
-      const loginTimestamp = parseInt(loginTime);
-      
       // Verifica se a sessão ainda é válida
-      if (!isSessionValid(loginTimestamp)) {
+      if (!Number.isFinite(session.loginTime) || !isSessionValid(session.loginTime)) {
         clearSessionData();
         setUser(createEmptyUser());
         return false;
       }
       
       // Restaura o usuário
-      const parsedUser = JSON.parse(decodeURIComponent(userCookie));
       const restoredUser = new moduleUserConnect();
-      restoredUser.bindingLogin(parsedUser);
+      restoredUser.bindingLogin(session.user);
+      if (!restoredUser.user_name || !restoredUser.usuario_login_uuid) {
+        clearSessionData();
+        setUser(createEmptyUser());
+        return false;
+      }
+
+      restoredUser.statusLogin = true;
       setUser(restoredUser);
+      saveSession(restoredUser, session.loginTime);
+      deleteCookie("user");
+      deleteCookie("loginTime");
       
       return true;
       
@@ -189,6 +228,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       clearSessionData();
       setUser(createEmptyUser());
       return false;
+    } finally {
+      setSessionReady(true);
     }
   };
 
@@ -205,14 +246,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       await newUser.login(password);
       
       if (newUser.statusLogin) {
+        saveSession(newUser, getCurrentTime());
         setUser(newUser);
-        
-        // Salva dados da sessão
-        const userDataForCookie = { ...newUser, password: undefined };
-        const loginTime = getCurrentTime().toString();
-        
-        setCookie("user", encodeURIComponent(JSON.stringify(userDataForCookie)));
-        setCookie("loginTime", loginTime);
         
         //console.log("Login realizado com sucesso");
         
@@ -232,12 +267,14 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       // Verifica os cookies primeiro
       const loginTime = getCookie("loginTime");
-      
-      if (!loginTime) {
+      const session = readStoredSession();
+      const sessionLoginTime = session?.loginTime ?? (loginTime ? Number(loginTime) : null);
+
+      if (sessionLoginTime === null) {
         return false;
       }
       
-      const loginTimestamp = parseInt(loginTime);
+      const loginTimestamp = sessionLoginTime;
       
       if (!isSessionValid(loginTimestamp)) {
         logout();
@@ -285,13 +322,23 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // ==================== UTILITÁRIOS INTERNOS ====================
   const clearSessionData = (): void => {
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem(SESSION_STORAGE_KEY);
+    }
     deleteCookie("user");
     deleteCookie("loginTime");
   };
 
   // ==================== PROVIDER ====================
   return (
-    <AuthContext.Provider value={{ user, login, logout, openSession, check }}>
+    <AuthContext.Provider value={{
+      user,
+      sessionReady,
+      login,
+      logout,
+      openSession,
+      check
+    }}>
       {children}
     </AuthContext.Provider>
   );
