@@ -1,6 +1,6 @@
 {
   "name": "f-ms-portaria",
-  "version": "2020.2",
+  "version": "2020.3",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {

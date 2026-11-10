@@ -8,15 +8,18 @@ export default class reportSistemaOperacional{
         try { 
             
             let sql =  `   SELECT 		
-                                sis_operacional_cd serial
-                            ,   sis_operacional_default 
-                            ,   data_processamento_venda_ini 
-                            ,   data_processamento_venda_fim 
-                            ,   competencia_cd 
-                            ,   fv_fab_meta_cd 
-                            ,   faturamento_numero_dias_qtde
-                            ,   faturamento_data_limite
+                                us.sis_operacional_cd 
+                            ,   us.sis_operacional_default 
+                            ,   us.data_processamento_venda_ini 
+                            ,   us.data_processamento_venda_fim 
+                            ,   us.competencia_cd 
+                            ,   us.fv_fab_meta_cd 
+                            ,   us.faturamento_numero_dias_qtde
+                            ,   us.faturamento_data_limite
+                            ,   c.competencia_data_ini
+                            ,   c.competencia_data_fim                            
                 FROM 		tbsistema_operacional us
+                INNER JOIN  tbcompetencia c on c.competencia_cd = us.competencia_cd
                 WHERE 1=1
         `
         if (parametros.sis_operacional_default) {
@@ -57,7 +60,9 @@ export default class reportSistemaOperacional{
                 competencia_cd: item.competencia_cd,
                 fv_fab_meta_cd: item.fv_fab_meta_cd,
                 faturamento_numero_dias_qtde: item.faturamento_numero_dias_qtde,
-                faturamento_data_limite: clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(item.faturamento_data_limite, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD")
+                faturamento_data_limite: clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(item.faturamento_data_limite, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD"),
+                data_competencia_ini: clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(item.competencia_data_ini, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD"),
+                data_competencia_fim: clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(item.competencia_data_fim, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD")
             }
             
             

@@ -6,6 +6,15 @@ import serviceFaturamentoBluesoftProcessar from "./service/serviceFaturamentoBlu
 import serviceFaturamentoContratoProcessarApurar from "./service/serviceFaturamentoContratoProcessarApurar";
 
 
+/*  VARIAVEIS DEFAULT --------------------------------------------------------------------------*/
+    const SISTEMA_NUCLEO_PRC_CD = 0
+    const FLG_DEBUG_CONSOLE_LOG : boolean = true
+    const FLG_MODULO : string = "M0070-FATURAMENTO __ batch_module_m0070 PROCEDIMENTOS __ | Faturamento "
+    const FLG_DEBUG_FILE_CONSOLE_LOG : string = ``
+/*  ------------------------------------------------------------------------------------------- */    
+
+
+
 export default class batch_module_m0070 { 
     
     static async Procedimento(nucleo_procedimento: any) : Promise<boolean> {
@@ -23,51 +32,79 @@ export default class batch_module_m0070 {
     static async AtualizacaoDiaria() : Promise<boolean> {
         try {
 
-            const fmt = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
-                const hoje = new Date();
+            this.__log("Coletando os dados do processamento atual tbsistema_operacional sis_operacional_default = 1 ")
 
-
-
-
-                for (let i = -4; i <= -1; i++) {
-
-                    let parametro: any = {};
-                    
-
-                    const d = new Date(hoje);
-                    d.setDate(d.getDate() + i);
-
-                    
-                    const dataprocessamento = fmt(d);
-
-
-                    parametro.data_processamento = dataprocessamento;
-
-
-
-
-                    await serviceFaturamentoBluesoftProcessar.start(parametro);
-
-
-                    
-                    await clsTools.pagConsole(`Processando faturamento contrato para data: ${dataprocessamento}`, true, false, ``);
-                    parametro.op_cdoperacao = 4
-                    parametro.dataFaturamento_filter=1
-                    parametro.faturamento_controle_seq = 0
-                    parametro.contrato_seq = 0
-                    parametro.data_val_ini = clsTools._datemomentDatStrToDate(parametro.data_processamento, "YYYY-MM-DD")
-                    parametro.data_val_fim = clsTools._datemomentDatStrToDate(parametro.data_processamento, "YYYY-MM-DD")
-                    await serviceFaturamentoContratoProcessarApurar.start(parametro);
-                    
-                
-                }
+            let DadosProcessamento : any = await reportSistema.Operacional.getDefault();
             
 
-            return true;
+            const _hoje = clsTools._datemomentDateToStr(new Date(), "YYYY-MM-DD");
+            
+
+            const dataLimite = DadosProcessamento.faturamento_data_limite;
+
+            if (_hoje > dataLimite) {
+                await this.__log(`Data limite de faturamento ultrapassada: ${dataLimite}`);
+            } else { 
+                await this.__log(`Data limite de faturamento ainda não atingida - O Processamento será realizado: ${dataLimite}`);
+            }
+
+            console.log(DadosProcessamento)
+
+            const dataInicial = clsTools._datemomentDatStrToDate(DadosProcessamento.data_competencia_ini, "YYYY-MM-DD");
+            const dataFinal = clsTools._datemomentDatStrToDate(DadosProcessamento.data_competencia_fim, "YYYY-MM-DD");
+
+            console.log(dataInicial)
+
+            if (Number.isNaN(dataInicial.getTime()) || Number.isNaN(dataFinal.getTime()) || dataInicial > dataFinal) {
+                throw new Error("Período de processamento inválido.");
+            }
+
+            for (let data = new Date(dataInicial); data <= dataFinal; data.setUTCDate(data.getUTCDate() + 1)) {
+                
+                const dataProcessamento = clsTools._datemomentDateToStr(data, "YYYY-MM-DD");
+
+                if (dataProcessamento >= _hoje) {
+                    await this.__log(
+                        `Data de processamento ${dataProcessamento} é maior ou igual a hoje ${_hoje}`
+                    );
+                    break;
+                }
+
+                const dataprocessamento = clsTools._datemomentDateToStr(data, "YYYY-MM-DD");
+                const parametro: any = { data_processamento: dataprocessamento };
+                await this.__log(`Processando a data: ${dataprocessamento}`);
+                await serviceFaturamentoBluesoftProcessar.start(parametro);
+                await this.__log(`Processando concluído para a data: ${dataprocessamento}`);
+
+                
+            }
+
+
+            await this.__log(`Iniciando processamento do faturamento contrato para a competência ${DadosProcessamento.competencia_cd}`);
+
+                let dadosContrato = { 
+                        op_cdoperacao: 4
+                    ,   dataFaturamento_filter: 1
+                    ,   faturamento_controle_seq: 0
+                    ,   competencia_cd: DadosProcessamento.competencia_cd
+                    ,   contrato_seq: 0
+                    ,   data_val_ini: clsTools._datemomentDatStrToDate(DadosProcessamento.data_competencia_ini, "YYYY-MM-DD")
+                    ,   data_val_fim: clsTools._datemomentDatStrToDate(DadosProcessamento.data_competencia_fim, "YYYY-MM-DD")
+                }
+                    
+  
+                await serviceFaturamentoContratoProcessarApurar.start(dadosContrato);
+
+                return true 
+
+                
         } catch (e) {
             return false;
         }
     }   
 
+    private static async __log(message: string) {
+        await clsTools.pagConsole(message, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG, FLG_MODULO);
+    }
 }
