@@ -31,6 +31,9 @@ class reportSistemaOperacional {
             if (parametros.sis_operacional_default) {
                 sql += ` AND us.sis_operacional_default = '${parametros.sis_operacional_default}' `;
             }
+            if (parametros.competencia_cd) {
+                sql += ` AND us.competencia_cd = ${parametros.competencia_cd} `;
+            }
             return sql;
         }
         catch (e) {
@@ -47,6 +50,35 @@ class reportSistemaOperacional {
             }
             catch (e) {
                 yield modelbase_1.clsTools.PagErrorException(`M0001 - Sistema`, 'reportSistemaOperacional.get', e);
+            }
+        });
+    }
+    static getByCompetencia(parametros) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (!parametros.competencia_cd) {
+                    throw new Error("Competência não informada");
+                }
+                const myTools = new modelbase_1.clsBase();
+                let result = yield this.get(parametros);
+                let item = yield myTools.myDataBase.RecordItem(result, 0);
+                let dados = {
+                    sis_operacional_cd: item.sis_operacional_cd,
+                    sis_operacional_default: item.sis_operacional_default,
+                    data_processamento_venda_ini: modelbase_1.clsTools._datemomentDateToStr(modelbase_1.clsTools._datemomentDatStrToDate(item.data_processamento_venda_ini, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD"),
+                    data_processamento_venda_fim: modelbase_1.clsTools._datemomentDateToStr(modelbase_1.clsTools._datemomentDatStrToDate(item.data_processamento_venda_fim, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD"),
+                    competencia_cd: item.competencia_cd,
+                    fv_fab_meta_cd: item.fv_fab_meta_cd,
+                    faturamento_numero_dias_qtde: item.faturamento_numero_dias_qtde,
+                    faturamento_data_limite: modelbase_1.clsTools._datemomentDateToStr(modelbase_1.clsTools._datemomentDatStrToDate(item.faturamento_data_limite, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD"),
+                    data_competencia_ini: modelbase_1.clsTools._datemomentDateToStr(modelbase_1.clsTools._datemomentDatStrToDate(item.competencia_data_ini, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD"),
+                    data_competencia_fim: modelbase_1.clsTools._datemomentDateToStr(modelbase_1.clsTools._datemomentDatStrToDate(item.competencia_data_fim, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD")
+                };
+                return dados;
+            }
+            catch (e) {
+                yield modelbase_1.clsTools.PagErrorException(`M0001 - Sistema`, 'reportSistemaOperacional.getByCompetencia', e);
+                return {};
             }
         });
     }

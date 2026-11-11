@@ -2,6 +2,7 @@ import { clsBase, clsTools } from "../../../model/modelbase";
 
 
 import InformeMailset from "../model/model.informe_mailset";
+import reportSistema from "src/modules/m0001_sistema/report/report";
 
 
 
@@ -31,41 +32,40 @@ export default class serviceinforme_if0100 {
 
 
 
-            par.fv_fab_meta_cd = 2026001
-
-
-            par.seqinterface = 0
-            await clsTools.pagConsole(`${FLG_MODULO} - Inicializando envio de E-MAIL - Coletando Parâmetros`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
+            await this.__log(`Inicializando envio de E-MAIL - Coletando Parâmetros`);
             par = await this.getParametros(par)
+            if (par.error) {
+                await this.__log(`ERROR | Falha ao obter parâmetros: ${par.error}`)
+                return
+            }
 
             
-            
 
-            await clsTools.pagConsole(`${FLG_MODULO} - Processando VENDA POR VENDEDOR/FABRICANTE`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
+            await this.__log(`Processando VENDA POR VENDEDOR/FABRICANTE`)
             par = await this.getBaseVendaPorFabricante(par)
-            await clsTools.pagConsole(`${FLG_MODULO} - Processamento VENDA POR VENDEDOR/FABRICANTE Concluído _ QTDE DE REG ${par.listVendaFabricante.length}`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
+            await this.__log(`Processamento VENDA POR VENDEDOR/FABRICANTE Concluído _ QTDE DE REG ${par.listVendaFabricante.length}`)
 
 
 
-            await clsTools.pagConsole(`${FLG_MODULO} - Processando VENDA POR Meta Vendedor`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
+            await this.__log(`Processando VENDA POR Meta Vendedor`)
             par = await this.getQuadroMetasVendedor(par)
 
 
-            await clsTools.pagConsole(`${FLG_MODULO} - Processando VENDA META COLUMNS`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
+            await this.__log(`Processando VENDA META COLUMNS`)
             par = await this.getQuadroSupervisaoMetaVendedorColumns(par)
 
 
-            await clsTools.pagConsole(`${FLG_MODULO} - Processando VENDA Supervisao`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
+            await this.__log(`Processando VENDA Supervisao`)
             par = await this.getQuadroSupervisaoMetaVendedor(par)
 
 
-            await clsTools.pagConsole(`${FLG_MODULO} - Enviando E-mail para os vendedores`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
+            await this.__log(`Enviando E-mail para os vendedores`)
             await this.sendMailVendedor(par)
-            await clsTools.pagConsole(`${FLG_MODULO} - Enviando E-mail para os supervisores`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
+            await this.__log(`Enviando E-mail para os supervisores`)
             await this.sendMailSupervisor(par)
 
 
-            await clsTools.pagConsole(`${FLG_MODULO} - Processo concluído`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
+            await this.__log(`Processo concluído`)
 
 
 
@@ -73,51 +73,60 @@ export default class serviceinforme_if0100 {
 
 
         } catch (e) {
-            await clsTools.PagErrorException(FLG_MODULO, "start (service.if0045)", e)
+            await clsTools.PagErrorException(FLG_MODULO, "start (service.IF0100)", e)
         }
     }
 
     static async getParametros(parametros: any) : Promise<any>{
         let par = parametros
+            par.error = false
         try {
 
-                const dataFaturamentoObter = (stringData: string) => {
-                    return  clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(stringData, 'YYYY-MM-DD HH:mm:ss'), 'YYYY-MM-DD')
-                }
+            let dadosOperacionais : any = {}
+            if (par.competencia_cd && par.competencia_cd !== 0) {
+                this.__log(`Buscando dados Operacionais da Competência informada ${par.competencia_cd}`)
+                dadosOperacionais = await reportSistema.Operacional.getByCompetencia(par)
+            } else { 
+                this.__log("Competência não informada na abertura do processamento, utilizaremos a competência padrão do sistema operacional")
+                dadosOperacionais = await reportSistema.Operacional.getDefault();
+            }
 
-                const dataRelatorio = (stringData: string) => { 
-                    return  clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(stringData, 'YYYY-MM-DD HH:mm:ss'), 'DD/MM/YYYY')
-                }
+            if (!dadosOperacionais) {
+                this.__log(`ERROR | Dados operacionais não encontrados para o envio do E-MAIL: OPERAÇÃO CANCELADA!`);
+                par.error = true
+            }
+
+            
+
+            
 
 
 
-                if (!par.competencia_cd) {
-                    const hoje = new Date();
-                    par.competencia_cd = `${hoje.getFullYear()}${String(hoje.getMonth() + 1).padStart(2, '0')}`;
-                }
 
 
+            if (!par.fv_fab_meta_cd) {
+                par.fv_fab_meta_cd = dadosOperacionais.fv_fab_meta_cd; 
+            }
+            
+            if (!par.competencia_cd) {
+                par.competencia_cd = dadosOperacionais.competencia_cd;
+            }
 
-                let sql = `SELECT 	competencia_data_ini
-                                ,	competencia_data_fim
-                                ,   competencia_cd
-                            FROM tbcompetencia 
-                            where competencia_cd = ${par.competencia_cd}
-                `
-                let result = await this.__db(sql)
-                if (result) {
-                    let rowCompetencia = (result as any[])[0]
-                    par.competencia_cd = rowCompetencia.competencia_cd
-                    par.competencia_data_ini = dataFaturamentoObter(rowCompetencia.competencia_data_ini)
-                    par.competencia_data_fim = dataFaturamentoObter(rowCompetencia.competencia_data_fim)
-                }
 
-                let mailset = new InformeMailset()
-                mailset.getDistribuicaoDestinatarios(par)
-                par.mail_cc = mailset.mail_cc
-                par.mail_bcc = mailset.mail_bcc
-                par.email_subervisao = mailset.email_subervisao
-                par.periodo_descricao = `${dataRelatorio(par.competencia_data_ini)} a ${dataRelatorio(par.competencia_data_fim)} (CMP ${par.competencia_cd})`
+            par.seqinterface = 0
+            par.competencia_data_ini = dadosOperacionais.data_competencia_ini
+            par.competencia_data_fim = dadosOperacionais.data_competencia_fim
+
+            const dataRelatorio = (stringData: string) => { 
+                  return  clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(stringData, 'YYYY-MM-DD HH:mm:ss'), 'DD/MM/YYYY')
+            }
+
+            let mailset = new InformeMailset()
+            mailset.getDistribuicaoDestinatarios(par)
+            par.mail_cc = mailset.mail_cc
+            par.mail_bcc = mailset.mail_bcc
+            par.email_subervisao = mailset.email_subervisao
+            par.periodo_descricao = `${dataRelatorio(par.competencia_data_ini)} a ${dataRelatorio(par.competencia_data_fim)} (CMP ${par.competencia_cd})`
 
 
 
@@ -125,7 +134,10 @@ export default class serviceinforme_if0100 {
         } catch (e) {
             await clsTools.PagErrorException(FLG_MODULO, "getParametros (service.if0045)", e)
         }
-        return par
+        finally {
+
+            return par
+        }
     }
 
     static async getBaseVendaPorFabricante(parametros: any) : Promise<any>{
@@ -367,7 +379,7 @@ export default class serviceinforme_if0100 {
     }
 
 
-  static async sendMailVendedor(parametros: any) : Promise<any> {
+    static async sendMailVendedor(parametros: any) : Promise<any> {
  let par: any = parametros
         try {
 
@@ -518,7 +530,7 @@ export default class serviceinforme_if0100 {
     }
     
 
-  static async sendMailSupervisor(par: any) : Promise<any> {
+    static async sendMailSupervisor(par: any) : Promise<any> {
         try {
             const listaVendas: any[] = Array.isArray(par.listVendaFabricante) ? par.listVendaFabricante : []
             const listaMetas: any[] = Array.isArray(par.listQuadroMetasVendedorResumo) ? par.listQuadroMetasVendedorResumo : []
@@ -652,5 +664,10 @@ export default class serviceinforme_if0100 {
         } catch (e) {
             await clsTools.PagErrorException(FLG_MODULO, "__db (Service.if0017)", e, false, "", FLG_DEBUG_FILE_CONSOLE_LOG)
         }
+    }
+
+
+    static async __log(message: string) : Promise<void> {
+        await clsTools.pagConsole(`${FLG_MODULO} | ${message}`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG)
     }
 }       

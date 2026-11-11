@@ -26,6 +26,11 @@ export default class reportSistemaOperacional{
             sql += ` AND us.sis_operacional_default = '${parametros.sis_operacional_default}' `
         }
 
+        if (parametros.competencia_cd) {
+            sql += ` AND us.competencia_cd = ${parametros.competencia_cd} `
+        }
+
+
 
         return sql
 
@@ -34,7 +39,7 @@ export default class reportSistemaOperacional{
             return ''       
         }
     }
-    static async get(parametros: any = {}) {
+    static async get(parametros: any = {}) : Promise<any> {
             const myTools = new clsBase();
         try {
             let result = await myTools.myDataBase.pag.DataGet(this.sql(parametros));
@@ -44,8 +49,40 @@ export default class reportSistemaOperacional{
             await clsTools.PagErrorException(`M0001 - Sistema`, 'reportSistemaOperacional.get', e);
         }
     }
+    static async getByCompetencia(parametros: any) : Promise<any> {
+        try {
+            if (!parametros.competencia_cd) {
+                throw new Error("Competência não informada");
+            }
 
-    static async getDefault() {
+            const myTools = new clsBase();
+            let result = await this.get(parametros) as object[];
+            
+            let item : any = await myTools.myDataBase.RecordItem(result,0);  
+            
+            let dados = { 
+                sis_operacional_cd: item.sis_operacional_cd,
+                sis_operacional_default: item.sis_operacional_default,
+                data_processamento_venda_ini: clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(item.data_processamento_venda_ini, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD"),
+                data_processamento_venda_fim: clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(item.data_processamento_venda_fim, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD"),
+                competencia_cd: item.competencia_cd,
+                fv_fab_meta_cd: item.fv_fab_meta_cd,
+                faturamento_numero_dias_qtde: item.faturamento_numero_dias_qtde,
+                faturamento_data_limite: clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(item.faturamento_data_limite, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD"),
+                data_competencia_ini: clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(item.competencia_data_ini, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD"),
+                data_competencia_fim: clsTools._datemomentDateToStr(clsTools._datemomentDatStrToDate(item.competencia_data_fim, "YYYY-MM-DD HH:mm:ss"), "YYYY-MM-DD")
+            }
+            
+            
+            return dados;
+        } catch (e) {
+            await clsTools.PagErrorException(`M0001 - Sistema`, 'reportSistemaOperacional.getByCompetencia', e);
+            return {}
+        }
+        
+    }
+
+    static async getDefault() : Promise<any> {
         try { 
             const myTools = new clsBase();
             let result = await this.get({ sis_operacional_default: 1 }) as object[];

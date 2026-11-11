@@ -1,7 +1,7 @@
 import { clsBase, clsTools } from "../../../model/modelbase";
 
 import InformeMailset from "../model/model.informe_mailset";
-
+import reportSistema from "src/modules/m0001_sistema/report/report";
 
 
 /*  VARIAVEIS DEFAULT --------------------------------------------------------------------------*/
@@ -73,17 +73,19 @@ export default class serviceinforme_if0045 {
             let par = parametros
 
             
-            await clsTools.pagConsole(`${FLG_MODULO} - Inicializando envio de E-MAIL - Coletando Parâmetros`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
+            await this.__log(`Inicializando envio de E-MAIL - Coletando Parâmetros`)
+
             par = await this.getParametros(par)
-            par.fv_fab_meta_cd = 2026001
-
-                        
 
 
+            if (!par.fv_fab_meta_cd) {
+                let dadosOperacionais : any = await reportSistema.Operacional.getDefault();
+                par.fv_fab_meta_cd = dadosOperacionais.fv_fab_meta_cd; 
+            }
 
 
-            await clsTools.pagConsole(`${FLG_MODULO} - Processando Relatório Base Real`,FLG_DEBUG_CONSOLE_LOG,false,FLG_DEBUG_FILE_CONSOLE_LOG)
 
+            await this.__log(`Iniciando Processamento IF0045 BASE REAL _ Código META PERÍODO: ${par.fv_fab_meta_cd}`)
             await this.processarRelatorioBaseReal(par)
 
 
@@ -456,7 +458,7 @@ export default class serviceinforme_if0045 {
     }
 
 
-  static async sendMailVendedor(parametros: any) : Promise<any> {
+    static async sendMailVendedor(parametros: any) : Promise<any> {
         let par: any = parametros
         try {
             const list: TabelaClienteMix[] = par.listClienteMix || []
@@ -608,5 +610,9 @@ export default class serviceinforme_if0045 {
         } catch (e) {
             await clsTools.PagErrorException(FLG_MODULO, "__db (Service.if0017)", e, false, "", FLG_DEBUG_FILE_CONSOLE_LOG)
         }
+    }
+
+    static async __log(message: string) : Promise<void> {
+        await clsTools.pagConsole(`${FLG_MODULO} | ${message}`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG)
     }
 }       
