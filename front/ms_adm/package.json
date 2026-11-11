@@ -1,6 +1,6 @@
 {
   "name": "f-ms-adm",
-  "version": "2020.3",
+  "version": "2020.4",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
