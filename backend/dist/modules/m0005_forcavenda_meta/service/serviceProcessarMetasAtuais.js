@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const modelbase_1 = require("../../../model/modelbase");
 const serviceForcaVendaMeta_Fabricante_Processar_1 = __importDefault(require("./serviceForcaVendaMeta.Fabricante.Processar"));
 const serviceForcaVendaMeta_Processar_1 = __importDefault(require("./serviceForcaVendaMeta.Processar"));
-const report_1 = __importDefault(require("src/modules/m0001_sistema/report/report"));
+const report_1 = __importDefault(require("../../m0001_sistema/report/report"));
 /*  VARIAVEIS DEFAULT --------------------------------------------------------------------------*/
 const SISTEMA_NUCLEO_PRC_CD = 0;
 const FLG_DEBUG_CONSOLE_LOG = true;

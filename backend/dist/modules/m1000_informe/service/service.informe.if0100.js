@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const modelbase_1 = require("../../../model/modelbase");
 const model_informe_mailset_1 = __importDefault(require("../model/model.informe_mailset"));
-const report_1 = __importDefault(require("src/modules/m0001_sistema/report/report"));
+const report_1 = __importDefault(require("../../m0001_sistema/report/report"));
 /*  VARIAVEIS DEFAULT --------------------------------------------------------------------------*/
 const SISTEMA_NUCLEO_PRC_CD = 101000010;
 const FLG_DEBUG_CONSOLE_LOG = false;

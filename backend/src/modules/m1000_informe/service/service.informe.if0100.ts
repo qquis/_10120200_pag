@@ -2,7 +2,7 @@ import { clsBase, clsTools } from "../../../model/modelbase";
 
 
 import InformeMailset from "../model/model.informe_mailset";
-import reportSistema from "src/modules/m0001_sistema/report/report";
+import reportSistema from "../../m0001_sistema/report/report";
 
 
 

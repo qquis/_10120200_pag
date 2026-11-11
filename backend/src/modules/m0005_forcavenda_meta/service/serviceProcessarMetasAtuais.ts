@@ -4,7 +4,7 @@ import { clsBase, clsTools } from "../../../model/modelbase";
 
 import serviceForcaVendaMetaFabricanteProcessar from "./serviceForcaVendaMeta.Fabricante.Processar"
 import serviceForcaVendaMetaProcessar from "./serviceForcaVendaMeta.Processar"
-import reportSistema from "src/modules/m0001_sistema/report/report";
+import reportSistema from "../../m0001_sistema/report/report";
 
 
 /*  VARIAVEIS DEFAULT --------------------------------------------------------------------------*/
