@@ -65,7 +65,8 @@ export default class serviceParticipanteBlueSoftAPIAtualizarStatusCredito {
                         {
                             tipoLimiteSaldo: 'GERAL',
                             limite: limiteAtual,
-                            status: parametros.status_credito_cd
+                            status: parametros.status_credito_cd,
+                            podeProtestar: true                            
                         }
                     ]
                 }
