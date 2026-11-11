@@ -18,7 +18,7 @@ begin
 end$$
 ;
 
-update tbsistema_operacional set faturamento_numero_dias_qtde = 5, faturamento_data_limite = '2026-11-03' where competencia_cd = 202611;
+update tbsistema_operacional set faturamento_numero_dias_qtde = 5, faturamento_data_limite = '2026-12-01' where competencia_cd = 202611;
 
 
 /*

@@ -70,5 +70,18 @@ serviceParticipanteRouter.post("/apibluesoftatualizarstatuscredito", async (requ
 
 })
 
+serviceParticipanteRouter.post("/credito-correcao", async (request, response) => {
+    try {
+
+        await serviceParticipante.APIBlueSoftAtualizarStatusCreditoCorrecao.start(request.query)
+
+        response.send({ message: "Processo de correção de status de crédito iniciado com sucesso." });
+
+    } catch (e: any) {
+        response.status(500).send({ error: e.message });
+    }
+
+})
+
 
 export default serviceParticipanteRouter;

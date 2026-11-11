@@ -94,6 +94,7 @@ export default function ParticipanteGrupoEconomico() {
         setSelecionados(new Set());
     };
 
+
     const atualizaStatsCredito = async (status_credito_cd: string) => {
         if (atualizandoCredito) return;
 
@@ -164,6 +165,7 @@ export default function ParticipanteGrupoEconomico() {
                     header_title="Participante | Grupo Econômico"
                 >
                     <div className="flex space-x-2">
+
                         <ButtonPag
                             TypeButton="_BUTTON_HEADER"
                             label="Pesquisar"

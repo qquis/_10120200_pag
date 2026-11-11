@@ -60,4 +60,13 @@ serviceParticipanteRouter.post("/apibluesoftatualizarstatuscredito", (request, r
         response.status(500).send({ error: e.message });
     }
 }));
+serviceParticipanteRouter.post("/credito-correcao", (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield Service_1.default.APIBlueSoftAtualizarStatusCreditoCorrecao.start(request.query);
+        response.send({ message: "Processo de correção de status de crédito iniciado com sucesso." });
+    }
+    catch (e) {
+        response.status(500).send({ error: e.message });
+    }
+}));
 exports.default = serviceParticipanteRouter;

@@ -8,6 +8,7 @@ const serviceParticipanteBlueSoftRedShiftImport_1 = __importDefault(require("./s
 const serviceParticipanteBluesoftAPIImport_1 = __importDefault(require("./serviceParticipanteBluesoftAPIImport"));
 const serviceParticipanteBluesoftApiAtualizarStatusCredito_1 = __importDefault(require("./serviceParticipanteBluesoftApiAtualizarStatusCredito"));
 const serviceGrupoEconomicoImport_1 = __importDefault(require("./serviceGrupoEconomicoImport"));
+const serviceParticipanteBluesoftApiAtualizarStatusCreditoCorrecao_1 = __importDefault(require("./serviceParticipanteBluesoftApiAtualizarStatusCreditoCorrecao"));
 class serviceParticipante {
 }
 serviceParticipante.vipimport = ServiceParticipanteVipImport_1.default;
@@ -15,4 +16,5 @@ serviceParticipante.RedShiftBlueSoftImport = serviceParticipanteBlueSoftRedShift
 serviceParticipante.APIBlueSoftImport = serviceParticipanteBluesoftAPIImport_1.default;
 serviceParticipante.GrupoEconomicoImport = serviceGrupoEconomicoImport_1.default;
 serviceParticipante.APIBlueSoftAtualizarStatusCredito = serviceParticipanteBluesoftApiAtualizarStatusCredito_1.default;
+serviceParticipante.APIBlueSoftAtualizarStatusCreditoCorrecao = serviceParticipanteBluesoftApiAtualizarStatusCreditoCorrecao_1.default;
 exports.default = serviceParticipante;

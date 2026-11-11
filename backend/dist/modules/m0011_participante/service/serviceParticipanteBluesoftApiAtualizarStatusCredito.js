@@ -57,6 +57,7 @@ class serviceParticipanteBlueSoftAPIAtualizarStatusCredito {
                     ultimaAlteracao: dadosOriginais.ultimaAlteracao,
                     contatos: dadosOriginais.contatos,
                     enderecos: dadosOriginais.enderecos,
+                    inscricaoEstadual: dadosOriginais.inscricaoEstadual,
                     analiseCredito: {
                         limites: [
                             {
