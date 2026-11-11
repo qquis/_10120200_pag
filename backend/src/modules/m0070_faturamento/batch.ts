@@ -49,15 +49,29 @@ export default class batch_module_m0070 {
                 await this.__log(`Data limite de faturamento ainda não atingida - O Processamento será realizado: ${dataLimite}`);
             }
 
-            console.log(DadosProcessamento)
 
-            const dataInicial = clsTools._datemomentDatStrToDate(DadosProcessamento.data_competencia_ini, "YYYY-MM-DD");
+            let dataInicial = clsTools._datemomentDatStrToDate(DadosProcessamento.data_competencia_ini, "YYYY-MM-DD");
             const dataFinal = clsTools._datemomentDatStrToDate(DadosProcessamento.data_competencia_fim, "YYYY-MM-DD");
 
-            console.log(dataInicial)
+            const faturamento_numero_dias_qtde = DadosProcessamento.faturamento_numero_dias_qtde || 0;
+
+            // Calcula a diferença em dias (milissegundos convertidos para dias)
+            const diffTime = dataFinal.getTime() - dataInicial.getTime();
+            const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+            // Se a distância for menor que a quantidade de dias exigida
+            if (diffDays < faturamento_numero_dias_qtde) {
+                dataInicial = new Date(dataFinal);
+                dataInicial.setDate(dataInicial.getDate() - faturamento_numero_dias_qtde);
+            }
+
+
+            await this.__log(`Processamento iniciado para o período de ${clsTools._datemomentDateToStr(dataInicial, "YYYY-MM-DD")} até ${clsTools._datemomentDateToStr(dataFinal, "YYYY-MM-DD")}`);
+
 
             if (Number.isNaN(dataInicial.getTime()) || Number.isNaN(dataFinal.getTime()) || dataInicial > dataFinal) {
-                throw new Error("Período de processamento inválido.");
+                await this.__log("Período de processamento inválido.");
+                return false;
             }
 
             for (let data = new Date(dataInicial); data <= dataFinal; data.setUTCDate(data.getUTCDate() + 1)) {

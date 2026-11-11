@@ -1,6 +1,6 @@
 'use client'
-    const __SIS_AC_CD : number = 3210 /* CONSULTA FATURAMENTO BLUESOFT */
-
+    const __SIS_AC_CD : number = 3090 
+    
 import { useEffect, useState } from 'react';
 import { useAuth } from "@/app/context/context";
 

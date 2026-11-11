@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const modelbase_1 = require("../../../model/modelbase");
 const model_informe_mailset_1 = __importDefault(require("../model/model.informe_mailset"));
+const report_1 = __importDefault(require("src/modules/m0001_sistema/report/report"));
 /*  VARIAVEIS DEFAULT --------------------------------------------------------------------------*/
 const SISTEMA_NUCLEO_PRC_CD = 101000010;
 const FLG_DEBUG_CONSOLE_LOG = false;
@@ -31,57 +32,62 @@ class serviceinforme_if0100 {
                 par.mail_cc = mailset.mail_cc;
                 par.mail_bcc = mailset.mail_bcc;
                 par.email_subervisao = mailset.email_subervisao;
-                par.fv_fab_meta_cd = 2026001;
-                par.seqinterface = 0;
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Inicializando envio de E-MAIL - Coletando Parâmetros`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
+                yield this.__log(`Inicializando envio de E-MAIL - Coletando Parâmetros`);
                 par = yield this.getParametros(par);
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Processando VENDA POR VENDEDOR/FABRICANTE`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
+                if (par.error) {
+                    yield this.__log(`ERROR | Falha ao obter parâmetros: ${par.error}`);
+                    return;
+                }
+                yield this.__log(`Processando VENDA POR VENDEDOR/FABRICANTE`);
                 par = yield this.getBaseVendaPorFabricante(par);
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Processamento VENDA POR VENDEDOR/FABRICANTE Concluído _ QTDE DE REG ${par.listVendaFabricante.length}`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Processando VENDA POR Meta Vendedor`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
+                yield this.__log(`Processamento VENDA POR VENDEDOR/FABRICANTE Concluído _ QTDE DE REG ${par.listVendaFabricante.length}`);
+                yield this.__log(`Processando VENDA POR Meta Vendedor`);
                 par = yield this.getQuadroMetasVendedor(par);
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Processando VENDA META COLUMNS`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
+                yield this.__log(`Processando VENDA META COLUMNS`);
                 par = yield this.getQuadroSupervisaoMetaVendedorColumns(par);
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Processando VENDA Supervisao`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
+                yield this.__log(`Processando VENDA Supervisao`);
                 par = yield this.getQuadroSupervisaoMetaVendedor(par);
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Enviando E-mail para os vendedores`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
+                yield this.__log(`Enviando E-mail para os vendedores`);
                 yield this.sendMailVendedor(par);
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Enviando E-mail para os supervisores`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
+                yield this.__log(`Enviando E-mail para os supervisores`);
                 yield this.sendMailSupervisor(par);
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Processo concluído`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
+                yield this.__log(`Processo concluído`);
             }
             catch (e) {
-                yield modelbase_1.clsTools.PagErrorException(FLG_MODULO, "start (service.if0045)", e);
+                yield modelbase_1.clsTools.PagErrorException(FLG_MODULO, "start (service.IF0100)", e);
             }
         });
     }
     static getParametros(parametros) {
         return __awaiter(this, void 0, void 0, function* () {
             let par = parametros;
+            par.error = false;
             try {
-                const dataFaturamentoObter = (stringData) => {
-                    return modelbase_1.clsTools._datemomentDateToStr(modelbase_1.clsTools._datemomentDatStrToDate(stringData, 'YYYY-MM-DD HH:mm:ss'), 'YYYY-MM-DD');
-                };
+                let dadosOperacionais = {};
+                if (par.competencia_cd && par.competencia_cd !== 0) {
+                    this.__log(`Buscando dados Operacionais da Competência informada ${par.competencia_cd}`);
+                    dadosOperacionais = yield report_1.default.Operacional.getByCompetencia(par);
+                }
+                else {
+                    this.__log("Competência não informada na abertura do processamento, utilizaremos a competência padrão do sistema operacional");
+                    dadosOperacionais = yield report_1.default.Operacional.getDefault();
+                }
+                if (!dadosOperacionais) {
+                    this.__log(`ERROR | Dados operacionais não encontrados para o envio do E-MAIL: OPERAÇÃO CANCELADA!`);
+                    par.error = true;
+                }
+                if (!par.fv_fab_meta_cd) {
+                    par.fv_fab_meta_cd = dadosOperacionais.fv_fab_meta_cd;
+                }
+                if (!par.competencia_cd) {
+                    par.competencia_cd = dadosOperacionais.competencia_cd;
+                }
+                par.seqinterface = 0;
+                par.competencia_data_ini = dadosOperacionais.data_competencia_ini;
+                par.competencia_data_fim = dadosOperacionais.data_competencia_fim;
                 const dataRelatorio = (stringData) => {
                     return modelbase_1.clsTools._datemomentDateToStr(modelbase_1.clsTools._datemomentDatStrToDate(stringData, 'YYYY-MM-DD HH:mm:ss'), 'DD/MM/YYYY');
                 };
-                if (!par.competencia_cd) {
-                    const hoje = new Date();
-                    par.competencia_cd = `${hoje.getFullYear()}${String(hoje.getMonth() + 1).padStart(2, '0')}`;
-                }
-                let sql = `SELECT 	competencia_data_ini
-                                ,	competencia_data_fim
-                                ,   competencia_cd
-                            FROM tbcompetencia 
-                            where competencia_cd = ${par.competencia_cd}
-                `;
-                let result = yield this.__db(sql);
-                if (result) {
-                    let rowCompetencia = result[0];
-                    par.competencia_cd = rowCompetencia.competencia_cd;
-                    par.competencia_data_ini = dataFaturamentoObter(rowCompetencia.competencia_data_ini);
-                    par.competencia_data_fim = dataFaturamentoObter(rowCompetencia.competencia_data_fim);
-                }
                 let mailset = new model_informe_mailset_1.default();
                 mailset.getDistribuicaoDestinatarios(par);
                 par.mail_cc = mailset.mail_cc;
@@ -92,7 +98,9 @@ class serviceinforme_if0100 {
             catch (e) {
                 yield modelbase_1.clsTools.PagErrorException(FLG_MODULO, "getParametros (service.if0045)", e);
             }
-            return par;
+            finally {
+                return par;
+            }
         });
     }
     static getBaseVendaPorFabricante(parametros) {
@@ -581,6 +589,11 @@ class serviceinforme_if0100 {
             catch (e) {
                 yield modelbase_1.clsTools.PagErrorException(FLG_MODULO, "__db (Service.if0017)", e, false, "", FLG_DEBUG_FILE_CONSOLE_LOG);
             }
+        });
+    }
+    static __log(message) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} | ${message}`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
         });
     }
 }

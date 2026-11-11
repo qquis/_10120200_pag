@@ -50,12 +50,21 @@ class batch_module_m0070 {
                 else {
                     yield this.__log(`Data limite de faturamento ainda não atingida - O Processamento será realizado: ${dataLimite}`);
                 }
-                console.log(DadosProcessamento);
-                const dataInicial = modelbase_1.clsTools._datemomentDatStrToDate(DadosProcessamento.data_competencia_ini, "YYYY-MM-DD");
+                let dataInicial = modelbase_1.clsTools._datemomentDatStrToDate(DadosProcessamento.data_competencia_ini, "YYYY-MM-DD");
                 const dataFinal = modelbase_1.clsTools._datemomentDatStrToDate(DadosProcessamento.data_competencia_fim, "YYYY-MM-DD");
-                console.log(dataInicial);
+                const faturamento_numero_dias_qtde = DadosProcessamento.faturamento_numero_dias_qtde || 0;
+                // Calcula a diferença em dias (milissegundos convertidos para dias)
+                const diffTime = dataFinal.getTime() - dataInicial.getTime();
+                const diffDays = diffTime / (1000 * 60 * 60 * 24);
+                // Se a distância for menor que a quantidade de dias exigida
+                if (diffDays < faturamento_numero_dias_qtde) {
+                    dataInicial = new Date(dataFinal);
+                    dataInicial.setDate(dataInicial.getDate() - faturamento_numero_dias_qtde);
+                }
+                yield this.__log(`Processamento iniciado para o período de ${modelbase_1.clsTools._datemomentDateToStr(dataInicial, "YYYY-MM-DD")} até ${modelbase_1.clsTools._datemomentDateToStr(dataFinal, "YYYY-MM-DD")}`);
                 if (Number.isNaN(dataInicial.getTime()) || Number.isNaN(dataFinal.getTime()) || dataInicial > dataFinal) {
-                    throw new Error("Período de processamento inválido.");
+                    yield this.__log("Período de processamento inválido.");
+                    return false;
                 }
                 for (let data = new Date(dataInicial); data <= dataFinal; data.setUTCDate(data.getUTCDate() + 1)) {
                     const dataProcessamento = modelbase_1.clsTools._datemomentDateToStr(data, "YYYY-MM-DD");

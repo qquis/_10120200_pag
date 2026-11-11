@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const modelbase_1 = require("../../../model/modelbase");
 const model_informe_mailset_1 = __importDefault(require("../model/model.informe_mailset"));
+const report_1 = __importDefault(require("src/modules/m0001_sistema/report/report"));
 /*  VARIAVEIS DEFAULT --------------------------------------------------------------------------*/
 const SISTEMA_NUCLEO_PRC_CD = 101000015;
 const FLG_DEBUG_CONSOLE_LOG = false;
@@ -24,10 +25,13 @@ class serviceinforme_if0045 {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let par = parametros;
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Inicializando envio de E-MAIL - Coletando Parâmetros`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
+                yield this.__log(`Inicializando envio de E-MAIL - Coletando Parâmetros`);
                 par = yield this.getParametros(par);
-                par.fv_fab_meta_cd = 2026001;
-                yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} - Processando Relatório Base Real`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
+                if (!par.fv_fab_meta_cd) {
+                    let dadosOperacionais = yield report_1.default.Operacional.getDefault();
+                    par.fv_fab_meta_cd = dadosOperacionais.fv_fab_meta_cd;
+                }
+                yield this.__log(`Iniciando Processamento IF0045 BASE REAL _ Código META PERÍODO: ${par.fv_fab_meta_cd}`);
                 yield this.processarRelatorioBaseReal(par);
             }
             catch (e) {
@@ -526,6 +530,11 @@ class serviceinforme_if0045 {
             catch (e) {
                 yield modelbase_1.clsTools.PagErrorException(FLG_MODULO, "__db (Service.if0017)", e, false, "", FLG_DEBUG_FILE_CONSOLE_LOG);
             }
+        });
+    }
+    static __log(message) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} | ${message}`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
         });
     }
 }
