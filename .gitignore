@@ -32,3 +32,4 @@
 **/*-lock.json
 **/ecosystem.config.js
 **/.env.production
+.vscode/
