@@ -8,7 +8,7 @@
 
 import { clsTools } from "../../../model/modelbase";
 export default class f0085_52_zanthus_carga_log {
-    public static sqlScript_VERSION(): string {return `f0085_52_1012019_zanthus_carga_log`}
+    public static sqlScript_VERSION(): string {return `f0085_52_1012020_zanthus_carga_log`}
     public static ScriptExecute() : string {
         let sqlscript = `Select ${this.sqlScript_VERSION()}() `;
          return sqlscript;

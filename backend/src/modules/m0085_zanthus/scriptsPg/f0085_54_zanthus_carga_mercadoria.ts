@@ -10,7 +10,7 @@
 
 import { clsTools } from "../../../model/modelbase";
 export default class f0085_54_zanthus_carga_tabmercadoria {
-    public static sqlScript_VERSION(): string {return `f0085_54_1012019_zanthus_carga_tabmercadoria`}
+    public static sqlScript_VERSION(): string {return `f0085_54_1012020_zanthus_carga_tabmercadoria`}
     public static ScriptExecute() : string {
         let sqlscript = `Select ${this.sqlScript_VERSION()}() `;
          return sqlscript;

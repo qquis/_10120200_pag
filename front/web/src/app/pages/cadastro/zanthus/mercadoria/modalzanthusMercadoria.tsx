@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from "@/app/context/context";
 //import { moduleProduto, TpProduto } from '@/api/m0020_produto/moduleproduto';
-import { moduleZanthus } from '@/api/external/zanthus';
+import { moduleExternalZanthus } from '@/api/external/externalzanthus'
 
 import ComponenteZanthusTabMercadoria from '../componentes/componenteZanthusTabMercadoria';
 import ComponenteTabRegrasICMS from '../componentes/componenteZanthusTabRegrasICMS';
@@ -25,7 +25,7 @@ export default function modalzanthusMercadoria({ isOpen, onClose, gtin }: Codigo
   const [infoExternalZanthusMercadoria, setInfoExternalZanthusMercadoria] = useState<any>(null);
   const [ActionStatus, setActionStatus] = useState<number>(0);
 
-  let moduleExternalZanthus = new moduleZanthus(user!);
+  let mzanthusExternal = new moduleExternalZanthus(user, 0);
 
   useEffect(() => { 
     if (isOpen && gtin) {
@@ -37,7 +37,7 @@ export default function modalzanthusMercadoria({ isOpen, onClose, gtin }: Codigo
   const consultarGtinZanthus = async () => {
     try {
       setActionStatus(1); // Carregando
-      let mercadoriaInfo = await moduleExternalZanthus.getInfoAllMercadoria(gtin);
+      let mercadoriaInfo = await mzanthusExternal.getInfoAllMercadoria(gtin);
       setInfoExternalZanthusMercadoria(mercadoriaInfo);
       setActionStatus(0); // Carregado
 

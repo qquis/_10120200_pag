@@ -16,7 +16,6 @@ class moduleZanthus extends moduleDefault {
 
     }
 
-
     async postCarga(parametros: any) : Promise<any> {
             try {
  
@@ -27,6 +26,20 @@ class moduleZanthus extends moduleDefault {
                 throw new Error(`API ERROR: ${e}`); 
             }
     }
+
+
+    async postCargaVoucher(parametros: any) : Promise<any> {
+            try {
+ 
+                let result = await this._postAPI(`/service/carga-voucher-promocional`,{}, parametros)
+                return result
+
+            } catch(e) {
+                throw new Error(`API ERROR: ${e}`); 
+            }
+    }
+
+
 
 
     async postAtualizacaoFiscal(parametros: any) : Promise<any> {

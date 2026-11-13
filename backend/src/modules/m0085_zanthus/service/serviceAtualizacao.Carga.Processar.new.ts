@@ -18,9 +18,10 @@ import serviceZanthusAtualizacaoDadosPrepararBasePrime from "./serviceAtualizaca
 import serviceAtualizacaoTabMercadoria from "./serviceAtualizacao.Carga.Dados.Mercadoria";
 import serviceAtualizacaoTabRegrasFiscais from "./serviceAtualizacao.Carga.Dados.RegrasFiscais";
 import serviceZanthusAtualizacaoDadosDecomposicao from "./serviceAtualizacao.Carga.Dados.Decomposicao";
+
+import serviceAtualizacaoDadosTipoVenda from "./serviceAtualizacao.Carga.Dados.TipoVenda";
+import serviceAtualizacaoDadosTipoVendaQtde from "./serviceAtualizacao.Carga.Dados.TipoVendaQtde";
 import serviceAtualizacaoDadosVoucherPromocional from "./serviceAtualizacao.Carga.Dados.VoucherPromocional";
-import serviceAtualizacaoDadosTipoVenda from "./serviceAtualizacao.Carga.Dados.TipoVendaBasePromocional";
-import serviceAtualizacaoDadosTipoVendaQtde from "./serviceAtualizacao.Carga.Dados.TipoVendaBasePromocional";
 import serviceAtualizacaoDadosZeusRetailCargaOxan from "./serviceAtualizacao.Carga.Dados.ZeusRetailCargaOxan";
 
 

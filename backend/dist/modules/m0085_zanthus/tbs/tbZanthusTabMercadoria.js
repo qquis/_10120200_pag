@@ -62,6 +62,7 @@ class tbZanthusTabMercadoria extends model_1.modelTb {
         this.aliquota_pis = 0;
         this.aliquota_cofins = 0;
         this.codigo_beneficio_fiscal = ``;
+        this.flginativo = `N`;
     }
     binding(item) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -111,6 +112,7 @@ class tbZanthusTabMercadoria extends model_1.modelTb {
                 this.aliquota_pis = parseFloat(item === null || item === void 0 ? void 0 : item.aliquota_pis);
                 this.aliquota_cofins = parseFloat(item === null || item === void 0 ? void 0 : item.aliquota_cofins);
                 this.codigo_beneficio_fiscal = item === null || item === void 0 ? void 0 : item.codigo_beneficio_fiscal;
+                this.flginativo = (item === null || item === void 0 ? void 0 : item.flginativo) ? String(item.flginativo).trim() : 'N';
             }
             catch (e) {
                 Tools_1.default.pagConsole(`M0085 _ Zanthus | tbZanthusTab_Mercadoria.binding 
@@ -304,6 +306,7 @@ class tbZanthusTabMercadoria extends model_1.modelTb {
                                 ,   cod_sit_trib_cofins         = '${this.cod_sit_trib_cofins}'
                                 ,   aliquota_cofins             = ${this.aliquota_cofins}
                                 ,   codigo_beneficio_fiscal     = '${this.codigo_beneficio_fiscal}'
+                                ,   flginativo                  = '${this.flginativo}'
                             WHERE   x.cod_mercadoria = '${this.cod_mercadoria}'
                             
                             ;   

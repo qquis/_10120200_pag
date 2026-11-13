@@ -6,7 +6,7 @@ const FLG_DEBUG_CONSOLE_LOG = false;
 const FLG_MODULO = "M0085 ZANTHUS - SCRIPT | f0085_51_zanthus_carga_tributacao";
 const FLG_DEBUG_FILE_CONSOLE_LOG = ``;
 class f0085_52_zanthus_carga_log {
-    static sqlScript_VERSION() { return `f0085_52_1012019_zanthus_carga_log`; }
+    static sqlScript_VERSION() { return `f0085_52_1012020_zanthus_carga_log`; }
     static ScriptExecute() {
         let sqlscript = `Select ${this.sqlScript_VERSION()}() `;
         return sqlscript;

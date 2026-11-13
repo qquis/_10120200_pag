@@ -31,6 +31,9 @@ const service_1 = __importDefault(require("./service"));
 const modelintegracao_tipo_1 = __importDefault(require("../../m0095_integracao/model/modelintegracao_tipo"));
 const report_ZanthusTabMercadoria_Select_1 = __importDefault(require("../report/report.ZanthusTabMercadoria_Select"));
 const report_ZanthusTabRegrasIcms_Select_1 = __importDefault(require("../report/report.ZanthusTabRegrasIcms_Select"));
+const serviceAtualizacao_Carga_Dados_Mercadoria_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.Mercadoria"));
+const serviceAtualizacao_Carga_Dados_RegrasFiscais_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.RegrasFiscais"));
+const serviceAtualizacao_Carga_Dados_MercadoriaInativacaoGeral_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.MercadoriaInativacaoGeral"));
 class serviceAtualizacaoGeralFiscal {
     static start(parametros) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -38,22 +41,17 @@ class serviceAtualizacaoGeralFiscal {
                 yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} | Atualização Zanthus (TAB MERCADORIA E TAB REGRAS ICMS) GERAL iniciada`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
                 /*Instancia do Módulo ZANTHUS*/
                 let myZanthusService = new service_1.default();
-                /*  Preparando dados Zanthus na base Pag
-                    - Implica na preparação geral dos dados.
-                */
                 yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} | Preparando dados Zanthus na base Pag`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
                 yield myZanthusService.PrepararDadosZanthusNaBasePag(true);
-                /*  Processa a leitura dos dados
-    
-                */
                 let reportZanthusType = {
                     Base: 'Zanthus',
                     ProdutosPendentesDeIntegracao: parametros.ProdutosPendentesDeIntegracao ? true : false,
                     AlteracaoTributaria: "0",
                     integracao_tipo_cd: parametros.integracao_tipo_cd || 20008501
                 };
-                yield this.atualizaTabMercadoria(reportZanthusType);
-                yield this.atualizaTabRegrasIcms(reportZanthusType);
+                yield serviceAtualizacao_Carga_Dados_Mercadoria_1.default.start(parametros);
+                yield serviceAtualizacao_Carga_Dados_RegrasFiscais_1.default.start(parametros);
+                yield serviceAtualizacao_Carga_Dados_MercadoriaInativacaoGeral_1.default.start(parametros);
                 if (parametros.integracao_tipo_cd && parametros.integracao_tipo_cd > 0) {
                     yield modelbase_1.clsTools.pagConsole(`${FLG_MODULO} | Finalizando pendências de integração de produtos para integracao_tipo_cd: ${parametros.integracao_tipo_cd}`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
                     let myModelIntegracaoTipo = new modelintegracao_tipo_1.default();

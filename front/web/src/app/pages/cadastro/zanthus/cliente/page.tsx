@@ -5,7 +5,7 @@ import { useAuth } from '@/app/context/context'
 
 import HeaderMain from '@/app/components/divs/headerMain'
 import ButtonPag from '@/app/components/Buttons/button'
-import { moduleZanthus } from '@/api/external/zanthus'
+import { moduleExternalZanthus } from '@/api/external/externalzanthus'
 
 type Cliente = {
   cod_cliente: string
@@ -40,7 +40,7 @@ export default function ClientePage() {
   const { user } = useAuth()
 
   const moduloZanthus = useMemo(
-    () => new moduleZanthus(user),
+    () => new moduleExternalZanthus(user,0),
     [user]
   )
 

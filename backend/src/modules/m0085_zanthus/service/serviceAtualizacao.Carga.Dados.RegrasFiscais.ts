@@ -148,6 +148,7 @@ export default class serviceZanthusAtualizacaoDadosRegraFiscal
                 from 		tbzanthustab_regra_icms            a
                 inner join  tbzanthustab_mercadoria  		   me on me.pr_cdproduto = a.pr_cdproduto 
                                                                  and me.prb_cdprodutobluesoft = a.prb_cdprodutobluesoft 
+                                                                 and me.cod_mercadoria = a.cod_mercadoria
                 inner join  tbproduto 						   pr on pr.pr_cdproduto = me.pr_cdproduto 												
                 where		1 = 1 `
 

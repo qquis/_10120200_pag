@@ -9,7 +9,7 @@ import { useAuth } from "@/app/context/context";
 import HeaderMain from "@/app/components/divs/headerMain";
 import ButtonPag from "@/app/components/Buttons/button";
 
-import { moduleZanthus } from '@/api/external/zanthus';
+import { moduleExternalZanthus } from '@/api/external/externalzanthus';
 import ModalZanthusMercadoria from '../mercadoria/modalzanthusMercadoria';
 import { usePersistedState } from '@/app/hooks/usePersistedState';
 
@@ -26,7 +26,7 @@ export default function zanthusTabRegraIcmsList() {
   const { user } = useAuth();
 
   /* MODULE */
-  const moduloZanthus = useMemo(() => new moduleZanthus(user), [user]);
+  const moduloZanthus = useMemo(() => new moduleExternalZanthus(user,0), [user]);
 
   /* MODAL STATES */
   const [modalOpen, setModalOpen] = useState(false);

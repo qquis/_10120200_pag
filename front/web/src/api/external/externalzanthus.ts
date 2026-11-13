@@ -1,13 +1,18 @@
 import pagApi from "@/api/api"
 
 import moduleUserConnect from "../m0001_sistema/moduleUserConnect"
+import moduleDefault from '../module.default'
 
 let url_base = `external/zanthus/`
 
-class moduleZanthus {
+
+
+
+class moduleExternalZanthus extends moduleDefault {
 
     user: moduleUserConnect
-    constructor(user: moduleUserConnect) {
+    constructor(user: moduleUserConnect, sis_ac_cd: number) {
+        super(user, 'external/zanthus/', sis_ac_cd)
         this.user = user
     }
 
@@ -34,6 +39,19 @@ class moduleZanthus {
             return result
 
 
+        } catch (e) {
+            console.log(`erro ${e}`)
+            throw e
+        }
+
+    }
+
+    async getlistTabVoucher (parametros: any) : Promise<any> {
+        let result : any = {}
+        try {
+            let url =  `/report/listvoucher?filter=1`
+            result = await this._getAPI<any>(url, parametros)
+            return result
         } catch (e) {
             console.log(`erro ${e}`)
             throw e
@@ -136,6 +154,4 @@ class moduleZanthus {
 
 }
 
-export {  moduleZanthus
-       
-    }
+export {  moduleExternalZanthus   }

@@ -8,7 +8,7 @@
 
 import { clsTools } from "../../../model/modelbase";
 export default class f0085_55_zanthus_carga_preco_voucher {
-    public static sqlScript_VERSION(): string {return `f0085_55_1012019_zanthus_carga_preco_voucher`}
+    public static sqlScript_VERSION(): string {return `f0085_55_1012020_zanthus_carga_preco_voucher`}
     public static ScriptExecute() : string {
         let sqlscript = `Select ${this.sqlScript_VERSION()}() `;
          return sqlscript;

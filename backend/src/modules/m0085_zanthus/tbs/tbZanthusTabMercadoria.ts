@@ -47,6 +47,7 @@ export default class tbZanthusTabMercadoria extends modelTb {
         aliquota_pis: number
         aliquota_cofins: number
         codigo_beneficio_fiscal: string
+        flginativo: string
         constructor() {
             super();
             this.pr_cdproduto= 0
@@ -94,6 +95,7 @@ export default class tbZanthusTabMercadoria extends modelTb {
             this.aliquota_pis= 0
             this.aliquota_cofins= 0
             this.codigo_beneficio_fiscal = ``
+            this.flginativo= `N`
             
         } 
 
@@ -145,6 +147,7 @@ export default class tbZanthusTabMercadoria extends modelTb {
                 this.aliquota_pis = parseFloat(item?.aliquota_pis)
                 this.aliquota_cofins = parseFloat(item?.aliquota_cofins)
                 this.codigo_beneficio_fiscal = item?.codigo_beneficio_fiscal
+                this.flginativo = item?.flginativo ? String(item.flginativo).trim() : 'N'
                     
 
 
@@ -341,6 +344,7 @@ export default class tbZanthusTabMercadoria extends modelTb {
                                 ,   cod_sit_trib_cofins         = '${this.cod_sit_trib_cofins}'
                                 ,   aliquota_cofins             = ${this.aliquota_cofins}
                                 ,   codigo_beneficio_fiscal     = '${this.codigo_beneficio_fiscal}'
+                                ,   flginativo                  = '${this.flginativo}'
                             WHERE   x.cod_mercadoria = '${this.cod_mercadoria}'
                             
                             ;   

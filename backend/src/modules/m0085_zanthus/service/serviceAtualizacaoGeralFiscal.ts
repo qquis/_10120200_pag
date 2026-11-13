@@ -20,7 +20,9 @@ import tbZanthusTabRegrasIcms from "../tbs/tbZanthusTabRegraIcms";
 import reportZanthusType from "../report/ReportFilterType";
 
 
-
+import serviceZanthusAtualizacaoDadosMercadoria from "./serviceAtualizacao.Carga.Dados.Mercadoria";
+import serviceZanthusAtualizacaoDadosRegraFiscal from "./serviceAtualizacao.Carga.Dados.RegrasFiscais";
+import serviceZanthusAtualizacaoDadosMercadoriaInativacaoGeral from "./serviceAtualizacao.Carga.Dados.MercadoriaInativacaoGeral";
 
 
 
@@ -34,19 +36,11 @@ export default class serviceAtualizacaoGeralFiscal  {
             
             
             /*Instancia do Módulo ZANTHUS*/  
+
             let myZanthusService : zanthusService = new zanthusService()
-
-
-            /*  Preparando dados Zanthus na base Pag
-                - Implica na preparação geral dos dados.
-            */
             await clsTools.pagConsole(`${FLG_MODULO} | Preparando dados Zanthus na base Pag`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG);
             await myZanthusService.PrepararDadosZanthusNaBasePag(true)
 
-
-            /*  Processa a leitura dos dados
-
-            */
 
             let reportZanthusType : reportZanthusType = {
                 Base : 'Zanthus',
@@ -56,8 +50,11 @@ export default class serviceAtualizacaoGeralFiscal  {
             }
 
 
-            await this.atualizaTabMercadoria(reportZanthusType)
-            await this.atualizaTabRegrasIcms(reportZanthusType)
+
+            await serviceZanthusAtualizacaoDadosMercadoria.start(parametros)
+            await serviceZanthusAtualizacaoDadosRegraFiscal.start(parametros)
+            await serviceZanthusAtualizacaoDadosMercadoriaInativacaoGeral.start(parametros)
+
 
 
 

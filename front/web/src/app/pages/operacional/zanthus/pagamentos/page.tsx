@@ -11,7 +11,7 @@ import {
   tpFaturamentoZanthusStatus_Cancelado
 } from '@/api/m0055_faturamentoZanthus/moduleFaturamentoZanthus'
 
-import {moduleZanthus} from '@/api/external/zanthus'
+import {moduleExternalZanthus} from '@/api/external/externalzanthus'
 
 import HeaderMain from '@/app/components/divs/headerMain'
 import ButtonPag from '@/app/components/Buttons/button'
@@ -49,7 +49,7 @@ type SortConfig = {
 export default function ConsultaPagamentoCupomPage() {
   const { user } = useAuth()
   const moduleFaturamentoZanthus = useMemo(() => new moduleFatutamentoZanthus(user), [user])
-  const mZanthus = useMemo(() => new moduleZanthus(user), [user])
+  const mZanthus = useMemo(() => new moduleExternalZanthus(user,0), [user])
 
   const [data, setData] = useState<string>(new Date().toISOString().split('T')[0])
   const [cpfCnpj, setCpfCnpj] = useState<string>('')

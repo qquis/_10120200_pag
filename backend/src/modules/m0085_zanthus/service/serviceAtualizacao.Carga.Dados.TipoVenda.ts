@@ -42,7 +42,7 @@ export default class serviceZanthusAtualizacaoDadosTipoVenda  {
                 ilimite_reg_bloq_update =  myclsBase.myDataBase.MAX_UPDATE_DEFAULT
                 sql = ``
 
-                
+                /*
                 let listCodMercadoria : string[] = []
                 for (const item of listTabTipoVenda) {
                     if (item.tab_pre_cd == 2) {
@@ -51,6 +51,7 @@ export default class serviceZanthusAtualizacaoDadosTipoVenda  {
                 }
                 let stringListCodMercadoria = listCodMercadoria.join(',')
                 this.LimpaDadosTipoVendaPromocional({ ListMercadoriaEmPromocao: stringListCodMercadoria })
+                */
                 
     
                 await clsTools.pagConsole(`${FLG_MODULO} | Atualização TabMercadoria MAX UPDATE: ${ilimite_reg_bloq_update} registros por bloco...`, FLG_DEBUG_CONSOLE_LOG, false, FLG_DEBUG_FILE_CONSOLE_LOG)
@@ -147,6 +148,7 @@ export default class serviceZanthusAtualizacaoDadosTipoVenda  {
                 from 		tbzanthustab_mercadoria_tipo_venda a
                 inner join  tbzanthustab_mercadoria  		   me on me.pr_cdproduto = a.pr_cdproduto 
                                                                  and me.prb_cdprodutobluesoft = a.prb_cdprodutobluesoft 
+                                                                 and me.cod_mercadoria = a.cod_mercadoria
                 inner join  tbproduto 						   pr on pr.pr_cdproduto = me.pr_cdproduto 												
                 where		1 = 1 
                 `

@@ -150,6 +150,7 @@ export default class serviceZanthusAtualizacaoDadosMercadoria  {
                             ,   me.cod_sit_trib_cofins
                             ,   me.aliquota_cofins
                             ,   coalesce(me.codigo_beneficio_fiscal, '') as codigo_beneficio_fiscal
+                            ,   me.flginativo
                 FROM            tbzanthustab_mercadoria me
                 inner join      tbproduto pr on pr.pr_cdproduto = me.pr_cdproduto
                 WHERE   1 = 1 `
