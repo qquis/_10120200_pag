@@ -20,6 +20,7 @@ const serviceAtualizacaoCBNEF_1 = __importDefault(require("./serviceAtualizacaoC
 const serviceAtualizacaoClientes_1 = __importDefault(require("./serviceAtualizacaoClientes"));
 const serviceAtualizacao_Carga_Processar_new_1 = __importDefault(require("./serviceAtualizacao.Carga.Processar.new"));
 const serviceAtualizacao_Carga_DeskTop_1 = __importDefault(require("./serviceAtualizacao.Carga.DeskTop"));
+const serviceAtualizacao_Carga_Dados_VoucherPromocional_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.VoucherPromocional"));
 serviceZanthusRouter.post('/atualizacao-geral', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let result = {};
     try {
@@ -60,6 +61,15 @@ serviceZanthusRouter.post('/atualizacao-cliente', (req, res) => __awaiter(void 0
 serviceZanthusRouter.post('/carga-processar', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield serviceAtualizacao_Carga_Processar_new_1.default.start(req.query);
+        res.status(200).json({ message: 'Processamento concluído com sucesso.' });
+    }
+    catch (e) {
+        res.status(500).json({ error: 'Ocorreu um erro durante o processamento.' });
+    }
+}));
+serviceZanthusRouter.post('/carga-voucher-promocional', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield serviceAtualizacao_Carga_Dados_VoucherPromocional_1.default.start(req.query);
         res.status(200).json({ message: 'Processamento concluído com sucesso.' });
     }
     catch (e) {

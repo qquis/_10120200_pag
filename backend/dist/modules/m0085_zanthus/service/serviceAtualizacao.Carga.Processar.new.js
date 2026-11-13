@@ -26,9 +26,9 @@ const serviceAtualizacao_Carga_Dados_PrepararBasePrime_1 = __importDefault(requi
 const serviceAtualizacao_Carga_Dados_Mercadoria_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.Mercadoria"));
 const serviceAtualizacao_Carga_Dados_RegrasFiscais_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.RegrasFiscais"));
 const serviceAtualizacao_Carga_Dados_Decomposicao_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.Decomposicao"));
+const serviceAtualizacao_Carga_Dados_TipoVenda_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.TipoVenda"));
+const serviceAtualizacao_Carga_Dados_TipoVendaQtde_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.TipoVendaQtde"));
 const serviceAtualizacao_Carga_Dados_VoucherPromocional_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.VoucherPromocional"));
-const serviceAtualizacao_Carga_Dados_TipoVendaBasePromocional_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.TipoVendaBasePromocional"));
-const serviceAtualizacao_Carga_Dados_TipoVendaBasePromocional_2 = __importDefault(require("./serviceAtualizacao.Carga.Dados.TipoVendaBasePromocional"));
 const serviceAtualizacao_Carga_Dados_ZeusRetailCargaOxan_1 = __importDefault(require("./serviceAtualizacao.Carga.Dados.ZeusRetailCargaOxan"));
 const report_1 = __importDefault(require("../report/report"));
 class serviceZanthusCarga {
@@ -142,8 +142,8 @@ class serviceZanthusCarga {
                     yield serviceAtualizacao_Carga_Dados_Mercadoria_1.default.start({ carga_uuid: carga.carga_uuid });
                     yield serviceAtualizacao_Carga_Dados_RegrasFiscais_1.default.start({ carga_uuid: carga.carga_uuid });
                     yield serviceAtualizacao_Carga_Dados_Decomposicao_1.default.start({ carga_uuid: carga.carga_uuid });
-                    yield serviceAtualizacao_Carga_Dados_TipoVendaBasePromocional_1.default.start({ carga_uuid: carga.carga_uuid });
-                    yield serviceAtualizacao_Carga_Dados_TipoVendaBasePromocional_2.default.start({ carga_uuid: carga.carga_uuid });
+                    yield serviceAtualizacao_Carga_Dados_TipoVenda_1.default.start({ carga_uuid: carga.carga_uuid });
+                    yield serviceAtualizacao_Carga_Dados_TipoVendaQtde_1.default.start({ carga_uuid: carga.carga_uuid });
                     yield serviceAtualizacao_Carga_Dados_VoucherPromocional_1.default.start({ carga_uuid: carga.carga_uuid });
                     yield serviceAtualizacao_Carga_Dados_ZeusRetailCargaOxan_1.default.start({ carga_uuid: carga.carga_uuid });
                 }

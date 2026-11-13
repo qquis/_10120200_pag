@@ -50,7 +50,7 @@ class serviceZanthusAtualizacaoDadosMercadoriaInativacaoGeral {
                         _d = false;
                         const item = _c;
                         sql += `UPDATE TAB_MERCADORIA 
-                               SET FLGINATIVO = 'S' 
+                               SET FLGINATIVO = '1' 
                                ,   DATA_ULTIMA_ALTERACAO = CURRENT_DATE
                             WHERE COD_MERCADORIA = '${item.cod_mercadoria}'; `;
                         i++;

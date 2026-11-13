@@ -51,4 +51,13 @@ externalZanthusReportRouter.get('/tab_regra_icms', (req, res) => __awaiter(void 
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }));
+externalZanthusReportRouter.get('/listvoucher', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let result = yield report_1.default.listVoucher.get(req.query);
+        res.status(200).send(result);
+    }
+    catch (e) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}));
 exports.default = externalZanthusReportRouter;
