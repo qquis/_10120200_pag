@@ -20,6 +20,7 @@ class moduleExternalZanthus extends moduleDefault {
     async getlistTabMercadoria (parametros: any) : Promise<any> { 
         try { 
 
+            
             let urlConsulta = `report/tab_mercadoria?filtros=1`
             if (parametros.cod_mercadoria) urlConsulta += `&cod_mercadoria=${parametros.cod_mercadoria}`
             if (parametros.descricao && parametros.descricao !== '') urlConsulta += `&descricao=${parametros.descricao}`
@@ -34,8 +35,12 @@ class moduleExternalZanthus extends moduleDefault {
             }
 
             if (parametros.regra_count) urlConsulta += `&regra_count=${parametros.regra_count}`
+            if (parametros.mercadoria_cbenef_invalido == 1) urlConsulta += `&mercadoria_cbenef_invalido=1`
+            if (parametros.regraicms_cbenef_invalido == 1) urlConsulta += `&regraicms_cbenef_invalido=1`
+            
 
             let result = await pagApi.pagApiget(this.user.usuario_login_uuid, url_base + urlConsulta)
+
             return result
 
 

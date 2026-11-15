@@ -40,11 +40,14 @@ export default function ProductList() {
   const [filterDescricao, setFilterDescricao] = usePersistedState<string>('filterDescricao', '');
   const [filterVenda, setFilterVenda] = usePersistedState<boolean>('filterVenda', false);
   const [filterDataVendaIni, setFilterDataVendaIni] = usePersistedState<Date | null>('filterDataVendaIni', new Date());
+  const [filterDataVendaFim, setFilterDataVendaFim] = usePersistedState<Date | null>('filterDataVendaFim', new Date());
   const [filterEcf, setFilterEcf] = usePersistedState<string>('filterEcf', '');
   const [filterNumeroCupom, setFilterNumeroCupom] = usePersistedState<string>('filterNumeroCupom', '');
   const [filterNumeroNf, setFilterNumeroNf] = usePersistedState<string>('filterNumeroNf', '');
   const [filtrarNumeroRegra, setfiltrarNumeroRegra] = usePersistedState<boolean>('filtrarNumeroRegra', false);
   const [regra_count, setRegra_count] = usePersistedState<number>('regra_count', 12);
+  const [mercadoria_cbenef_invalido, setMercadoriaCbenefInvalido] = usePersistedState<boolean>('mercadoria_cbenef_invalido', false);
+  const [regraicms_cbenef_invalido, setRegraicmsCbenefInvalido] = usePersistedState<boolean>('regraicms_cbenef_invalido', false);
   
 
   /* STATES LIST */
@@ -53,7 +56,7 @@ export default function ProductList() {
   const consultarProdutos = async () => {
     const parametro: any = {};
 
-    if (filterCodMercadoria === "" && !filterVenda && filterDescricao === "") {
+    if (filterCodMercadoria === "" && !filterVenda && filterDescricao === "" && !mercadoria_cbenef_invalido && !regraicms_cbenef_invalido) {
       alert("Por favor, preencha pelo menos um filtro para realizar a consulta.");
       return;
     }
@@ -64,13 +67,15 @@ export default function ProductList() {
     if (filterVenda) {
       parametro.filtrar_data_venda = 1;
       if (filterDataVendaIni) parametro.data_venda_ini = filterDataVendaIni.toISOString().split('T')[0];
-      if (filterDataVendaIni) parametro.data_venda_fim = filterDataVendaIni.toISOString().split('T')[0];
+      if (filterDataVendaFim) parametro.data_venda_fim = filterDataVendaFim.toISOString().split('T')[0];
       if (filterEcf) parametro.ecf = filterEcf;
       if (filterNumeroCupom) parametro.numero_cupom = filterNumeroCupom;
       if (filterNumeroNf) parametro.numero_nf = filterNumeroNf;
+      
     }
-
+    if (mercadoria_cbenef_invalido) parametro.mercadoria_cbenef_invalido = 1;
     if (filtrarNumeroRegra) parametro.regra_count = regra_count;
+    if (regraicms_cbenef_invalido) parametro.regraicms_cbenef_invalido = 1;
 
     try {
       setActionStatus(1);
@@ -247,6 +252,16 @@ export default function ProductList() {
                     disabled={!filterVenda}
                   />
                 </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Data</label>
+                  <input
+                    type="date"
+                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black"
+                    value={filterDataVendaFim ? filterDataVendaFim.toISOString().substring(0, 10) : ""}
+                    onChange={(e) => setFilterDataVendaFim(e.target.value ? new Date(e.target.value) : null)}
+                    disabled={!filterVenda}
+                  />
+                </div>                
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">ECF</label>
@@ -306,8 +321,42 @@ export default function ProductList() {
                     disabled={!filtrarNumeroRegra}
                   />
                 </div>
+                <div className="lg:col-span-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Sem Cbenef Válido na Tab Mercadoria
+                </label>
+                    <input
+                      id="mercadoria-cbenef-invalido"
+                      type="checkbox"
+                      className="h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                      checked={mercadoria_cbenef_invalido}
+                      onChange={(e) => setMercadoriaCbenefInvalido(e.target.checked)}
+                    />
+              </div>
+              <div className="lg:col-span-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Sem Cbenef Válido em um dos Registros da Regra ICMS (NFE)
+                </label>
+                    <input
+                      id="regraicms-cbenef-invalido"
+                      type="checkbox"
+                      className="h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                      checked={regraicms_cbenef_invalido}
+                      onChange={(e) => setRegraicmsCbenefInvalido(e.target.checked)}
+                    />
+              </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Total de Registros */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6 border border-purple-100">
+          <div className="flex justify-between items-center">
+            <h3 className="text-mg font-medium text-gray-500">Total de Registros</h3>
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+              {TabMercadoriaLista.length} produto{TabMercadoriaLista.length !== 1 ? 's' : ''}
+            </span>
           </div>
         </div>
 
@@ -319,25 +368,24 @@ export default function ProductList() {
                 <tr>
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Código</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Descrição</th>
-                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Regras ICMS</th>
+                  
                   <th className="px-3 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Cadastro</th>
                   <th className="px-3 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Últ. Alt.</th>
-                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Origem</th>
+                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">O</th>
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Ncm</th>
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">CFOP</th>
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">ICMS CST</th>
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">ICMS Int (%)</th>
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">ICMS Red(%)</th>
-                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">PIS CST</th>
-                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">PIS (%)</th>
-                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Cofins CST</th>
-                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Cofins (%)</th>
+
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">SIT IBS/CBS</th>
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Class IBS/CBS</th>
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">IBS uf</th>
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">IBS mun</th>
                   <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">CBS</th>
-                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">CBENEF</th>
+                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">PIS</th>
+                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Cofins</th>                  
+                  <th className="px-2 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">Regras</th>
                 </tr>
               </thead>
 
@@ -352,7 +400,7 @@ export default function ProductList() {
                         {item.cod_mercadoria}
                       </td>
                       <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{item.descricao}</td>
-                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{item.regra_count}</td>  
+                      
                       <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-700">
                         {item.data_cadastro ? new Date(item.data_cadastro).toLocaleDateString() : ""}
                       </td>
@@ -362,19 +410,31 @@ export default function ProductList() {
                       <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700">{item.origem_cadastro}</td>
                       <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{item.cod_ncm}</td>
                       <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{item.cfop}</td>
-                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700">{item.cod_situacao_tributaria}</td>
+                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700">
+                        {['020', '040'].includes(String(item.cod_situacao_tributaria).trim()) ? (
+                          <span className="rounded bg-red-100 px-1">{item.cod_situacao_tributaria}</span>
+                        ) : item.cod_situacao_tributaria}
+                        {String(item.codigo_beneficio_fiscal ?? '').trim() ? (
+                          <> - {item.codigo_beneficio_fiscal}</>
+                        ) : ['020', '040', '40'].includes(String(item.cod_situacao_tributaria).trim()) ? (
+                          <> - <span className="font-semibold text-red-600">S/CBENEF</span></>
+                        ) : null}
+                      </td>
                       <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{item.aliquota_interna_icms}</td>
                       <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{user.formatNumber(item.percentual_reduz_b_calculo, 3)}</td>
-                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700">{item.cod_sit_trib_pis}</td>
-                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{user.formatNumber(item.aliquota_pis, 3)}</td>
-                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700">{item.cod_sit_trib_cofins}</td>
-                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{user.formatNumber(item.aliquota_cofins, 3)}</td>
+
                       <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{item.cod_sit_tributaria_ibs_cbs}</td>
                       <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{item.cod_class_tributaria_ibs_cbs}</td>
                       <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{item.per_aliquota_ibs_uf}</td>
                       <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{item.per_aliquota_ibs_mun}</td>
                       <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{item.per_aliquota_cbs}</td>
-                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">{item.codigo_beneficio_fiscal}</td>
+
+                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700">{user.formatNumber(item.aliquota_pis, 3)} | {item.cod_sit_trib_pis}</td>
+
+                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700">{user.formatNumber(item.aliquota_cofins, 3)} |{item.cod_sit_trib_cofins}</td>
+
+                      <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-700 text-right">Total: {item.regra_count} | Error: {item.regra_icms_cbenef_invalido_count}</td>
+                      
                     </tr>
                   ))
                 ) : (
@@ -408,15 +468,7 @@ export default function ProductList() {
           </div>
         )}
 
-        {/* Total de Registros */}
-        <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-          <div className="flex justify-between items-center">
-            <h3 className="text-mg font-medium text-gray-500">Total de Registros</h3>
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
-              {TabMercadoriaLista.length} produto{TabMercadoriaLista.length !== 1 ? 's' : ''}
-            </span>
-          </div>
-        </div>
+
 
         {/* Modal de Mercadoria */}
         {modalOpen && selectedProdutoId && (
@@ -430,4 +482,3 @@ export default function ProductList() {
     </div>
   );
 }
-

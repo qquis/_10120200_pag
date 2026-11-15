@@ -111,25 +111,68 @@ class modelZanthusMercadoria {
             let listregraICMS = [];
             try {
                 let mDataBase = new modelbase_1.clsBase();
-                let sql = `select 
-                                 cod_regras_icms
-                            ,    descricao
-                            ,    flg_tipo_imposto
-                            ,    flg_revenda
-                            ,    cod_ncm_ini
-                            ,    cod_ncm_final
-                            ,    uf_origem
-                            ,    uf_destino
-                            ,    aliquota
-                            ,    cst
-                            ,   perc_reducao 
-                            ,   data_cadastro
-                            ,   data_ultima_alteracao
-                        
-                        from tab_regras_icms 
-                        where 1 = 1
-                        AND cod_mercadoria = lpad('${cod_mercadoria}', 17, '0')
-                        order by flg_revenda, flg_tipo_imposto asc`;
+                let sql = `  select 	r.cod_regras_icms
+                ,   r.descricao as regra_descricao
+                ,	r.cod_mercadoria 
+                ,	m.descricao 
+                ,	r.flg_tipo_imposto
+                ,   CASE r.flg_tipo_imposto
+                         WHEN '0' THEN 'Icms'
+                         WHEN '1' THEN 'Pis'
+                         WHEN '2' THEN 'Cofins'
+                         WHEN 'D' THEN 'CBS'
+                         WHEN 'A' THEN 'Ibs UF'
+                         WHEN 'B' THEN 'Ibs Municipal'
+                    End as tipo_imposto_descricao
+                ,	r.flg_revenda 
+                ,	r.aliquota
+                ,	r.cst
+                ,	r.perc_reducao 
+                ,	r.dta_val_inicial
+                ,	r.dta_val_final
+                ,	r.cst_orig
+                ,	r.tipo_documento
+                ,	r.cod_class_tributaria
+                ,	r.per_cred_presumido_ibs_mono
+                ,	r.per_cred_presumido_cbs_mono
+                ,	r.cod_ncm_ini
+                ,	r.cod_ncm_final
+                ,   r.uf_origem
+                ,   r.uf_destino   
+                            ,   r.data_cadastro
+                            ,   r.data_ultima_alteracao                             
+                ,	coalesce(r.codigo_beneficio_fiscal, '') as codigo_beneficio_fiscal
+            from 	tab_regras_icms r
+            left join tab_mercadoria m on m.cod_mercadoria = r.cod_mercadoria 
+            WHERE       1 = 1   
+            AND r.cod_mercadoria = lpad('${cod_mercadoria}', 17, '0')
+            order by r.flg_revenda, r.flg_tipo_imposto asc
+            `;
+                /*
+                
+                
+                
+                
+                
+                 let sql = `select
+                                      cod_regras_icms
+                                 ,    descricao
+                                 ,    flg_tipo_imposto
+                                 ,    flg_revenda
+                                 ,    cod_ncm_ini
+                                 ,    cod_ncm_final
+                                 ,    uf_origem
+                                 ,    uf_destino
+                                 ,    aliquota
+                                 ,    cst
+                                 ,   perc_reducao
+                                 ,   data_cadastro
+                                 ,   data_ultima_alteracao
+                             
+                             from tab_regras_icms
+                             where 1 = 1
+                             AND cod_mercadoria = lpad('${cod_mercadoria}', 17, '0')
+                             order by flg_revenda, flg_tipo_imposto asc`*/
                 listregraICMS = yield mDataBase.myDataBase.zanthusPostgre.DataGet(sql);
             }
             catch (e) {

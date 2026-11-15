@@ -78,7 +78,8 @@ export default class reportExternalZanthusTabRegraIcms {
         
     }
 
-       sql += ` order by m.cod_mercadoria, r.flg_revenda, r.flg_tipo_imposto `
+       sql += ` order by m.cod_mercadoria asc, r.flg_revenda desc, r.flg_tipo_imposto asc`
+       console.log(sql);
        return sql;
     }
 
