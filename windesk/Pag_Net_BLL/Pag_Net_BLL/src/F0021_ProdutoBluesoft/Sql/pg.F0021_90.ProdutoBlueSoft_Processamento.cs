@@ -10,7 +10,7 @@ namespace Pag_Net.Bll.F0021_ProdutoBlueSoft
     public class F0021_90_ProdutoBlueSoftProcessamento
     {
         //private static string _VERSION() { return "f0021_90_1011950_produtobluesoft_processamento"; }
-        private static string _VERSION() { return "f0021_90_1012019_produtobluesoft_processamento"; }
+        private static string _VERSION() { return "f0021_90_1012020_produtobluesoft_processamento"; }
         public static string Post(
             )
         {

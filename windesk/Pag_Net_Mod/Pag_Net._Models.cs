@@ -44,7 +44,7 @@ namespace Pag_Net.Models
         public static string VERSAO_ECOSYSTEM { get { return "2020";  } }
 
         /*VERSAO AGREGATIVA*/
-        public static string VERSAO { get { return "0"; } }
+        public static string VERSAO { get { return "4"; } }
 
         /*VERSAO PAG DESKTOP*/
         public static string VERSAO_COMMIT { get { return "00"; } }
