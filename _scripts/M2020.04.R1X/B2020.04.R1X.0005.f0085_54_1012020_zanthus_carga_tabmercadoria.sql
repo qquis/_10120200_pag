@@ -7,10 +7,10 @@ AS $function$
    declare vcod_voucher varchar(8);
 begin
 
-	vuuid_start:= 'F0085_54.1012019' || replace(cast(random() * 100 as varchar(10)),'.','')
+	vuuid_start:= 'F0085_54.1012020' || replace(cast(random() * 100 as varchar(10)),'.','')
 	;
 	insert into tbsistema_log (sis_nucleo_prc_cd, sis_log_tag, sis_log_info, uuid, uuid_start)
-			values (850010, 'F0085_54.MERCADORIA.V-20.19', 'Zanthus/Carga (5) _ Mercadoria', vuuid_start, vuuid_start)
+			values (850010, 'F0085_54.MERCADORIA.V-20.20', 'Zanthus/Carga (5) _ Mercadoria', vuuid_start, vuuid_start)
 	;
 
 	update      TbZanthusTab_Mercadoria a

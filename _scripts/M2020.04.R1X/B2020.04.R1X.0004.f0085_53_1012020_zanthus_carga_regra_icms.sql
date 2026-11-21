@@ -14,10 +14,10 @@ begin
 
 	*/
 
-	vuuid_start:= 'F0085_53.1012019' || replace(cast(random() * 100 as varchar(10)),'.','')
+	vuuid_start:= 'F0085_53.1012020' || replace(cast(random() * 100 as varchar(10)),'.','')
 	;
 	insert into tbsistema_log (sis_nucleo_prc_cd, sis_log_tag, sis_log_info, uuid, uuid_start)
-			values (850010, 'F0085_53 - 2019', 'Zanthus/Carga (4) _ Tributacao', vuuid_start, vuuid_start)
+			values (850010, 'F0085_53 - 2020', 'Zanthus/Carga (4) _ Tributacao', vuuid_start, vuuid_start)
 	;
 
 	UPDATE TbZanthusTab_Regra_Icms a

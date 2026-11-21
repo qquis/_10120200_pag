@@ -13,10 +13,10 @@ AS $BODY$
    declare vuuid_start varchar(30);
 begin
 
-	vuuid_start:= 'f0021_90_1012019____' || replace(cast(random() * 100 as varchar(10)),'.','')
+	vuuid_start:= 'f0021_90_1012020____' || replace(cast(random() * 100 as varchar(10)),'.','')
 	;
 	insert into tbsistema_log(proc_log_seq, sis_nucleo_prc_cd, sis_log_tag, sis_log_info, uuid, uuid_start)
-	values (0, 21, 'PROC', 'ProdutoBluesoft Processamento Versão: 1012018 _ START', vuuid_start, vuuid_start)
+	values (0, 21, 'PROC', 'ProdutoBluesoft Processamento Versão: 1012020 _ START', vuuid_start, vuuid_start)
 	;
 
 /*********************************************************************************************************
