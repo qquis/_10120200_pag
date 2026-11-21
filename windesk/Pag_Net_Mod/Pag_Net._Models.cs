@@ -44,14 +44,14 @@ namespace Pag_Net.Models
         public static string VERSAO_ECOSYSTEM { get { return "2020";  } }
 
         /*VERSAO AGREGATIVA*/
-        public static string VERSAO { get { return "4"; } }
+        public static string VERSAO { get { return "04"; } }
 
         /*VERSAO PAG DESKTOP*/
-        public static string VERSAO_COMMIT { get { return "00"; } }
+        public static string VERSAO_COMMIT { get { return "12"; } }
 
-        public static string VERSAO_DESKTOP_REVISION { get { return "10"; } }
+        public static string VERSAO_DESENVOL { get { return "16"; } }
 
-        public static string Version_description { get { return "Version " + VERSAO_ECOSYSTEM + "." + VERSAO + "." + VERSAO_COMMIT + "- DESK TOP - " + VERSAO_DESKTOP_REVISION; } }
+        public static string Version_description { get { return "Version " + VERSAO_ECOSYSTEM + "." + VERSAO + "." + VERSAO_COMMIT + "- DESK TOP - " + VERSAO_DESENVOL; } }
         
 
         public static string GetPathConfig { get { return @System.Reflection.Assembly.GetExecutingAssembly().Location.ToString().Replace("Pag_Net_Mod.dll", "") + @"Configs"; } }

@@ -1,6 +1,6 @@
 {
   "name": "front_pagwhats",
-  "version": "2020.4",
+  "version": "2020.04",
   "scripts": {
     "start": "nodemon pagWhats.js"
   },
