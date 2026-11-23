@@ -99,7 +99,7 @@ class reportExternalZanthusTabMercadoria {
                      , m.per_reducao_aliquota_cbs
                      , m.per_cred_presumido_ibs_mono
                      , m.per_cred_presumido_cbs_mono
-                     , m.origem_cadastro
+                     , coalesce(m.origem_cadastro, '0') AS origem_cadastro
                      , TRIM(COALESCE(m.codigo_beneficio_fiscal, '')) AS codigo_beneficio_fiscal
                      , COALESCE(c.regra_count, 0)          AS regra_count
                      , COALESCE(cicmsError.regra_count, 0) AS regra_icms_cbenef_invalido_count
@@ -113,6 +113,7 @@ class reportExternalZanthusTabMercadoria {
                ${filter.cod_mercadoria ? ` AND m.cod_mercadoria = LPAD('${filter.cod_mercadoria}', 17, '0') ` : ''}
                ${filter.cod_mercadoria_like ? ` AND m.cod_mercadoria LIKE '%${filter.cod_mercadoria_like}' ` : ''}
                ${filter.descricao ? ` AND m.descricao LIKE '%${filter.descricao}%' ` : ''}
+               ${filter.origem_cadastro ? ` AND coalesce(m.origem_cadastro, '0')  = '${filter.origem_cadastro}' ` : ''}
         `;
             if (filter.regra_count && filter.regra_count !== '') {
                 sql += ` AND c.regra_count < ${filter.regra_count} `;

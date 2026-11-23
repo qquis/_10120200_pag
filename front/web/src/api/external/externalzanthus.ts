@@ -37,6 +37,7 @@ class moduleExternalZanthus extends moduleDefault {
             if (parametros.regra_count) urlConsulta += `&regra_count=${parametros.regra_count}`
             if (parametros.mercadoria_cbenef_invalido == 1) urlConsulta += `&mercadoria_cbenef_invalido=1`
             if (parametros.regraicms_cbenef_invalido == 1) urlConsulta += `&regraicms_cbenef_invalido=1`
+            if (parametros.origem_cadastro && parametros.origem_cadastro !== '') urlConsulta += `&origem_cadastro=${parametros.origem_cadastro}`
             
 
             let result = await pagApi.pagApiget(this.user.usuario_login_uuid, url_base + urlConsulta)
