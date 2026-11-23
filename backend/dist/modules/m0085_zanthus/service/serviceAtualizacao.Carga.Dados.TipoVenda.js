@@ -145,7 +145,6 @@ class serviceZanthusAtualizacaoDadosTipoVenda {
             finally {
                 return listTabTipoVenda;
             }
-            return listTabTipoVenda;
         });
     }
     static scriptSql(parametro) {
