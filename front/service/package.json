@@ -1,6 +1,6 @@
 {
   "name": "f-service",
-  "version": "2020.04",
+  "version": "2020.05",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
