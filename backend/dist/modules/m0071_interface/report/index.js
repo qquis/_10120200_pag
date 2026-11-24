@@ -52,4 +52,49 @@ reportInterfaceRouter.get('/interface-dial-estoque', (req, res) => __awaiter(voi
         res.send(modelbase_1.clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
     }
 }));
+reportInterfaceRouter.get('/interface-mtrix-venda', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield report_1.default.reportInterfaceJohnson_Mtrix_Venda.get(req.query);
+        res.send(modelbase_1.clsTools.responseDefault.get(200, `Consulta realizada com sucesso`, result));
+    }
+    catch (e) {
+        res.send(modelbase_1.clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
+    }
+}));
+reportInterfaceRouter.get('/interface-mtrix-cliente', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield report_1.default.reportInterfaceJohnson_Mtrix_Cliente.get(req.query);
+        res.send(modelbase_1.clsTools.responseDefault.get(200, `Consulta realizada com sucesso`, result));
+    }
+    catch (e) {
+        res.send(modelbase_1.clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
+    }
+}));
+reportInterfaceRouter.get('/interface-mtrix-forca-venda', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield report_1.default.reportInterfaceJohnson_Mtrix_ForcaVenda.get(req.query);
+        res.send(modelbase_1.clsTools.responseDefault.get(200, `Consulta realizada com sucesso`, result));
+    }
+    catch (e) {
+        res.send(modelbase_1.clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
+    }
+}));
+reportInterfaceRouter.get('/interface-mtrix-produto', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield report_1.default.reportInterfaceJohnson_Mtrix_Produto.get(req.query);
+        res.send(modelbase_1.clsTools.responseDefault.get(200, `Consulta realizada com sucesso`, result));
+    }
+    catch (e) {
+        res.send(modelbase_1.clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
+    }
+}));
+reportInterfaceRouter.get('/interface-mtrix-estoque', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield report_1.default.reportInterfaceJohnson_Mtrix_Estoque.get(req.query);
+        res.send(modelbase_1.clsTools.responseDefault.get(200, `Consulta realizada com sucesso`, result));
+    }
+    catch (e) {
+        res.send(modelbase_1.clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
+    }
+}));
 exports.default = reportInterfaceRouter;

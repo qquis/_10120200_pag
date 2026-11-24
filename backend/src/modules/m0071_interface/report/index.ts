@@ -40,7 +40,51 @@ reportInterfaceRouter.get('/interface-dial-estoque', async (req, res) => {
     }
 });
 
+reportInterfaceRouter.get('/interface-mtrix-venda', async (req, res) => {
+    try {
+        const result = await reportInterface.reportInterfaceJohnson_Mtrix_Venda.get(req.query)
+        res.send(clsTools.responseDefault.get(200, `Consulta realizada com sucesso`, result))
+    } catch (e) {
+        res.send(clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
+    }
+});
 
+
+reportInterfaceRouter.get('/interface-mtrix-cliente', async (req, res) => {
+    try {
+        const result = await reportInterface.reportInterfaceJohnson_Mtrix_Cliente.get(req.query)
+        res.send(clsTools.responseDefault.get(200, `Consulta realizada com sucesso`, result))
+    } catch (e) {
+        res.send(clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
+    }
+});
+
+reportInterfaceRouter.get('/interface-mtrix-forca-venda', async (req, res) => {
+    try {
+        const result = await reportInterface.reportInterfaceJohnson_Mtrix_ForcaVenda.get(req.query)
+        res.send(clsTools.responseDefault.get(200, `Consulta realizada com sucesso`, result))
+    } catch (e) {
+        res.send(clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
+    }
+});
+
+reportInterfaceRouter.get('/interface-mtrix-produto', async (req, res) => {
+    try {
+        const result = await reportInterface.reportInterfaceJohnson_Mtrix_Produto.get(req.query)
+        res.send(clsTools.responseDefault.get(200, `Consulta realizada com sucesso`, result))
+    } catch (e) {
+        res.send(clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
+    }
+});
+
+reportInterfaceRouter.get('/interface-mtrix-estoque', async (req, res) => {
+    try {
+        const result = await reportInterface.reportInterfaceJohnson_Mtrix_Estoque.get(req.query)
+        res.send(clsTools.responseDefault.get(200, `Consulta realizada com sucesso`, result))
+    } catch (e) {
+        res.send(clsTools.responseDefault.get(500, `Erro ao realizar consulta: ${e}`, null));
+    }
+});
 
 
 
