@@ -24,7 +24,7 @@ let myMODULE : moduleFaturamento
 
 export default function FaturamentoList() {
 
-    const __SIS_AC_CD : number = 3210 /* CONSULTA FATURAMENTO BLUESOFT */
+    const __SIS_AC_CD : number = 3005 /* CONSULTA FATURAMENTO BLUESOFT */
 
     /* USER */
     const { user } = useAuth();
