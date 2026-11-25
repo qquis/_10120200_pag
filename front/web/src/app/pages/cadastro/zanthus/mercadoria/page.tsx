@@ -48,6 +48,7 @@ export default function ProductList() {
   const [regra_count, setRegra_count] = usePersistedState<number>('regra_count', 12);
   const [mercadoria_cbenef_invalido, setMercadoriaCbenefInvalido] = usePersistedState<boolean>('mercadoria_cbenef_invalido', false);
   const [regraicms_cbenef_invalido, setRegraicmsCbenefInvalido] = usePersistedState<boolean>('regraicms_cbenef_invalido', false);
+  const [filterOrigemCadastro, setFilterOrigemCadastro] = usePersistedState<string>('filterOrigemCadastro', '');
   
 
   /* STATES LIST */
@@ -76,6 +77,7 @@ export default function ProductList() {
     if (mercadoria_cbenef_invalido) parametro.mercadoria_cbenef_invalido = 1;
     if (filtrarNumeroRegra) parametro.regra_count = regra_count;
     if (regraicms_cbenef_invalido) parametro.regraicms_cbenef_invalido = 1;
+    if (filterOrigemCadastro && filterOrigemCadastro !== '') parametro.origem_cadastro = filterOrigemCadastro;
 
     try {
       setActionStatus(1);
@@ -213,6 +215,7 @@ export default function ProductList() {
                   onChange={(e) => setFilterCodMercadoria(e.target.value)}
                 />
               </div>
+              
               <div className="lg:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Descrição da Mercadoria
@@ -224,7 +227,20 @@ export default function ProductList() {
                   value={filterDescricao}
                   onChange={(e) => setFilterDescricao(e.target.value)}
                 />
-              </div>              
+              </div>  
+                            <div className="lg:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Or. N.
+                </label>
+                <input
+                  type="text"
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black"
+                  placeholder="N. ORIGEM_CADASTRO"
+                  value={filterOrigemCadastro}
+                  maxLength={1}
+                  onChange={(e) => setFilterOrigemCadastro(e.target.value)}
+                />
+              </div>            
             </div>
 
             <div>
