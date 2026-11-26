@@ -11,13 +11,13 @@ CREATE OR REPLACE FUNCTION public.f0045_60_1012020_produto_preco_aplicacao(
 AS $BODY$
 
 ----------------------->> PROCESSAMENTO DE PREÇOS EM LOTE 
-declare vdata_processamento date:= '2023-05-03';
+declare vdata_processamento date:= '1900-01-01';
 declare vuuid varchar(50):= '';
 ---------------------------------------------------------
 
 begin
 
-if current_time >= '00:00:00' and current_time <= '16:30:59' then 
+if current_time >= '00:00:00' and current_time <= '10:00:59' then 
 	INSERT INTO tbsistema_log (dtlog_insert, proc_log_seq, sis_nucleo_prc_cd, sis_log_tag, sis_log_info)
 		SELECT current_timestamp, 0, 99110, 'CARGA_LOJA', 'Aplicação de Preços Padrão - LOJA'
 	;
@@ -134,7 +134,7 @@ if current_time >= '16:30:00' and current_time <= '23:59:59' then
 
 
 
-			update tbpreco_aplicacao_lote_produto set margem_atual = cast( (old_prc_valor - ec_valor_custo_precificacao) / old_prc_valor as numeric(13,2))
+			update tbpreco_aplicacao_lote_produto set margem_atual = cast( ((old_prc_valor - ec_valor_custo_precificacao) / old_prc_valor) * 100 as numeric(13,2)) 
 			where old_prc_valor > ec_valor_custo_precificacao
 			and   ec_valor_custo_precificacao > 0 
 			and   old_prc_valor > 0 
@@ -176,7 +176,6 @@ if current_time >= '16:30:00' and current_time <= '23:59:59' then
 																0 end
 			where	coalesce(processado, 0) = 0
 			and   	data_processamento = vdata_processamento 
-			and     margem_atual < margem_limite
 			;
 
 			update 	tbpreco  		a
