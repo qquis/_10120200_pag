@@ -47,11 +47,11 @@ namespace Pag_Net.Models
         public static string VERSAO { get { return "04"; } }
 
         /*VERSAO PAG DESKTOP*/
-        public static string VERSAO_COMMIT { get { return "14"; } }
+        public static string VERSAO_COMMIT { get { return "15"; } }
 
-        public static string VERSAO_DESENVOL { get { return "21"; } }
+        public static string VERSAO_DESENVOL { get { return "24"; } }
 
-        public static string Version_description { get { return "Version " + VERSAO_ECOSYSTEM + "." + VERSAO + "." + VERSAO_COMMIT + "- SEQ.: - " + VERSAO_DESENVOL; } }
+        public static string Version_description { get { return "Version " + VERSAO_ECOSYSTEM + "." + VERSAO + "." + VERSAO_COMMIT + " - " + VERSAO_DESENVOL; } }
         
 
         public static string GetPathConfig { get { return @System.Reflection.Assembly.GetExecutingAssembly().Location.ToString().Replace("Pag_Net_Mod.dll", "") + @"Configs"; } }
