@@ -57,6 +57,24 @@ if current_time >= '16:30:00' and current_time <= '23:59:59' then
 		select current_timestamp , 100101, current_date, 1, vuuid
 		;
 
+
+		drop table if exists tmp_faturamento_f0045_60;
+		create temporary table tmp_faturamento_f0045_60 (pr_cdproduto int)
+		;
+		insert into tmp_faturamento_f0045_60 (pr_cdproduto)
+		select 		i.pr_cdproduto
+		from   		tbfaturamentoitens i
+		inner join 	tbfaturamentoorigem o on o.seqfaturamentoorigem = i.seqfaturamentoorigem
+		inner join  tbfaturamento f on f.seqfaturamento = o.seqfaturamento
+		where		1 = 1 
+		and         f.datafaturamento >= current_date - 720
+		and         f.datafaturamento <= current_date 
+		and         f.op_cdoperacao <> 1
+		group by    i.pr_cdproduto
+		;
+		
+		
+
 		INSERT INTO tbpreco_aplicacao_lote_produto
 			(
 					prd_descricao 						
@@ -113,10 +131,7 @@ if current_time >= '16:30:00' and current_time <= '23:59:59' then
 			where		1 = 1
 			and         px.tab_pre_cd = 1 
 			and			( 		   ( pr.pr_status = 'true' 
-									 and pr.pr_cdproduto in ( select 	pr_cdproduto 
-											 from 	tbest_faturamento_data 
-											 where	datafaturamento >= '2024-06-01'
-											 group by pr_cdproduto )
+									 and pr.pr_cdproduto in ( select pr_cdproduto from tmp_faturamento_f0045_60 xxx )
 									)
 								or es.ec_embalagemestoque_qtde <> 0 )
 			and			px.prc_valor <> 0 
@@ -132,7 +147,8 @@ if current_time >= '16:30:00' and current_time <= '23:59:59' then
 
 			;
 
-
+			drop table if exists tmp_faturamento_f0045_60;
+			
 
 			update tbpreco_aplicacao_lote_produto set margem_atual = cast( ((old_prc_valor - ec_valor_custo_precificacao) / old_prc_valor) * 100 as numeric(13,2)) 
 			where old_prc_valor > ec_valor_custo_precificacao
