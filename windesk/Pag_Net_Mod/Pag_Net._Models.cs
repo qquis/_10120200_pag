@@ -49,7 +49,7 @@ namespace Pag_Net.Models
         /*VERSAO PAG DESKTOP*/
         public static string VERSAO_COMMIT { get { return "15"; } }
 
-        public static string VERSAO_DESENVOL { get { return "25"; } }
+        public static string VERSAO_DESENVOL { get { return "27"; } }
 
         public static string Version_description { get { return "Version " + VERSAO_ECOSYSTEM + "." + VERSAO + "." + VERSAO_COMMIT + " - " + VERSAO_DESENVOL; } }
         
