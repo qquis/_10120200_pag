@@ -4,17 +4,35 @@ import moduleDefault from '../module.default'
 
 
 
+class moduleforcaVendaMetaFabricante extends moduleDefault {
+    constructor(user: moduleUserConnect, sis_ac_cd: number) {
+        super(user, '/forca-venda-meta', sis_ac_cd)
+    }
+
+    getListMetaFabricante(parametro: any) : Promise<any> {
+        
+        try { 
+            return this._getAPI('/report/meta-fabricante', parametro) }
+        catch(e) {
+            throw new Error(`API ERROR: ${e}`);
+        }
+    }
+
+}
+
+
 
 class moduleforcavendameta extends moduleDefault { 
-   
+    fabricante: moduleforcaVendaMetaFabricante
 
     constructor(user: moduleUserConnect, sis_ac_cd: number) { 
         super(user, '/forca-venda-meta', sis_ac_cd)
 
-   
+        this.fabricante = new moduleforcaVendaMetaFabricante(user, sis_ac_cd)
 
         
     }
+
 
 
 
