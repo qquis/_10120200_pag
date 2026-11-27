@@ -9,6 +9,7 @@ import HeaderMain from "@/app/components/divs/headerMain";
 
 import ButtonPag from "@/app/components/Buttons/button";
 import CmbOperacao from '@/app/pages/cadastro/_components/CmbOperacao/page';
+import ModalMetaFabricanteVendedor from "./modalMetaFabricanteVendedor";
 import { moduleFaturamento } from '@/api/m0070_faturamento/moduleFaturamento';
 import {moduleforcavendameta} from '@/api/m0005_forcaVendaMeta/moduleforcavendameta';
 
@@ -26,6 +27,8 @@ export default function FaturamentoInterface() {
     const [ActionStatus, setActionStatus] = useState<number>(0);
     const [ListMetaFabricante, setListMetaFabricante] = useState<any[]>([])
     const [selectedMetaKey, setSelectedMetaKey] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedFabMetaCd, setSelectedFabMetaCd] = useState<number | null>(null);
    
 
     useEffect(() => {
@@ -46,11 +49,22 @@ export default function FaturamentoInterface() {
 
     }, []);
 
+    const handleAbrirModalVendedor = () => {
+        if (!selectedMetaKey) {
+            alert("Por favor, selecione uma meta fabricante");
+            return;
+        }
+        
+        const selectedItem = ListMetaFabricante.find(
+            item => `${item.fv_fabricante_cdpessoabluesoft}-${item.fv_fab_meta_cd}` === selectedMetaKey
+        );
+        
+        if (selectedItem) {
+            setSelectedFabMetaCd(selectedItem.fv_fab_meta_cd);
+            setIsModalOpen(true);
+        }
+    };
 
-    
-
-
- 
     return (
 
         <div className="min-h-screen bg-gray-50 p-6">
@@ -122,6 +136,7 @@ export default function FaturamentoInterface() {
                             label="Vendedor / Grupo Mix Principais"
                             TypeIcon="_NO_ICON"
                             title="Abrir Vendedor / Grupo Mix Principais"
+                            onClick={handleAbrirModalVendedor}
                         />
 
                         <ButtonPag
@@ -136,6 +151,11 @@ export default function FaturamentoInterface() {
           
             </div>
 
+            <ModalMetaFabricanteVendedor 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                fv_fab_meta_cd={selectedFabMetaCd}
+            />
         </div>
     );
 }

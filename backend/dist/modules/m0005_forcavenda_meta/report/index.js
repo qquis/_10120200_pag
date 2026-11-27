@@ -19,4 +19,8 @@ reportForcaVendaMetaRouter.get('/meta-fabricante', (req, res) => __awaiter(void 
     const result = yield report_1.default.metaFabricante.get(req.query);
     res.json(result);
 }));
+reportForcaVendaMetaRouter.get('/meta-fabricante-resultado-vendedor', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield report_1.default.metaFabricanteResultadoVendedor.get(req.query);
+    res.json(result);
+}));
 exports.default = reportForcaVendaMetaRouter;

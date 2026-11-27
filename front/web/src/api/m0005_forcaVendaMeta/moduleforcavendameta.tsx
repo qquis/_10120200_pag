@@ -18,6 +18,15 @@ class moduleforcaVendaMetaFabricante extends moduleDefault {
         }
     }
 
+    getListMetaFabricanteResultadoVendedor(parametro: any) : Promise<any> {
+        try {
+            return this._getAPI('/report/meta-fabricante-resultado-vendedor', parametro)
+        }
+        catch(e) {
+            throw new Error(`API ERROR: ${e}`);
+        }
+    }
+
 }
 
 
