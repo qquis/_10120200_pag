@@ -64,12 +64,23 @@ export default function TabelaProdutoPadrao() {
         }
     };
 
+    const getFiltroProdutos = (mail: boolean) => ({
+        fv_tabelapreco_cd: tabelaPrecoFilter,
+        vigencia_inicial: vigenciaInicialFilter,
+        prb_descricao: prb_descricaoFilter,
+        prb_cdpessoabluesoft_fabricante: cdpessoabluesoftfabricanteFilter,
+        prb_cdprodutoBluesoft: prb_cdprodutoBluesoftFilter,
+        tipo_cliente: tipoClienteFilter,
+        mail: mail ? 1 : 0,
+        email_address: mail ? email_address : ''
+    });
+
     const ConsultarListProdutos = async (mail: boolean) => {
         try {
             setListProdutos([]) // Limpando a lista antes de buscar novos dados
             setActionStatus(1);
 
-            if (!tabelaPrecoFilter || tabelaPrecoFilter === 0) {
+            if (!tabelaPrecoFilter || String(tabelaPrecoFilter) === '0') {
                 window.alert('Por favor, selecione uma tabela de preço para consultar os produtos.');
                 setActionStatus(0);
                 return;
@@ -82,24 +93,70 @@ export default function TabelaProdutoPadrao() {
                 return;
             }
 
-            let filter = { 
-                fv_tabelapreco_cd: tabelaPrecoFilter,
-                vigencia_inicial: vigenciaInicialFilter,
-                prb_descricao: prb_descricaoFilter,
-                prb_cdpessoabluesoft_fabricante: cdpessoabluesoftfabricanteFilter,
-                prb_cdprodutoBluesoft: prb_cdprodutoBluesoftFilter, 
-                tipo_cliente: tipoClienteFilter,
-                mail: mail? 1: 0,
-                email_address: mail? email_address : ``
-            }
-
-            const response = await myMODULE.getTabelaPadrao(filter);
+            const response = await myMODULE.getTabelaPadrao(getFiltroProdutos(mail));
 
             setListProdutos(response || []);
             setActionStatus(0);
         } catch (error) {
             console.error('Erro ao consultar produtos da tabela:', error);
             setListProdutos([]);
+            setActionStatus(0);
+        }
+    };
+
+    const ExportarTabela = async () => {
+        if (!tabelaPrecoFilter || String(tabelaPrecoFilter) === '0') {
+            window.alert('Por favor, selecione uma tabela de preço para exportar os produtos.');
+            return;
+        }
+
+        try {
+            setActionStatus(1);
+            const myMODULE: moduleForcaVenda = new moduleForcaVenda(user, __SIS_AC_CD);
+            const produtos = await myMODULE.getTabelaPadrao(getFiltroProdutos(false));
+
+            if (!Array.isArray(produtos)) {
+                throw new Error('Resposta inválida ao consultar produtos da tabela.');
+            }
+            if (produtos.length === 0) {
+                window.alert('Nenhum produto encontrado para exportação.');
+                return;
+            }
+
+            const escaparCampo = (valor: unknown) => {
+                const texto = String(valor ?? '');
+                return /[;"\r\n]/.test(texto) ? `"${texto.replace(/"/g, '""')}"` : texto;
+            };
+            const linhas = [
+                ['Cód. (Blue)', 'Descrição', , 'Cd Barra Unit Principal', 'Preço Embalagem',
+                    'Preço Unitário', '7 Dias', '14 Dias', '21 Dias', '28 Dias', 'Pis/Cst',
+                    'Pis/Aliq', 'Cofins/Cst', 'Cofins/Aliq', 'ICMS Descrição'],
+                ...produtos.map(produto => [
+                    produto.prb_cdprodutobluesoft,
+                    produto.prb_descricao,
+                    produto.prb_cdbarra_principal || 'N/A',
+                    user.formatNumber(produto.precoembalagem, 2),
+                    user.formatNumber(produto.precounitario, 3),
+                    user.formatNumber(produto.d07, 2),
+                    user.formatNumber(produto.d14, 2),
+                    user.formatNumber(produto.d21, 2),
+                    user.formatNumber(produto.d28, 2),
+                    user.formatNumber(produto.piscst, 0),
+                    user.formatNumber(produto.pisaliquota, 2),
+                    user.formatNumber(produto.cofinscst, 0),
+                    user.formatNumber(produto.cofinsaliquota, 2),
+                    produto.icms_descricao || 'N/A'
+                ])
+            ];
+            const conteudo = linhas.map(linha => linha.map(escaparCampo).join(';')).join('\r\n');
+            const agora = new Date();
+            const data = `${agora.getFullYear()}${String(agora.getMonth() + 1).padStart(2, '0')}${String(agora.getDate()).padStart(2, '0')}`;
+            const hora = `${String(agora.getHours()).padStart(2, '0')}${String(agora.getMinutes()).padStart(2, '0')}`;
+            await user.exportTxt(`FORCAVENDA_PRECO_PADRAO_${data}_${hora}.txt`, conteudo);
+        } catch (error) {
+            console.error('Erro ao exportar produtos da tabela:', error);
+            window.alert('Não foi possível exportar os produtos da tabela.');
+        } finally {
             setActionStatus(0);
         }
     };
@@ -400,13 +457,21 @@ export default function TabelaProdutoPadrao() {
                     />
                     </div>
                     
-                    <div className="flex justify-end">
+                    <div className="flex justify-end gap-2">
                     <ButtonPag 
                         TypeButton="_BUTTON_HEADER" 
                         label="Enviar tabela por e-mail" 
                         TypeIcon="_SALVAR" 
                         title="Enviar tabela por e-mail" 
                         onClick={() => ConsultarListProdutos(true)} 
+                        ActionStatus={ActionStatus}
+                    />
+                    <ButtonPag
+                        TypeButton="_BUTTON_HEADER"
+                        label="Exportar tabela para TXT"
+                        TypeIcon="_SALVAR"
+                        title="Exportar tabela para TXT"
+                        onClick={ExportarTabela}
                         ActionStatus={ActionStatus}
                     />
                     </div>

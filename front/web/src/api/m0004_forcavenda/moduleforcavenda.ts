@@ -107,6 +107,8 @@ class moduleForcaVenda extends moduleDefault {
         }
     }
 
+    
+
     async getTabelaPadrao(parametro: any) : Promise<any> {
         try {
             let url = `/report/tabela-padrao?filter=1`

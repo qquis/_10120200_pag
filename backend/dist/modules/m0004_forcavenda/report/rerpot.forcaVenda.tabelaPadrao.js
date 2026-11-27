@@ -13,7 +13,7 @@ const modelbase_1 = require("../../../model/modelbase");
 class reportForcaVendaTabelaPadrao {
     static sql(parametro) {
         let sql = `
-                        select i.fv_tabelapreco_cd 
+ select i.fv_tabelapreco_cd 
                             ,	t.fv_tabelapreco_descricao 
                             ,	i.versao 
 							,   v.datainiciovigencia
@@ -30,17 +30,18 @@ class reportForcaVendaTabelaPadrao {
                             ,   cast(i.precounitario * ( SELECT coalesce(coefcustofinanceiro,1) from tbforca_venda_prazopgto where listapadraoorder = 4) as numeric(13,2)) as D28		
                             ,   pb.prb_cdbarra_principal 
                             ,   im.link_image 
-                            ,   f.icms_descricao 
-                            ,   coalesce(f.piscst, cast(fantigo.prbt_pis_saida_cst as int)) as piscst
-                            ,   coalesce(f.pisaliquota, fantigo.prbt_pis_saida_aliquota) as pisaliquota
-                            ,   coalesce(f.cofinscst, cast(fantigo.prbt_cofins_saida_cst as int)) as cofinscst
-                            ,   coalesce(f.cofinsaliquota, fantigo.prbt_cofins_saida_aliquota) as cofinsaliquota
+                            ,   coalesce(icms.icms_descricao, 'NÃO INFORMADO') as icms_descricao 
+                            ,   coalesce(nfce.pis_cst,0) as piscst
+                            ,   coalesce(nfce.pis_aliquota,0) as pisaliquota
+                            ,   coalesce(nfce.cofins_cst,0) as cofinscst
+                            ,   coalesce(nfce.cofins_aliquota,0) as cofinsaliquota
                         from 	tbforca_venda_tabprecoprodutobluesoft i
                         inner join tbprodutobluesoft pb on pb.prb_cdprodutobluesoft_pk = i.prb_cdprodutobluesoft
                         left join tbgtins_imagem im on lpad(im.cdbarra, 14, '0') = lpad(pb.prb_cdbarra_principal, 14, '0') 
                         inner join tbforca_venda_tabpreco t on t.fv_tabelapreco_cd = i.fv_tabelapreco_cd
                         inner join tbforca_venda_tabpreco_versao v on v.fv_tabelapreco_cd = i.fv_tabelapreco_cd and v.versao = i.versao
-                        inner join tbprodutobluesoft_tributacao fantigo on fantigo.prb_cdprodutobluesoft = pb.prb_cdprodutobluesoftunitario and op_cdoperacao = 2
+						left join  tbfc_regrafiscal_nfce_produto nfce on nfce.prb_cdprodutobluesoft = pb.prb_cdprodutobluesoft_pk and nfce.nfce_produto_tipo_cd = ${parametro.tipo_cliente == "TIPO_REVENDA" ? 3 : 1}
+						left join  tbfc_icms icms on icms.icms_cd = nfce.icms_codigo_icms
                         inner join (
 
 							select xx.fv_tabelapreco_cd 
@@ -50,37 +51,7 @@ class reportForcaVendaTabelaPadrao {
 
 						) ultima_versao on ultima_versao.fv_tabelapreco_cd = v.fv_tabelapreco_cd and ultima_versao.ultima_versao = v.versao
 
-                        left join (
-                        
-                                        select 	  pb.prb_cdprodutobluesoft
-                                                , r.fc_regrafiscal_cd 
-                                                , r.cfop 
-                                                , r.pis_cd 
-                                                , pis.cst  as piscst
-                                                , pis.pisaliquota as pisaliquota
-                                                , cofins.cst  as cofinscst
-                                                , cofins.cofinsaliquota as cofinsaliquota                                                
-                                                , r.cofins_cd
-                                                , o.df_nf_tipo
-                                                , r.icms_cd 
-                                                , i.icms_descricao 
-                                                , i.aliquota
-                                                , i.reducao 
-                                                , i.codigotributacao 
-
-
-                                            from 	tbfc_figurafiscal_produto pb
-                                            inner join tbfc_regrafiscal r on r.fc_figurafiscal_cd = pb.fc_figurafiscal_cd
-                                            inner join tbfc_regrafiscal_operacao o on o.fc_regrafiscal_cd = r.fc_regrafiscal_cd
-                                            inner join tbfc_icms i on i.icms_cd = r.icms_cd
-                                            left join  tbfc_pis pis on pis.pis_cd = r.pis_cd
-                                            left join  tbfc_cofins cofins on cofins.cofins_cd = r.cofins_cd                                            
-                                            where   1 = 1
-                                            and     r.tipo = 'SAIDA'
-                                            and     o.df_nf_tipo = 104
-                                            and     r.tipocliente = '${parametro.tipo_cliente || 'SEM_INFO'}'
-                                    ) f on f.prb_cdprodutobluesoft = pb.prb_cdprodutobluesoftunitario 
-
+                     
 
                         where 1 = 1
                          and pb.prb_status = 'true'  
@@ -96,9 +67,9 @@ class reportForcaVendaTabelaPadrao {
         if (parametro.fv_tabelapreco_cd) {
             sql += ` and v.fv_tabelapreco_cd = ${parametro.fv_tabelapreco_cd}`;
         }
-        if (parametro.vigencia_inicial) {
-            sql += ` and v.datafimvigencia >= '${parametro.vigencia_inicial} 00:01:01'`;
-        }
+        //if (parametro.vigencia_inicial) {
+        //    sql +=  ` and v.datafimvigencia >= '${parametro.vigencia_inicial} 00:01:01'`
+        //}   
         if (parametro.prb_descricao && parametro.prb_descricao.trim() !== '') {
             sql += ` and upper(pb.prb_descricao) like upper('%${parametro.prb_descricao}%')`;
         }
