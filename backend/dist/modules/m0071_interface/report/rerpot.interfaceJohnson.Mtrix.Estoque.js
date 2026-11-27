@@ -23,7 +23,7 @@ class reportInterfaceJohnson_Mtrix_Estoque {
 
 SELECT DISTINCT
     cast(0 as int) as seqlinha ,
-    'HESTOQ1174222563000160'
+    'HESTOQ1133122466000119'
     || TO_CHAR(current_date, 'YYYYMMDD') as linha
 
 UNION ALL

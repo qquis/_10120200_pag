@@ -39,7 +39,7 @@ class moduleInterfaceMTRIX extends moduleDefault {
             try {
 
                 let result_sales = await this._getAPI<any>(`/report/interface-mtrix-venda`, parametros)
-                await this.processarArquivo(`MTRIXVENDA_OXAN_${parametros.data_processamento_ini}-${parametros.data_processamento_fim}`, result_sales as any[])
+                await this.processarArquivo(`VENDASCER${parametros.data_processamento_ini}-${parametros.data_processamento_fim}`, result_sales as any[])
 
             } catch(e) {
                 this.__addMessageinfo(`Erro ao processar arquivo de vendas: ${e}`);
@@ -49,7 +49,7 @@ class moduleInterfaceMTRIX extends moduleDefault {
         try {
 
             let result_sales = await this._getAPI<any>(`/report/interface-mtrix-cliente`, parametros)
-            await this.processarArquivo(`MTRIXCLIENTE_OXAN_${parametros.data_processamento_ini}-${parametros.data_processamento_fim}`, result_sales as any[])
+            await this.processarArquivo(`CLIENTESCER${parametros.data_processamento_ini}-${parametros.data_processamento_fim}`, result_sales as any[])
 
         } catch(e) {
             this.__addMessageinfo(`Erro ao processar arquivo de clientes: ${e}`);
@@ -59,7 +59,7 @@ class moduleInterfaceMTRIX extends moduleDefault {
         try {
 
             let result_sales = await this._getAPI<any>(`/report/interface-mtrix-forca-venda`, parametros)
-            await this.processarArquivo(`MTRIXFORCAVENDA_OXAN_${parametros.data_processamento_ini}-${parametros.data_processamento_fim}`, result_sales as any[])
+            await this.processarArquivo(`FORCAVENDASCER${parametros.data_processamento_ini}-${parametros.data_processamento_fim}`, result_sales as any[])
 
         } catch(e) {
             this.__addMessageinfo(`Erro ao processar arquivo de força de vendas: ${e}`);
@@ -70,7 +70,7 @@ class moduleInterfaceMTRIX extends moduleDefault {
         try {
 
             let result_sales = await this._getAPI<any>(`/report/interface-mtrix-produto`, parametros)
-            await this.processarArquivo(`MTRIXPRODUTO_OXAN_${parametros.data_processamento_ini}-${parametros.data_processamento_fim}`, result_sales as any[])
+            await this.processarArquivo(`PRODUTOSCER${parametros.data_processamento_ini}-${parametros.data_processamento_fim}`, result_sales as any[])
 
         } catch(e) {
             this.__addMessageinfo(`Erro ao processar arquivo de produto: ${e}`);
@@ -80,7 +80,7 @@ class moduleInterfaceMTRIX extends moduleDefault {
         try {
 
             let result_sales = await this._getAPI<any>(`/report/interface-mtrix-estoque`, parametros)
-            await this.processarArquivo(`MTRIXESTOQUE_OXAN_${parametros.data_processamento_ini}-${parametros.data_processamento_fim}`, result_sales as any[])
+            await this.processarArquivo(`ESTOQUECER${parametros.data_processamento_ini}-${parametros.data_processamento_fim}`, result_sales as any[])
 
         } catch(e) {
             this.__addMessageinfo(`Erro ao processar arquivo de estoque: ${e}`);
